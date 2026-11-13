@@ -1,0 +1,284 @@
+﻿序号,课次,课文,汉字,教材注音,音节,音频文件,开源库是否有
+1,1,识字1 天地人,天,tiān,tian1,tian1.mp3,有
+2,1,识字1 天地人,地,dì,di4,di4.mp3,有
+3,1,识字1 天地人,人,rén,ren2,ren2.mp3,有
+4,1,识字1 天地人,你,nǐ,ni3,ni3.mp3,有
+5,1,识字1 天地人,我,wǒ,wo3,wo3.mp3,有
+6,1,识字1 天地人,他,tā,ta1,ta1.mp3,有
+7,2,识字2 金木水火土,一,yī,yi1,yi1.mp3,有
+8,2,识字2 金木水火土,二,èr,er4,er4.mp3,有
+9,2,识字2 金木水火土,三,sān,san1,san1.mp3,有
+10,2,识字2 金木水火土,四,sì,si4,si4.mp3,有
+11,2,识字2 金木水火土,五,wǔ,wu3,wu3.mp3,有
+12,2,识字2 金木水火土,上,shàng,shang4,shang4.mp3,有
+13,2,识字2 金木水火土,下,xià,xia4,xia4.mp3,有
+14,3,识字3 口耳目手足,口,kǒu,kou3,kou3.mp3,有
+15,3,识字3 口耳目手足,耳,ěr,er3,er3.mp3,有
+16,3,识字3 口耳目手足,目,mù,mu4,mu4.mp3,有
+17,3,识字3 口耳目手足,手,shǒu,shou3,shou3.mp3,有
+18,3,识字3 口耳目手足,足,zú,zu2,zu2.mp3,有
+19,3,识字3 口耳目手足,站,zhàn,zhan4,zhan4.mp3,有
+20,3,识字3 口耳目手足,坐,zuò,zuo4,zuo4.mp3,有
+21,4,识字4 日月山川,水,shuǐ,shui3,shui3.mp3,有
+22,4,识字4 日月山川,日,rì,ri4,ri4.mp3,有
+23,4,识字4 日月山川,月,yuè,yue4,yue4.mp3,有
+24,4,识字4 日月山川,火,huǒ,huo3,huo3.mp3,有
+25,4,识字4 日月山川,山,shān,shan1,shan1.mp3,有
+26,4,识字4 日月山川,田,tián,tian2,tian2.mp3,有
+27,4,识字4 日月山川,川,chuān,chuan1,chuan1.mp3,有
+28,4,识字4 日月山川,禾,hé,he2,he2.mp3,有
+29,5,语文园地一,六,liù,liu4,liu4.mp3,有
+30,5,语文园地一,七,qī,qi1,qi1.mp3,有
+31,5,语文园地一,九,jiǔ,jiu3,jiu3.mp3,有
+32,5,语文园地一,十,shí,shi2,shi2.mp3,有
+33,5,语文园地一,八,bā,ba1,ba1.mp3,有
+34,6,汉语拼音3 b p m f,爸,bà,ba4,ba4.mp3,有
+35,6,汉语拼音3 b p m f,妈,mā,ma1,ma1.mp3,有
+36,7,汉语拼音4 d t n l,大,dà,da4,da4.mp3,有
+37,7,汉语拼音4 d t n l,路,lù,lu4,lu4.mp3,有
+38,7,汉语拼音4 d t n l,马,mǎ,ma3,ma3.mp3,有
+39,7,汉语拼音4 d t n l,土,tǔ,tu3,tu3.mp3,有
+40,8,语文园地二,本,běn,ben3,ben3.mp3,有
+41,8,语文园地二,级,jí,ji2,ji2.mp3,有
+42,8,语文园地二,学,xué,xue2,xue2.mp3,有
+43,8,语文园地二,校,xiào,xiao4,xiao4.mp3,有
+44,8,语文园地二,姓,xìng,xing4,xing4.mp3,有
+45,8,语文园地二,名,míng,ming2,ming2.mp3,有
+46,8,语文园地二,班,bān,ban1,ban1.mp3,有
+47,8,语文园地二,王,wáng,wang2,wang2.mp3,有
+48,9,汉语拼音5 g k h,哥,gē,ge1,ge1.mp3,有
+49,9,汉语拼音5 g k h,弟,dì,di4,di4.mp3,有
+50,9,汉语拼音5 g k h,画,huà,hua4,hua4.mp3,有
+51,9,汉语拼音5 g k h,花,huā,hua1,hua1.mp3,有
+52,10,汉语拼音6 j q x,打,dǎ,da3,da3.mp3,有
+53,10,汉语拼音6 j q x,棋,qí,qi2,qi2.mp3,有
+54,10,汉语拼音6 j q x,积,jī,ji1,ji1.mp3,有
+55,10,汉语拼音6 j q x,木,mù,mu4,mu4.mp3,有
+56,11,汉语拼音7 z c s,字,zì,zi4,zi4.mp3,有
+57,11,汉语拼音7 z c s,词,cí,ci2,ci2.mp3,有
+58,11,汉语拼音7 z c s,句,jù,ju4,ju4.mp3,有
+59,11,汉语拼音7 z c s,子,zǐ,zi3,zi3.mp3,有
+60,12,汉语拼音8 zh ch sh r,桌,zhuō,zhuo1,zhuo1.mp3,有
+61,12,汉语拼音8 zh ch sh r,纸,zhǐ,zhi3,zhi3.mp3,有
+62,12,汉语拼音8 zh ch sh r,读,dú,du2,du2.mp3,有
+63,12,汉语拼音8 zh ch sh r,书,shū,shu1,shu1.mp3,有
+64,13,汉语拼音9 y w,鱼,yú,yu2,yu2.mp3,有
+65,13,汉语拼音9 y w,鸭,yā,ya1,ya1.mp3,有
+66,13,汉语拼音9 y w,乌,wū,wu1,wu1.mp3,有
+67,13,汉语拼音9 y w,鸦,yā,ya1,ya1.mp3,有
+68,14,语文园地三,午,wǔ,wu3,wu3.mp3,有
+69,14,语文园地三,语,yǔ,yu3,yu3.mp3,有
+70,14,语文园地三,数,shù,shu4,shu4.mp3,有
+71,14,语文园地三,写,xiě,xie3,xie3.mp3,有
+72,14,语文园地三,会,huì,hui4,hui4.mp3,有
+73,14,语文园地三,文,wén,wen2,wen2.mp3,有
+74,15,汉语拼音10 ai ei ui,白,bái,bai2,bai2.mp3,有
+75,15,汉语拼音10 ai ei ui,菜,cài,cai4,cai4.mp3,有
+76,15,汉语拼音10 ai ei ui,西,xī,xi1,xi1.mp3,有
+77,15,汉语拼音10 ai ei ui,瓜,guā,gua1,gua1.mp3,有
+78,15,汉语拼音10 ai ei ui,果,guǒ,guo3,guo3.mp3,有
+79,16,汉语拼音11 ao ou iu,小,xiǎo,xiao3,xiao3.mp3,有
+80,16,汉语拼音11 ao ou iu,桥,qiáo,qiao2,qiao2.mp3,有
+81,16,汉语拼音11 ao ou iu,流,liú,liu2,liu2.mp3,有
+82,16,汉语拼音11 ao ou iu,柳,liǔ,liu3,liu3.mp3,有
+83,17,汉语拼音12 ie üe er,夜,yè,ye4,ye4.mp3,有
+84,17,汉语拼音12 ie üe er,美,měi,mei3,mei3.mp3,有
+85,17,汉语拼音12 ie üe er,色,sè,se4,se4.mp3,有
+86,17,汉语拼音12 ie üe er,开,kāi,kai1,kai1.mp3,有
+87,17,汉语拼音12 ie üe er,雪,xuě,xue3,xue3.mp3,有
+88,18,汉语拼音13 an en in un ün,云,yún,yun2,yun2.mp3,有
+89,18,汉语拼音13 an en in un ün,原,yuán,yuan2,yuan2.mp3,有
+90,18,汉语拼音13 an en in un ün,草,cǎo,cao3,cao3.mp3,有
+91,18,汉语拼音13 an en in un ün,蓝,lán,lan2,lan2.mp3,有
+92,19,汉语拼音14 ang eng ing ong,行,xíng,xing2,xing2.mp3,有
+93,19,汉语拼音14 ang eng ing ong,冰,bīng,bing1,bing1.mp3,有
+94,19,汉语拼音14 ang eng ing ong,车,chē,che1,che1.mp3,有
+95,19,汉语拼音14 ang eng ing ong,自,zì,zi4,zi4.mp3,有
+96,20,语文园地四,晚,wǎn,wan3,wan3.mp3,有
+97,20,语文园地四,昨,zuó,zuo2,zuo2.mp3,有
+98,20,语文园地四,今,jīn,jin1,jin1.mp3,有
+99,20,语文园地四,明,míng,ming2,ming2.mp3,有
+100,20,语文园地四,这,zhè,zhe4,zhe4.mp3,有
+101,20,语文园地四,去,qù,qu4,qu4.mp3,有
+102,20,语文园地四,年,nián,nian2,nian2.mp3,有
+103,20,语文园地四,个,gè,ge4,ge4.mp3,有
+104,21,阅读1 秋天,秋,qiū,qiu1,qiu1.mp3,有
+105,21,阅读1 秋天,气,qì,qi4,qi4.mp3,有
+106,21,阅读1 秋天,了,le,le5,le5.mp3,有
+107,21,阅读1 秋天,树,shù,shu4,shu4.mp3,有
+108,21,阅读1 秋天,叶,yè,ye4,ye4.mp3,有
+109,21,阅读1 秋天,黄,huáng,huang2,huang2.mp3,有
+110,21,阅读1 秋天,片,piàn,pian4,pian4.mp3,有
+111,21,阅读1 秋天,从,cóng,cong2,cong2.mp3,有
+112,21,阅读1 秋天,来,lái,lai2,lai2.mp3,有
+113,21,阅读1 秋天,飞,fēi,fei1,fei1.mp3,有
+114,22,阅读2 江南,江,jiāng,jiang1,jiang1.mp3,有
+115,22,阅读2 江南,南,nán,nan2,nan2.mp3,有
+116,22,阅读2 江南,戏,xì,xi4,xi4.mp3,有
+117,22,阅读2 江南,间,jiān,jian1,jian1.mp3,有
+118,22,阅读2 江南,可,kě,ke3,ke3.mp3,有
+119,22,阅读2 江南,采,cǎi,cai3,cai3.mp3,有
+120,22,阅读2 江南,莲,lián,lian2,lian2.mp3,有
+121,22,阅读2 江南,东,dōng,dong1,dong1.mp3,有
+122,22,阅读2 江南,北,běi,bei3,bei3.mp3,有
+123,23,阅读3 雪地里的小画家,的,de,de5,de5.mp3,有
+124,23,阅读3 雪地里的小画家,家,jiā,jia1,jia1.mp3,有
+125,23,阅读3 雪地里的小画家,鸡,jī,ji1,ji1.mp3,有
+126,23,阅读3 雪地里的小画家,竹,zhú,zhu2,zhu2.mp3,有
+127,23,阅读3 雪地里的小画家,牙,yá,ya2,ya2.mp3,有
+128,23,阅读3 雪地里的小画家,用,yòng,yong4,yong4.mp3,有
+129,23,阅读3 雪地里的小画家,几,jǐ,ji3,ji3.mp3,有
+130,23,阅读3 雪地里的小画家,步,bù,bu4,bu4.mp3,有
+131,23,阅读3 雪地里的小画家,没,méi,mei2,mei2.mp3,有
+132,23,阅读3 雪地里的小画家,参,cān,can1,can1.mp3,有
+133,23,阅读3 雪地里的小画家,加,jiā,jia1,jia1.mp3,有
+134,24,阅读4 四季,鸟,niǎo,niao3,niao3.mp3,有
+135,24,阅读4 四季,说,shuō,shuo1,shuo1.mp3,有
+136,24,阅读4 四季,是,shì,shi4,shi4.mp3,有
+137,24,阅读4 四季,春,chūn,chun1,chun1.mp3,有
+138,24,阅读4 四季,青,qīng,qing1,qing1.mp3,有
+139,24,阅读4 四季,蛙,wā,wa1,wa1.mp3,有
+140,24,阅读4 四季,夏,xià,xia4,xia4.mp3,有
+141,24,阅读4 四季,着,zhe,zhe5,zhe5.mp3,缺
+142,24,阅读4 四季,皮,pí,pi2,pi2.mp3,有
+143,24,阅读4 四季,地,dì,di4,di4.mp3,有
+144,24,阅读4 四季,就,jiù,jiu4,jiu4.mp3,有
+145,24,阅读4 四季,冬,dōng,dong1,dong1.mp3,有
+146,25,语文园地五,男,nán,nan2,nan2.mp3,有
+147,25,语文园地五,女,nǚ,nuu3,nuu3.mp3,有
+148,25,语文园地五,关,guān,guan1,guan1.mp3,有
+149,25,语文园地五,正,zhèng,zheng4,zheng4.mp3,有
+150,25,语文园地五,反,fǎn,fan3,fan3.mp3,有
+151,25,语文园地五,先,xiān,xian1,xian1.mp3,有
+152,25,语文园地五,后,hòu,hou4,hou4.mp3,有
+153,25,语文园地五,内,nèi,nei4,nei4.mp3,有
+154,25,语文园地五,外,wài,wai4,wai4.mp3,有
+155,26,识字5 对韵歌,对,duì,dui4,dui4.mp3,有
+156,26,识字5 对韵歌,歌,gē,ge1,ge1.mp3,有
+157,26,识字5 对韵歌,雨,yǔ,yu3,yu3.mp3,有
+158,26,识字5 对韵歌,风,fēng,feng1,feng1.mp3,有
+159,26,识字5 对韵歌,虫,chóng,chong2,chong2.mp3,有
+160,26,识字5 对韵歌,清,qīng,qing1,qing1.mp3,有
+161,26,识字5 对韵歌,绿,lǜ,luu4,luu4.mp3,有
+162,26,识字5 对韵歌,桃,táo,tao2,tao2.mp3,有
+163,26,识字5 对韵歌,红,hóng,hong2,hong2.mp3,有
+164,27,识字6 日月明,力,lì,li4,li4.mp3,有
+165,27,识字6 日月明,尖,jiān,jian1,jian1.mp3,有
+166,27,识字6 日月明,尘,chén,chen2,chen2.mp3,有
+167,27,识字6 日月明,众,zhòng,zhong4,zhong4.mp3,有
+168,27,识字6 日月明,双,shuāng,shuang1,shuang1.mp3,有
+169,27,识字6 日月明,林,lín,lin2,lin2.mp3,有
+170,27,识字6 日月明,森,sēn,sen1,sen1.mp3,有
+171,27,识字6 日月明,不,bù,bu4,bu4.mp3,有
+172,27,识字6 日月明,条,tiáo,tiao2,tiao2.mp3,有
+173,27,识字6 日月明,心,xīn,xin1,xin1.mp3,有
+174,27,识字6 日月明,金,jīn,jin1,jin1.mp3,有
+175,28,识字7 小书包,包,bāo,bao1,bao1.mp3,有
+176,28,识字7 小书包,尺,chǐ,chi3,chi3.mp3,有
+177,28,识字7 小书包,作,zuò,zuo4,zuo4.mp3,有
+178,28,识字7 小书包,业,yè,ye4,ye4.mp3,有
+179,28,识字7 小书包,笔,bǐ,bi3,bi3.mp3,有
+180,28,识字7 小书包,宝,bǎo,bao3,bao3.mp3,有
+181,28,识字7 小书包,贝,bèi,bei4,bei4.mp3,有
+182,28,识字7 小书包,少,shǎo,shao3,shao3.mp3,有
+183,28,识字7 小书包,课,kè,ke4,ke4.mp3,有
+184,28,识字7 小书包,早,zǎo,zao3,zao3.mp3,有
+185,28,识字7 小书包,刀,dāo,dao1,dao1.mp3,有
+186,29,识字8 升国旗,升,shēng,sheng1,sheng1.mp3,有
+187,29,识字8 升国旗,起,qǐ,qi3,qi3.mp3,有
+188,29,识字8 升国旗,多,duō,duo1,duo1.mp3,有
+189,29,识字8 升国旗,国,guó,guo2,guo2.mp3,有
+190,29,识字8 升国旗,旗,qí,qi2,qi2.mp3,有
+191,29,识字8 升国旗,么,me,me5,me5.mp3,缺
+192,29,识字8 升国旗,中,zhōng,zhong1,zhong1.mp3,有
+193,29,识字8 升国旗,们,men,men5,men5.mp3,缺
+194,29,识字8 升国旗,向,xiàng,xiang4,xiang4.mp3,有
+195,29,识字8 升国旗,立,lì,li4,li4.mp3,有
+196,29,识字8 升国旗,声,shēng,sheng1,sheng1.mp3,有
+197,30,语文园地六,老,lǎo,lao3,lao3.mp3,有
+198,30,语文园地六,师,shī,shi1,shi1.mp3,有
+199,30,语文园地六,工,gōng,gong1,gong1.mp3,有
+200,30,语文园地六,厂,chǎng,chang3,chang3.mp3,有
+201,30,语文园地六,医,yī,yi1,yi1.mp3,有
+202,30,语文园地六,院,yuàn,yuan4,yuan4.mp3,有
+203,30,语文园地六,生,shēng,sheng1,sheng1.mp3,有
+204,30,语文园地六,门,mén,men2,men2.mp3,有
+205,30,语文园地六,卫,wèi,wei4,wei4.mp3,有
+206,31,阅读5 小小的船,船,chuán,chuan2,chuan2.mp3,有
+207,31,阅读5 小小的船,弯,wān,wan1,wan1.mp3,有
+208,31,阅读5 小小的船,儿,ér,er2,er2.mp3,有
+209,31,阅读5 小小的船,两,liǎng,liang3,liang3.mp3,有
+210,31,阅读5 小小的船,头,tóu,tou2,tou2.mp3,有
+211,31,阅读5 小小的船,在,zài,zai4,zai4.mp3,有
+212,31,阅读5 小小的船,里,lǐ,li3,li3.mp3,有
+213,31,阅读5 小小的船,看,kàn,kan4,kan4.mp3,有
+214,31,阅读5 小小的船,见,jiàn,jian4,jian4.mp3,有
+215,31,阅读5 小小的船,闪,shǎn,shan3,shan3.mp3,有
+216,32,阅读6 影子,影,yǐng,ying3,ying3.mp3,有
+217,32,阅读6 影子,前,qián,qian2,qian2.mp3,有
+218,32,阅读6 影子,常,cháng,chang2,chang2.mp3,有
+219,32,阅读6 影子,黑,hēi,hei1,hei1.mp3,有
+220,32,阅读6 影子,狗,gǒu,gou3,gou3.mp3,有
+221,32,阅读6 影子,左,zuǒ,zuo3,zuo3.mp3,有
+222,32,阅读6 影子,右,yòu,you4,you4.mp3,有
+223,32,阅读6 影子,它,tā,ta1,ta1.mp3,有
+224,32,阅读6 影子,好,hǎo,hao3,hao3.mp3,有
+225,32,阅读6 影子,朋,péng,peng2,peng2.mp3,有
+226,32,阅读6 影子,友,yǒu,you3,you3.mp3,有
+227,33,阅读7 两件宝,件,jiàn,jian4,jian4.mp3,有
+228,33,阅读7 两件宝,有,yǒu,you3,you3.mp3,有
+229,33,阅读7 两件宝,和,hé,he2,he2.mp3,有
+230,33,阅读7 两件宝,做,zuò,zuo4,zuo4.mp3,有
+231,33,阅读7 两件宝,也,yě,ye3,ye3.mp3,有
+232,33,阅读7 两件宝,办,bàn,ban4,ban4.mp3,有
+233,33,阅读7 两件宝,到,dào,dao4,dao4.mp3,有
+234,33,阅读7 两件宝,又,yòu,you4,you4.mp3,有
+235,33,阅读7 两件宝,才,cái,cai2,cai2.mp3,有
+236,33,阅读7 两件宝,能,néng,neng2,neng2.mp3,有
+237,34,语文园地七,姐,jiě,jie3,jie3.mp3,有
+238,34,语文园地七,妹,mèi,mei4,mei4.mp3,有
+239,34,语文园地七,奶,nǎi,nai3,nai3.mp3,有
+240,34,语文园地七,叔,shū,shu1,shu1.mp3,有
+241,34,语文园地七,爷,yé,ye2,ye2.mp3,有
+242,35,阅读8 比尾巴,比,bǐ,bi3,bi3.mp3,有
+243,35,阅读8 比尾巴,尾,wěi,wei3,wei3.mp3,有
+244,35,阅读8 比尾巴,巴,bā,ba1,ba1.mp3,有
+245,35,阅读8 比尾巴,谁,shuí,shui2,shui2.mp3,有
+246,35,阅读8 比尾巴,长,cháng,chang2,chang2.mp3,有
+247,35,阅读8 比尾巴,短,duǎn,duan3,duan3.mp3,有
+248,35,阅读8 比尾巴,把,bǎ,ba3,ba3.mp3,有
+249,35,阅读8 比尾巴,伞,sǎn,san3,san3.mp3,有
+250,35,阅读8 比尾巴,兔,tù,tu4,tu4.mp3,有
+251,35,阅读8 比尾巴,最,zuì,zui4,zui4.mp3,有
+252,35,阅读8 比尾巴,公,gōng,gong1,gong1.mp3,有
+253,36,阅读9 乌鸦喝水,喝,hē,he1,he1.mp3,有
+254,36,阅读9 乌鸦喝水,只,zhī,zhi1,zhi1.mp3,有
+255,36,阅读9 乌鸦喝水,处,chù,chu4,chu4.mp3,有
+256,36,阅读9 乌鸦喝水,找,zhǎo,zhao3,zhao3.mp3,有
+257,36,阅读9 乌鸦喝水,着,zháo,zhao2,zhao2.mp3,有
+258,36,阅读9 乌鸦喝水,旁,páng,pang2,pang2.mp3,有
+259,36,阅读9 乌鸦喝水,出,chū,chu1,chu1.mp3,有
+260,36,阅读9 乌鸦喝水,法,fǎ,fa3,fa3.mp3,有
+261,36,阅读9 乌鸦喝水,放,fàng,fang4,fang4.mp3,有
+262,36,阅读9 乌鸦喝水,进,jìn,jin4,jin4.mp3,有
+263,36,阅读9 乌鸦喝水,许,xǔ,xu3,xu3.mp3,有
+264,36,阅读9 乌鸦喝水,高,gāo,gao1,gao1.mp3,有
+265,36,阅读9 乌鸦喝水,石,shí,shi2,shi2.mp3,有
+266,37,阅读10 雨点儿,数,shǔ,shu3,shu3.mp3,有
+267,37,阅读10 雨点儿,点,diǎn,dian3,dian3.mp3,有
+268,37,阅读10 雨点儿,彩,cǎi,cai3,cai3.mp3,有
+269,37,阅读10 雨点儿,半,bàn,ban4,ban4.mp3,有
+270,37,阅读10 雨点儿,空,kōng,kong1,kong1.mp3,有
+271,37,阅读10 雨点儿,问,wèn,wen4,wen4.mp3,有
+272,37,阅读10 雨点儿,回,huí,hui2,hui2.mp3,有
+273,37,阅读10 雨点儿,答,dá,da2,da2.mp3,有
+274,37,阅读10 雨点儿,方,fāng,fang1,fang1.mp3,有
+275,37,阅读10 雨点儿,久,jiǔ,jiu3,jiu3.mp3,有
+276,37,阅读10 雨点儿,更,gèng,geng4,geng4.mp3,有
+277,37,阅读10 雨点儿,长,zhǎng,zhang3,zhang3.mp3,有
+278,38,语文园地八,牛,niú,niu2,niu2.mp3,有
+279,38,语文园地八,羊,yáng,yang2,yang2.mp3,有
+280,38,语文园地八,旦,dàn,dan4,dan4.mp3,有
+281,38,语文园地八,爪,zhuǎ,zhua3,zhua3.mp3,有
+282,38,语文园地八,拼,pīn,pin1,pin1.mp3,有
+283,38,语文园地八,音,yīn,yin1,yin1.mp3,有

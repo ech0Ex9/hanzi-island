@@ -1,0 +1,10 @@
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+.run/
+logs/
+
+# 运行时数据库：由 CSV 在首次启动时生成；stats.db 含孩子的学习记录，不能提交。
+data/*.db
+data/*.db-*

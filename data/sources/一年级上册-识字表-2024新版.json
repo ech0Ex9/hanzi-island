@@ -1,0 +1,3061 @@
+{
+  "meta": {
+    "教材": "义务教育教科书《语文》一年级上册，人民教育出版社 2024年8月第1版（2024年秋季起启用的修订版统编教材）",
+    "适用": "北京市小学 1-6 年级语文全市统一使用统编版（人教部编版），主编温儒敏；数学/英语各区不同",
+    "字表类型": "识字表（会认的字），共 280 个不同汉字；按课文顺序，多音字在不同课重复列出",
+    "版本提醒": "旧版（2016 版）一上为 300 字、一下 400 字；2024 秋修订版一上 280 字、2025 春修订版一下 410 字。网上大量字表仍为旧版，使用前务必对照课本核对",
+    "交叉验证": "与『人教社2024年8月第1版 280字』三字句识字表比对，交集 277 字；按课文表独有 2 字，三字句独有 3 字",
+    "两来源差异字_需对照课本": {
+      "按课文表独有": "旁旦",
+      "三字句独有": "元星期"
+    },
+    "读音校对说明": "pypinyin 单字默认读音不等于教材注音，已人工覆盖 16 处（子zǐ、只zhī、着zhe/zháo、数shù/shǔ、长cháng/zhǎng、地dì、的de、了le、么me、们men、爪zhuǎ 等）；轻声以 xxx5 命名。仍建议对照课本《识字表》注音复核一遍",
+    "来源": [
+      "官方电子课本：国家中小学智慧教育平台 https://basic.smartedu.cn/tchMaterial （左侧选 小学 > 语文 > 统编版 > 一年级，课本末尾有《识字表》《写字表》）",
+      "人教社官网 教材电子版 https://www.pep.com.cn",
+      "按课文整理的 2024年9月新版识字表（本文件汉字顺序依据）：微信公众号『童年花开』https://mp.weixin.qq.com/s?__biz=MzAwNzk5ODU1MQ==&mid=2247484231&idx=1&sn=3c225a35841f51dfd7aa35ecf17676f5",
+      "交叉验证：微信公众号『慧写怡然』《一年级上册280字三字句识字表》",
+      "北京教材版本：丰台区教委 2026-01-19 官方答复 https://hd.bjft.gov.cn/hudong/xinxiang/bjft/sindex/bjah-index-dept!detail.action?originalId=AH26011900035 ；延庆区 2025-2026 教材选用结果公示",
+      "教育部修订说明（人教社转载）https://www.pep.com.cn/rjdt/mtbd/202408/t20240827_1994381.shtml"
+    ],
+    "一年级下册": "已补齐：见『一年级下册-识字表-2025新版-官方.json』，数据源为国家中小学智慧教育平台官方电子课本第114-116页《识字表》原页，共410个生字（2025春修订版）",
+    "音频命名": "开源音源 davinfifield/mp3-chinese-pinyin-sound（Unlicense），{音节}{声调}.mp3，ü 写作 uu，轻声为 xxx5",
+    "统计": {
+      "字次": 283,
+      "不同汉字": 279,
+      "需要音节数": 241,
+      "开源库已覆盖": 238,
+      "缺失音节数": 3,
+      "缺失音节": [
+        "me5",
+        "men5",
+        "zhe5"
+      ],
+      "音频体积_MiB": 4.42
+    }
+  },
+  "lessons": [
+    {
+      "no": 1,
+      "title": "识字1 天地人",
+      "chars": "天地人你我他"
+    },
+    {
+      "no": 2,
+      "title": "识字2 金木水火土",
+      "chars": "一二三四五上下"
+    },
+    {
+      "no": 3,
+      "title": "识字3 口耳目手足",
+      "chars": "口耳目手足站坐"
+    },
+    {
+      "no": 4,
+      "title": "识字4 日月山川",
+      "chars": "水日月火山田川禾"
+    },
+    {
+      "no": 5,
+      "title": "语文园地一",
+      "chars": "六七九十八"
+    },
+    {
+      "no": 6,
+      "title": "汉语拼音3 b p m f",
+      "chars": "爸妈"
+    },
+    {
+      "no": 7,
+      "title": "汉语拼音4 d t n l",
+      "chars": "大路马土"
+    },
+    {
+      "no": 8,
+      "title": "语文园地二",
+      "chars": "本级学校姓名班王"
+    },
+    {
+      "no": 9,
+      "title": "汉语拼音5 g k h",
+      "chars": "哥弟画花"
+    },
+    {
+      "no": 10,
+      "title": "汉语拼音6 j q x",
+      "chars": "打棋积木"
+    },
+    {
+      "no": 11,
+      "title": "汉语拼音7 z c s",
+      "chars": "字词句子"
+    },
+    {
+      "no": 12,
+      "title": "汉语拼音8 zh ch sh r",
+      "chars": "桌纸读书"
+    },
+    {
+      "no": 13,
+      "title": "汉语拼音9 y w",
+      "chars": "鱼鸭乌鸦"
+    },
+    {
+      "no": 14,
+      "title": "语文园地三",
+      "chars": "午语数写会文"
+    },
+    {
+      "no": 15,
+      "title": "汉语拼音10 ai ei ui",
+      "chars": "白菜西瓜果"
+    },
+    {
+      "no": 16,
+      "title": "汉语拼音11 ao ou iu",
+      "chars": "小桥流柳"
+    },
+    {
+      "no": 17,
+      "title": "汉语拼音12 ie üe er",
+      "chars": "夜美色开雪"
+    },
+    {
+      "no": 18,
+      "title": "汉语拼音13 an en in un ün",
+      "chars": "云原草蓝"
+    },
+    {
+      "no": 19,
+      "title": "汉语拼音14 ang eng ing ong",
+      "chars": "行冰车自"
+    },
+    {
+      "no": 20,
+      "title": "语文园地四",
+      "chars": "晚昨今明这去年个"
+    },
+    {
+      "no": 21,
+      "title": "阅读1 秋天",
+      "chars": "秋气了树叶黄片从来飞"
+    },
+    {
+      "no": 22,
+      "title": "阅读2 江南",
+      "chars": "江南戏间可采莲东北"
+    },
+    {
+      "no": 23,
+      "title": "阅读3 雪地里的小画家",
+      "chars": "的家鸡竹牙用几步没参加"
+    },
+    {
+      "no": 24,
+      "title": "阅读4 四季",
+      "chars": "鸟说是春青蛙夏着皮地就冬"
+    },
+    {
+      "no": 25,
+      "title": "语文园地五",
+      "chars": "男女关正反先后内外"
+    },
+    {
+      "no": 26,
+      "title": "识字5 对韵歌",
+      "chars": "对歌雨风虫清绿桃红"
+    },
+    {
+      "no": 27,
+      "title": "识字6 日月明",
+      "chars": "力尖尘众双林森不条心金"
+    },
+    {
+      "no": 28,
+      "title": "识字7 小书包",
+      "chars": "包尺作业笔宝贝少课早刀"
+    },
+    {
+      "no": 29,
+      "title": "识字8 升国旗",
+      "chars": "升起多国旗么中们向立声"
+    },
+    {
+      "no": 30,
+      "title": "语文园地六",
+      "chars": "老师工厂医院生门卫"
+    },
+    {
+      "no": 31,
+      "title": "阅读5 小小的船",
+      "chars": "船弯儿两头在里看见闪"
+    },
+    {
+      "no": 32,
+      "title": "阅读6 影子",
+      "chars": "影前常黑狗左右它好朋友"
+    },
+    {
+      "no": 33,
+      "title": "阅读7 两件宝",
+      "chars": "件有和做也办到又才能"
+    },
+    {
+      "no": 34,
+      "title": "语文园地七",
+      "chars": "姐妹奶叔爷"
+    },
+    {
+      "no": 35,
+      "title": "阅读8 比尾巴",
+      "chars": "比尾巴谁长短把伞兔最公"
+    },
+    {
+      "no": 36,
+      "title": "阅读9 乌鸦喝水",
+      "chars": "喝只处找着旁出法放进许高石"
+    },
+    {
+      "no": 37,
+      "title": "阅读10 雨点儿",
+      "chars": "数点彩半空问回答方久更长"
+    },
+    {
+      "no": 38,
+      "title": "语文园地八",
+      "chars": "牛羊旦爪拼音"
+    }
+  ],
+  "records": [
+    {
+      "lesson_no": 1,
+      "lesson": "识字1 天地人",
+      "order": 1,
+      "char": "天",
+      "pinyin": "tiān",
+      "syllable": "tian1",
+      "audio_file": "tian1.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 1,
+      "lesson": "识字1 天地人",
+      "order": 2,
+      "char": "地",
+      "pinyin": "dì",
+      "syllable": "di4",
+      "audio_file": "di4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 1,
+      "lesson": "识字1 天地人",
+      "order": 3,
+      "char": "人",
+      "pinyin": "rén",
+      "syllable": "ren2",
+      "audio_file": "ren2.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 1,
+      "lesson": "识字1 天地人",
+      "order": 4,
+      "char": "你",
+      "pinyin": "nǐ",
+      "syllable": "ni3",
+      "audio_file": "ni3.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 1,
+      "lesson": "识字1 天地人",
+      "order": 5,
+      "char": "我",
+      "pinyin": "wǒ",
+      "syllable": "wo3",
+      "audio_file": "wo3.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 1,
+      "lesson": "识字1 天地人",
+      "order": 6,
+      "char": "他",
+      "pinyin": "tā",
+      "syllable": "ta1",
+      "audio_file": "ta1.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 2,
+      "lesson": "识字2 金木水火土",
+      "order": 1,
+      "char": "一",
+      "pinyin": "yī",
+      "syllable": "yi1",
+      "audio_file": "yi1.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 2,
+      "lesson": "识字2 金木水火土",
+      "order": 2,
+      "char": "二",
+      "pinyin": "èr",
+      "syllable": "er4",
+      "audio_file": "er4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 2,
+      "lesson": "识字2 金木水火土",
+      "order": 3,
+      "char": "三",
+      "pinyin": "sān",
+      "syllable": "san1",
+      "audio_file": "san1.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 2,
+      "lesson": "识字2 金木水火土",
+      "order": 4,
+      "char": "四",
+      "pinyin": "sì",
+      "syllable": "si4",
+      "audio_file": "si4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 2,
+      "lesson": "识字2 金木水火土",
+      "order": 5,
+      "char": "五",
+      "pinyin": "wǔ",
+      "syllable": "wu3",
+      "audio_file": "wu3.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 2,
+      "lesson": "识字2 金木水火土",
+      "order": 6,
+      "char": "上",
+      "pinyin": "shàng",
+      "syllable": "shang4",
+      "audio_file": "shang4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 2,
+      "lesson": "识字2 金木水火土",
+      "order": 7,
+      "char": "下",
+      "pinyin": "xià",
+      "syllable": "xia4",
+      "audio_file": "xia4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 3,
+      "lesson": "识字3 口耳目手足",
+      "order": 1,
+      "char": "口",
+      "pinyin": "kǒu",
+      "syllable": "kou3",
+      "audio_file": "kou3.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 3,
+      "lesson": "识字3 口耳目手足",
+      "order": 2,
+      "char": "耳",
+      "pinyin": "ěr",
+      "syllable": "er3",
+      "audio_file": "er3.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 3,
+      "lesson": "识字3 口耳目手足",
+      "order": 3,
+      "char": "目",
+      "pinyin": "mù",
+      "syllable": "mu4",
+      "audio_file": "mu4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 3,
+      "lesson": "识字3 口耳目手足",
+      "order": 4,
+      "char": "手",
+      "pinyin": "shǒu",
+      "syllable": "shou3",
+      "audio_file": "shou3.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 3,
+      "lesson": "识字3 口耳目手足",
+      "order": 5,
+      "char": "足",
+      "pinyin": "zú",
+      "syllable": "zu2",
+      "audio_file": "zu2.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 3,
+      "lesson": "识字3 口耳目手足",
+      "order": 6,
+      "char": "站",
+      "pinyin": "zhàn",
+      "syllable": "zhan4",
+      "audio_file": "zhan4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 3,
+      "lesson": "识字3 口耳目手足",
+      "order": 7,
+      "char": "坐",
+      "pinyin": "zuò",
+      "syllable": "zuo4",
+      "audio_file": "zuo4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 4,
+      "lesson": "识字4 日月山川",
+      "order": 1,
+      "char": "水",
+      "pinyin": "shuǐ",
+      "syllable": "shui3",
+      "audio_file": "shui3.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 4,
+      "lesson": "识字4 日月山川",
+      "order": 2,
+      "char": "日",
+      "pinyin": "rì",
+      "syllable": "ri4",
+      "audio_file": "ri4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 4,
+      "lesson": "识字4 日月山川",
+      "order": 3,
+      "char": "月",
+      "pinyin": "yuè",
+      "syllable": "yue4",
+      "audio_file": "yue4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 4,
+      "lesson": "识字4 日月山川",
+      "order": 4,
+      "char": "火",
+      "pinyin": "huǒ",
+      "syllable": "huo3",
+      "audio_file": "huo3.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 4,
+      "lesson": "识字4 日月山川",
+      "order": 5,
+      "char": "山",
+      "pinyin": "shān",
+      "syllable": "shan1",
+      "audio_file": "shan1.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 4,
+      "lesson": "识字4 日月山川",
+      "order": 6,
+      "char": "田",
+      "pinyin": "tián",
+      "syllable": "tian2",
+      "audio_file": "tian2.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 4,
+      "lesson": "识字4 日月山川",
+      "order": 7,
+      "char": "川",
+      "pinyin": "chuān",
+      "syllable": "chuan1",
+      "audio_file": "chuan1.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 4,
+      "lesson": "识字4 日月山川",
+      "order": 8,
+      "char": "禾",
+      "pinyin": "hé",
+      "syllable": "he2",
+      "audio_file": "he2.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 5,
+      "lesson": "语文园地一",
+      "order": 1,
+      "char": "六",
+      "pinyin": "liù",
+      "syllable": "liu4",
+      "audio_file": "liu4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 5,
+      "lesson": "语文园地一",
+      "order": 2,
+      "char": "七",
+      "pinyin": "qī",
+      "syllable": "qi1",
+      "audio_file": "qi1.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 5,
+      "lesson": "语文园地一",
+      "order": 3,
+      "char": "九",
+      "pinyin": "jiǔ",
+      "syllable": "jiu3",
+      "audio_file": "jiu3.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 5,
+      "lesson": "语文园地一",
+      "order": 4,
+      "char": "十",
+      "pinyin": "shí",
+      "syllable": "shi2",
+      "audio_file": "shi2.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 5,
+      "lesson": "语文园地一",
+      "order": 5,
+      "char": "八",
+      "pinyin": "bā",
+      "syllable": "ba1",
+      "audio_file": "ba1.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 6,
+      "lesson": "汉语拼音3 b p m f",
+      "order": 1,
+      "char": "爸",
+      "pinyin": "bà",
+      "syllable": "ba4",
+      "audio_file": "ba4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 6,
+      "lesson": "汉语拼音3 b p m f",
+      "order": 2,
+      "char": "妈",
+      "pinyin": "mā",
+      "syllable": "ma1",
+      "audio_file": "ma1.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 7,
+      "lesson": "汉语拼音4 d t n l",
+      "order": 1,
+      "char": "大",
+      "pinyin": "dà",
+      "syllable": "da4",
+      "audio_file": "da4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 7,
+      "lesson": "汉语拼音4 d t n l",
+      "order": 2,
+      "char": "路",
+      "pinyin": "lù",
+      "syllable": "lu4",
+      "audio_file": "lu4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 7,
+      "lesson": "汉语拼音4 d t n l",
+      "order": 3,
+      "char": "马",
+      "pinyin": "mǎ",
+      "syllable": "ma3",
+      "audio_file": "ma3.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 7,
+      "lesson": "汉语拼音4 d t n l",
+      "order": 4,
+      "char": "土",
+      "pinyin": "tǔ",
+      "syllable": "tu3",
+      "audio_file": "tu3.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 8,
+      "lesson": "语文园地二",
+      "order": 1,
+      "char": "本",
+      "pinyin": "běn",
+      "syllable": "ben3",
+      "audio_file": "ben3.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 8,
+      "lesson": "语文园地二",
+      "order": 2,
+      "char": "级",
+      "pinyin": "jí",
+      "syllable": "ji2",
+      "audio_file": "ji2.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 8,
+      "lesson": "语文园地二",
+      "order": 3,
+      "char": "学",
+      "pinyin": "xué",
+      "syllable": "xue2",
+      "audio_file": "xue2.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 8,
+      "lesson": "语文园地二",
+      "order": 4,
+      "char": "校",
+      "pinyin": "xiào",
+      "syllable": "xiao4",
+      "audio_file": "xiao4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 8,
+      "lesson": "语文园地二",
+      "order": 5,
+      "char": "姓",
+      "pinyin": "xìng",
+      "syllable": "xing4",
+      "audio_file": "xing4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 8,
+      "lesson": "语文园地二",
+      "order": 6,
+      "char": "名",
+      "pinyin": "míng",
+      "syllable": "ming2",
+      "audio_file": "ming2.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 8,
+      "lesson": "语文园地二",
+      "order": 7,
+      "char": "班",
+      "pinyin": "bān",
+      "syllable": "ban1",
+      "audio_file": "ban1.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 8,
+      "lesson": "语文园地二",
+      "order": 8,
+      "char": "王",
+      "pinyin": "wáng",
+      "syllable": "wang2",
+      "audio_file": "wang2.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 9,
+      "lesson": "汉语拼音5 g k h",
+      "order": 1,
+      "char": "哥",
+      "pinyin": "gē",
+      "syllable": "ge1",
+      "audio_file": "ge1.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 9,
+      "lesson": "汉语拼音5 g k h",
+      "order": 2,
+      "char": "弟",
+      "pinyin": "dì",
+      "syllable": "di4",
+      "audio_file": "di4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 9,
+      "lesson": "汉语拼音5 g k h",
+      "order": 3,
+      "char": "画",
+      "pinyin": "huà",
+      "syllable": "hua4",
+      "audio_file": "hua4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 9,
+      "lesson": "汉语拼音5 g k h",
+      "order": 4,
+      "char": "花",
+      "pinyin": "huā",
+      "syllable": "hua1",
+      "audio_file": "hua1.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 10,
+      "lesson": "汉语拼音6 j q x",
+      "order": 1,
+      "char": "打",
+      "pinyin": "dǎ",
+      "syllable": "da3",
+      "audio_file": "da3.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 10,
+      "lesson": "汉语拼音6 j q x",
+      "order": 2,
+      "char": "棋",
+      "pinyin": "qí",
+      "syllable": "qi2",
+      "audio_file": "qi2.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 10,
+      "lesson": "汉语拼音6 j q x",
+      "order": 3,
+      "char": "积",
+      "pinyin": "jī",
+      "syllable": "ji1",
+      "audio_file": "ji1.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 10,
+      "lesson": "汉语拼音6 j q x",
+      "order": 4,
+      "char": "木",
+      "pinyin": "mù",
+      "syllable": "mu4",
+      "audio_file": "mu4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 11,
+      "lesson": "汉语拼音7 z c s",
+      "order": 1,
+      "char": "字",
+      "pinyin": "zì",
+      "syllable": "zi4",
+      "audio_file": "zi4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 11,
+      "lesson": "汉语拼音7 z c s",
+      "order": 2,
+      "char": "词",
+      "pinyin": "cí",
+      "syllable": "ci2",
+      "audio_file": "ci2.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 11,
+      "lesson": "汉语拼音7 z c s",
+      "order": 3,
+      "char": "句",
+      "pinyin": "jù",
+      "syllable": "ju4",
+      "audio_file": "ju4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 11,
+      "lesson": "汉语拼音7 z c s",
+      "order": 4,
+      "char": "子",
+      "pinyin": "zǐ",
+      "syllable": "zi3",
+      "audio_file": "zi3.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 12,
+      "lesson": "汉语拼音8 zh ch sh r",
+      "order": 1,
+      "char": "桌",
+      "pinyin": "zhuō",
+      "syllable": "zhuo1",
+      "audio_file": "zhuo1.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 12,
+      "lesson": "汉语拼音8 zh ch sh r",
+      "order": 2,
+      "char": "纸",
+      "pinyin": "zhǐ",
+      "syllable": "zhi3",
+      "audio_file": "zhi3.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 12,
+      "lesson": "汉语拼音8 zh ch sh r",
+      "order": 3,
+      "char": "读",
+      "pinyin": "dú",
+      "syllable": "du2",
+      "audio_file": "du2.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 12,
+      "lesson": "汉语拼音8 zh ch sh r",
+      "order": 4,
+      "char": "书",
+      "pinyin": "shū",
+      "syllable": "shu1",
+      "audio_file": "shu1.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 13,
+      "lesson": "汉语拼音9 y w",
+      "order": 1,
+      "char": "鱼",
+      "pinyin": "yú",
+      "syllable": "yu2",
+      "audio_file": "yu2.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 13,
+      "lesson": "汉语拼音9 y w",
+      "order": 2,
+      "char": "鸭",
+      "pinyin": "yā",
+      "syllable": "ya1",
+      "audio_file": "ya1.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 13,
+      "lesson": "汉语拼音9 y w",
+      "order": 3,
+      "char": "乌",
+      "pinyin": "wū",
+      "syllable": "wu1",
+      "audio_file": "wu1.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 13,
+      "lesson": "汉语拼音9 y w",
+      "order": 4,
+      "char": "鸦",
+      "pinyin": "yā",
+      "syllable": "ya1",
+      "audio_file": "ya1.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 14,
+      "lesson": "语文园地三",
+      "order": 1,
+      "char": "午",
+      "pinyin": "wǔ",
+      "syllable": "wu3",
+      "audio_file": "wu3.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 14,
+      "lesson": "语文园地三",
+      "order": 2,
+      "char": "语",
+      "pinyin": "yǔ",
+      "syllable": "yu3",
+      "audio_file": "yu3.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 14,
+      "lesson": "语文园地三",
+      "order": 3,
+      "char": "数",
+      "pinyin": "shù",
+      "syllable": "shu4",
+      "audio_file": "shu4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 14,
+      "lesson": "语文园地三",
+      "order": 4,
+      "char": "写",
+      "pinyin": "xiě",
+      "syllable": "xie3",
+      "audio_file": "xie3.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 14,
+      "lesson": "语文园地三",
+      "order": 5,
+      "char": "会",
+      "pinyin": "huì",
+      "syllable": "hui4",
+      "audio_file": "hui4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 14,
+      "lesson": "语文园地三",
+      "order": 6,
+      "char": "文",
+      "pinyin": "wén",
+      "syllable": "wen2",
+      "audio_file": "wen2.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 15,
+      "lesson": "汉语拼音10 ai ei ui",
+      "order": 1,
+      "char": "白",
+      "pinyin": "bái",
+      "syllable": "bai2",
+      "audio_file": "bai2.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 15,
+      "lesson": "汉语拼音10 ai ei ui",
+      "order": 2,
+      "char": "菜",
+      "pinyin": "cài",
+      "syllable": "cai4",
+      "audio_file": "cai4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 15,
+      "lesson": "汉语拼音10 ai ei ui",
+      "order": 3,
+      "char": "西",
+      "pinyin": "xī",
+      "syllable": "xi1",
+      "audio_file": "xi1.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 15,
+      "lesson": "汉语拼音10 ai ei ui",
+      "order": 4,
+      "char": "瓜",
+      "pinyin": "guā",
+      "syllable": "gua1",
+      "audio_file": "gua1.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 15,
+      "lesson": "汉语拼音10 ai ei ui",
+      "order": 5,
+      "char": "果",
+      "pinyin": "guǒ",
+      "syllable": "guo3",
+      "audio_file": "guo3.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 16,
+      "lesson": "汉语拼音11 ao ou iu",
+      "order": 1,
+      "char": "小",
+      "pinyin": "xiǎo",
+      "syllable": "xiao3",
+      "audio_file": "xiao3.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 16,
+      "lesson": "汉语拼音11 ao ou iu",
+      "order": 2,
+      "char": "桥",
+      "pinyin": "qiáo",
+      "syllable": "qiao2",
+      "audio_file": "qiao2.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 16,
+      "lesson": "汉语拼音11 ao ou iu",
+      "order": 3,
+      "char": "流",
+      "pinyin": "liú",
+      "syllable": "liu2",
+      "audio_file": "liu2.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 16,
+      "lesson": "汉语拼音11 ao ou iu",
+      "order": 4,
+      "char": "柳",
+      "pinyin": "liǔ",
+      "syllable": "liu3",
+      "audio_file": "liu3.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 17,
+      "lesson": "汉语拼音12 ie üe er",
+      "order": 1,
+      "char": "夜",
+      "pinyin": "yè",
+      "syllable": "ye4",
+      "audio_file": "ye4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 17,
+      "lesson": "汉语拼音12 ie üe er",
+      "order": 2,
+      "char": "美",
+      "pinyin": "měi",
+      "syllable": "mei3",
+      "audio_file": "mei3.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 17,
+      "lesson": "汉语拼音12 ie üe er",
+      "order": 3,
+      "char": "色",
+      "pinyin": "sè",
+      "syllable": "se4",
+      "audio_file": "se4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 17,
+      "lesson": "汉语拼音12 ie üe er",
+      "order": 4,
+      "char": "开",
+      "pinyin": "kāi",
+      "syllable": "kai1",
+      "audio_file": "kai1.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 17,
+      "lesson": "汉语拼音12 ie üe er",
+      "order": 5,
+      "char": "雪",
+      "pinyin": "xuě",
+      "syllable": "xue3",
+      "audio_file": "xue3.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 18,
+      "lesson": "汉语拼音13 an en in un ün",
+      "order": 1,
+      "char": "云",
+      "pinyin": "yún",
+      "syllable": "yun2",
+      "audio_file": "yun2.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 18,
+      "lesson": "汉语拼音13 an en in un ün",
+      "order": 2,
+      "char": "原",
+      "pinyin": "yuán",
+      "syllable": "yuan2",
+      "audio_file": "yuan2.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 18,
+      "lesson": "汉语拼音13 an en in un ün",
+      "order": 3,
+      "char": "草",
+      "pinyin": "cǎo",
+      "syllable": "cao3",
+      "audio_file": "cao3.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 18,
+      "lesson": "汉语拼音13 an en in un ün",
+      "order": 4,
+      "char": "蓝",
+      "pinyin": "lán",
+      "syllable": "lan2",
+      "audio_file": "lan2.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 19,
+      "lesson": "汉语拼音14 ang eng ing ong",
+      "order": 1,
+      "char": "行",
+      "pinyin": "xíng",
+      "syllable": "xing2",
+      "audio_file": "xing2.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 19,
+      "lesson": "汉语拼音14 ang eng ing ong",
+      "order": 2,
+      "char": "冰",
+      "pinyin": "bīng",
+      "syllable": "bing1",
+      "audio_file": "bing1.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 19,
+      "lesson": "汉语拼音14 ang eng ing ong",
+      "order": 3,
+      "char": "车",
+      "pinyin": "chē",
+      "syllable": "che1",
+      "audio_file": "che1.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 19,
+      "lesson": "汉语拼音14 ang eng ing ong",
+      "order": 4,
+      "char": "自",
+      "pinyin": "zì",
+      "syllable": "zi4",
+      "audio_file": "zi4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 20,
+      "lesson": "语文园地四",
+      "order": 1,
+      "char": "晚",
+      "pinyin": "wǎn",
+      "syllable": "wan3",
+      "audio_file": "wan3.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 20,
+      "lesson": "语文园地四",
+      "order": 2,
+      "char": "昨",
+      "pinyin": "zuó",
+      "syllable": "zuo2",
+      "audio_file": "zuo2.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 20,
+      "lesson": "语文园地四",
+      "order": 3,
+      "char": "今",
+      "pinyin": "jīn",
+      "syllable": "jin1",
+      "audio_file": "jin1.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 20,
+      "lesson": "语文园地四",
+      "order": 4,
+      "char": "明",
+      "pinyin": "míng",
+      "syllable": "ming2",
+      "audio_file": "ming2.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 20,
+      "lesson": "语文园地四",
+      "order": 5,
+      "char": "这",
+      "pinyin": "zhè",
+      "syllable": "zhe4",
+      "audio_file": "zhe4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 20,
+      "lesson": "语文园地四",
+      "order": 6,
+      "char": "去",
+      "pinyin": "qù",
+      "syllable": "qu4",
+      "audio_file": "qu4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 20,
+      "lesson": "语文园地四",
+      "order": 7,
+      "char": "年",
+      "pinyin": "nián",
+      "syllable": "nian2",
+      "audio_file": "nian2.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 20,
+      "lesson": "语文园地四",
+      "order": 8,
+      "char": "个",
+      "pinyin": "gè",
+      "syllable": "ge4",
+      "audio_file": "ge4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 21,
+      "lesson": "阅读1 秋天",
+      "order": 1,
+      "char": "秋",
+      "pinyin": "qiū",
+      "syllable": "qiu1",
+      "audio_file": "qiu1.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 21,
+      "lesson": "阅读1 秋天",
+      "order": 2,
+      "char": "气",
+      "pinyin": "qì",
+      "syllable": "qi4",
+      "audio_file": "qi4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 21,
+      "lesson": "阅读1 秋天",
+      "order": 3,
+      "char": "了",
+      "pinyin": "le",
+      "syllable": "le5",
+      "audio_file": "le5.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 21,
+      "lesson": "阅读1 秋天",
+      "order": 4,
+      "char": "树",
+      "pinyin": "shù",
+      "syllable": "shu4",
+      "audio_file": "shu4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 21,
+      "lesson": "阅读1 秋天",
+      "order": 5,
+      "char": "叶",
+      "pinyin": "yè",
+      "syllable": "ye4",
+      "audio_file": "ye4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 21,
+      "lesson": "阅读1 秋天",
+      "order": 6,
+      "char": "黄",
+      "pinyin": "huáng",
+      "syllable": "huang2",
+      "audio_file": "huang2.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 21,
+      "lesson": "阅读1 秋天",
+      "order": 7,
+      "char": "片",
+      "pinyin": "piàn",
+      "syllable": "pian4",
+      "audio_file": "pian4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 21,
+      "lesson": "阅读1 秋天",
+      "order": 8,
+      "char": "从",
+      "pinyin": "cóng",
+      "syllable": "cong2",
+      "audio_file": "cong2.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 21,
+      "lesson": "阅读1 秋天",
+      "order": 9,
+      "char": "来",
+      "pinyin": "lái",
+      "syllable": "lai2",
+      "audio_file": "lai2.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 21,
+      "lesson": "阅读1 秋天",
+      "order": 10,
+      "char": "飞",
+      "pinyin": "fēi",
+      "syllable": "fei1",
+      "audio_file": "fei1.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 22,
+      "lesson": "阅读2 江南",
+      "order": 1,
+      "char": "江",
+      "pinyin": "jiāng",
+      "syllable": "jiang1",
+      "audio_file": "jiang1.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 22,
+      "lesson": "阅读2 江南",
+      "order": 2,
+      "char": "南",
+      "pinyin": "nán",
+      "syllable": "nan2",
+      "audio_file": "nan2.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 22,
+      "lesson": "阅读2 江南",
+      "order": 3,
+      "char": "戏",
+      "pinyin": "xì",
+      "syllable": "xi4",
+      "audio_file": "xi4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 22,
+      "lesson": "阅读2 江南",
+      "order": 4,
+      "char": "间",
+      "pinyin": "jiān",
+      "syllable": "jian1",
+      "audio_file": "jian1.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 22,
+      "lesson": "阅读2 江南",
+      "order": 5,
+      "char": "可",
+      "pinyin": "kě",
+      "syllable": "ke3",
+      "audio_file": "ke3.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 22,
+      "lesson": "阅读2 江南",
+      "order": 6,
+      "char": "采",
+      "pinyin": "cǎi",
+      "syllable": "cai3",
+      "audio_file": "cai3.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 22,
+      "lesson": "阅读2 江南",
+      "order": 7,
+      "char": "莲",
+      "pinyin": "lián",
+      "syllable": "lian2",
+      "audio_file": "lian2.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 22,
+      "lesson": "阅读2 江南",
+      "order": 8,
+      "char": "东",
+      "pinyin": "dōng",
+      "syllable": "dong1",
+      "audio_file": "dong1.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 22,
+      "lesson": "阅读2 江南",
+      "order": 9,
+      "char": "北",
+      "pinyin": "běi",
+      "syllable": "bei3",
+      "audio_file": "bei3.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 23,
+      "lesson": "阅读3 雪地里的小画家",
+      "order": 1,
+      "char": "的",
+      "pinyin": "de",
+      "syllable": "de5",
+      "audio_file": "de5.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 23,
+      "lesson": "阅读3 雪地里的小画家",
+      "order": 2,
+      "char": "家",
+      "pinyin": "jiā",
+      "syllable": "jia1",
+      "audio_file": "jia1.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 23,
+      "lesson": "阅读3 雪地里的小画家",
+      "order": 3,
+      "char": "鸡",
+      "pinyin": "jī",
+      "syllable": "ji1",
+      "audio_file": "ji1.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 23,
+      "lesson": "阅读3 雪地里的小画家",
+      "order": 4,
+      "char": "竹",
+      "pinyin": "zhú",
+      "syllable": "zhu2",
+      "audio_file": "zhu2.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 23,
+      "lesson": "阅读3 雪地里的小画家",
+      "order": 5,
+      "char": "牙",
+      "pinyin": "yá",
+      "syllable": "ya2",
+      "audio_file": "ya2.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 23,
+      "lesson": "阅读3 雪地里的小画家",
+      "order": 6,
+      "char": "用",
+      "pinyin": "yòng",
+      "syllable": "yong4",
+      "audio_file": "yong4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 23,
+      "lesson": "阅读3 雪地里的小画家",
+      "order": 7,
+      "char": "几",
+      "pinyin": "jǐ",
+      "syllable": "ji3",
+      "audio_file": "ji3.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 23,
+      "lesson": "阅读3 雪地里的小画家",
+      "order": 8,
+      "char": "步",
+      "pinyin": "bù",
+      "syllable": "bu4",
+      "audio_file": "bu4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 23,
+      "lesson": "阅读3 雪地里的小画家",
+      "order": 9,
+      "char": "没",
+      "pinyin": "méi",
+      "syllable": "mei2",
+      "audio_file": "mei2.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 23,
+      "lesson": "阅读3 雪地里的小画家",
+      "order": 10,
+      "char": "参",
+      "pinyin": "cān",
+      "syllable": "can1",
+      "audio_file": "can1.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 23,
+      "lesson": "阅读3 雪地里的小画家",
+      "order": 11,
+      "char": "加",
+      "pinyin": "jiā",
+      "syllable": "jia1",
+      "audio_file": "jia1.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 24,
+      "lesson": "阅读4 四季",
+      "order": 1,
+      "char": "鸟",
+      "pinyin": "niǎo",
+      "syllable": "niao3",
+      "audio_file": "niao3.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 24,
+      "lesson": "阅读4 四季",
+      "order": 2,
+      "char": "说",
+      "pinyin": "shuō",
+      "syllable": "shuo1",
+      "audio_file": "shuo1.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 24,
+      "lesson": "阅读4 四季",
+      "order": 3,
+      "char": "是",
+      "pinyin": "shì",
+      "syllable": "shi4",
+      "audio_file": "shi4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 24,
+      "lesson": "阅读4 四季",
+      "order": 4,
+      "char": "春",
+      "pinyin": "chūn",
+      "syllable": "chun1",
+      "audio_file": "chun1.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 24,
+      "lesson": "阅读4 四季",
+      "order": 5,
+      "char": "青",
+      "pinyin": "qīng",
+      "syllable": "qing1",
+      "audio_file": "qing1.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 24,
+      "lesson": "阅读4 四季",
+      "order": 6,
+      "char": "蛙",
+      "pinyin": "wā",
+      "syllable": "wa1",
+      "audio_file": "wa1.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 24,
+      "lesson": "阅读4 四季",
+      "order": 7,
+      "char": "夏",
+      "pinyin": "xià",
+      "syllable": "xia4",
+      "audio_file": "xia4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 24,
+      "lesson": "阅读4 四季",
+      "order": 8,
+      "char": "着",
+      "pinyin": "zhe",
+      "syllable": "zhe5",
+      "audio_file": "zhe5.mp3",
+      "has_audio": false
+    },
+    {
+      "lesson_no": 24,
+      "lesson": "阅读4 四季",
+      "order": 9,
+      "char": "皮",
+      "pinyin": "pí",
+      "syllable": "pi2",
+      "audio_file": "pi2.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 24,
+      "lesson": "阅读4 四季",
+      "order": 10,
+      "char": "地",
+      "pinyin": "dì",
+      "syllable": "di4",
+      "audio_file": "di4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 24,
+      "lesson": "阅读4 四季",
+      "order": 11,
+      "char": "就",
+      "pinyin": "jiù",
+      "syllable": "jiu4",
+      "audio_file": "jiu4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 24,
+      "lesson": "阅读4 四季",
+      "order": 12,
+      "char": "冬",
+      "pinyin": "dōng",
+      "syllable": "dong1",
+      "audio_file": "dong1.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 25,
+      "lesson": "语文园地五",
+      "order": 1,
+      "char": "男",
+      "pinyin": "nán",
+      "syllable": "nan2",
+      "audio_file": "nan2.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 25,
+      "lesson": "语文园地五",
+      "order": 2,
+      "char": "女",
+      "pinyin": "nǚ",
+      "syllable": "nuu3",
+      "audio_file": "nuu3.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 25,
+      "lesson": "语文园地五",
+      "order": 3,
+      "char": "关",
+      "pinyin": "guān",
+      "syllable": "guan1",
+      "audio_file": "guan1.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 25,
+      "lesson": "语文园地五",
+      "order": 4,
+      "char": "正",
+      "pinyin": "zhèng",
+      "syllable": "zheng4",
+      "audio_file": "zheng4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 25,
+      "lesson": "语文园地五",
+      "order": 5,
+      "char": "反",
+      "pinyin": "fǎn",
+      "syllable": "fan3",
+      "audio_file": "fan3.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 25,
+      "lesson": "语文园地五",
+      "order": 6,
+      "char": "先",
+      "pinyin": "xiān",
+      "syllable": "xian1",
+      "audio_file": "xian1.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 25,
+      "lesson": "语文园地五",
+      "order": 7,
+      "char": "后",
+      "pinyin": "hòu",
+      "syllable": "hou4",
+      "audio_file": "hou4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 25,
+      "lesson": "语文园地五",
+      "order": 8,
+      "char": "内",
+      "pinyin": "nèi",
+      "syllable": "nei4",
+      "audio_file": "nei4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 25,
+      "lesson": "语文园地五",
+      "order": 9,
+      "char": "外",
+      "pinyin": "wài",
+      "syllable": "wai4",
+      "audio_file": "wai4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 26,
+      "lesson": "识字5 对韵歌",
+      "order": 1,
+      "char": "对",
+      "pinyin": "duì",
+      "syllable": "dui4",
+      "audio_file": "dui4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 26,
+      "lesson": "识字5 对韵歌",
+      "order": 2,
+      "char": "歌",
+      "pinyin": "gē",
+      "syllable": "ge1",
+      "audio_file": "ge1.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 26,
+      "lesson": "识字5 对韵歌",
+      "order": 3,
+      "char": "雨",
+      "pinyin": "yǔ",
+      "syllable": "yu3",
+      "audio_file": "yu3.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 26,
+      "lesson": "识字5 对韵歌",
+      "order": 4,
+      "char": "风",
+      "pinyin": "fēng",
+      "syllable": "feng1",
+      "audio_file": "feng1.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 26,
+      "lesson": "识字5 对韵歌",
+      "order": 5,
+      "char": "虫",
+      "pinyin": "chóng",
+      "syllable": "chong2",
+      "audio_file": "chong2.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 26,
+      "lesson": "识字5 对韵歌",
+      "order": 6,
+      "char": "清",
+      "pinyin": "qīng",
+      "syllable": "qing1",
+      "audio_file": "qing1.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 26,
+      "lesson": "识字5 对韵歌",
+      "order": 7,
+      "char": "绿",
+      "pinyin": "lǜ",
+      "syllable": "luu4",
+      "audio_file": "luu4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 26,
+      "lesson": "识字5 对韵歌",
+      "order": 8,
+      "char": "桃",
+      "pinyin": "táo",
+      "syllable": "tao2",
+      "audio_file": "tao2.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 26,
+      "lesson": "识字5 对韵歌",
+      "order": 9,
+      "char": "红",
+      "pinyin": "hóng",
+      "syllable": "hong2",
+      "audio_file": "hong2.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 27,
+      "lesson": "识字6 日月明",
+      "order": 1,
+      "char": "力",
+      "pinyin": "lì",
+      "syllable": "li4",
+      "audio_file": "li4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 27,
+      "lesson": "识字6 日月明",
+      "order": 2,
+      "char": "尖",
+      "pinyin": "jiān",
+      "syllable": "jian1",
+      "audio_file": "jian1.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 27,
+      "lesson": "识字6 日月明",
+      "order": 3,
+      "char": "尘",
+      "pinyin": "chén",
+      "syllable": "chen2",
+      "audio_file": "chen2.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 27,
+      "lesson": "识字6 日月明",
+      "order": 4,
+      "char": "众",
+      "pinyin": "zhòng",
+      "syllable": "zhong4",
+      "audio_file": "zhong4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 27,
+      "lesson": "识字6 日月明",
+      "order": 5,
+      "char": "双",
+      "pinyin": "shuāng",
+      "syllable": "shuang1",
+      "audio_file": "shuang1.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 27,
+      "lesson": "识字6 日月明",
+      "order": 6,
+      "char": "林",
+      "pinyin": "lín",
+      "syllable": "lin2",
+      "audio_file": "lin2.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 27,
+      "lesson": "识字6 日月明",
+      "order": 7,
+      "char": "森",
+      "pinyin": "sēn",
+      "syllable": "sen1",
+      "audio_file": "sen1.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 27,
+      "lesson": "识字6 日月明",
+      "order": 8,
+      "char": "不",
+      "pinyin": "bù",
+      "syllable": "bu4",
+      "audio_file": "bu4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 27,
+      "lesson": "识字6 日月明",
+      "order": 9,
+      "char": "条",
+      "pinyin": "tiáo",
+      "syllable": "tiao2",
+      "audio_file": "tiao2.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 27,
+      "lesson": "识字6 日月明",
+      "order": 10,
+      "char": "心",
+      "pinyin": "xīn",
+      "syllable": "xin1",
+      "audio_file": "xin1.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 27,
+      "lesson": "识字6 日月明",
+      "order": 11,
+      "char": "金",
+      "pinyin": "jīn",
+      "syllable": "jin1",
+      "audio_file": "jin1.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 28,
+      "lesson": "识字7 小书包",
+      "order": 1,
+      "char": "包",
+      "pinyin": "bāo",
+      "syllable": "bao1",
+      "audio_file": "bao1.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 28,
+      "lesson": "识字7 小书包",
+      "order": 2,
+      "char": "尺",
+      "pinyin": "chǐ",
+      "syllable": "chi3",
+      "audio_file": "chi3.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 28,
+      "lesson": "识字7 小书包",
+      "order": 3,
+      "char": "作",
+      "pinyin": "zuò",
+      "syllable": "zuo4",
+      "audio_file": "zuo4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 28,
+      "lesson": "识字7 小书包",
+      "order": 4,
+      "char": "业",
+      "pinyin": "yè",
+      "syllable": "ye4",
+      "audio_file": "ye4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 28,
+      "lesson": "识字7 小书包",
+      "order": 5,
+      "char": "笔",
+      "pinyin": "bǐ",
+      "syllable": "bi3",
+      "audio_file": "bi3.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 28,
+      "lesson": "识字7 小书包",
+      "order": 6,
+      "char": "宝",
+      "pinyin": "bǎo",
+      "syllable": "bao3",
+      "audio_file": "bao3.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 28,
+      "lesson": "识字7 小书包",
+      "order": 7,
+      "char": "贝",
+      "pinyin": "bèi",
+      "syllable": "bei4",
+      "audio_file": "bei4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 28,
+      "lesson": "识字7 小书包",
+      "order": 8,
+      "char": "少",
+      "pinyin": "shǎo",
+      "syllable": "shao3",
+      "audio_file": "shao3.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 28,
+      "lesson": "识字7 小书包",
+      "order": 9,
+      "char": "课",
+      "pinyin": "kè",
+      "syllable": "ke4",
+      "audio_file": "ke4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 28,
+      "lesson": "识字7 小书包",
+      "order": 10,
+      "char": "早",
+      "pinyin": "zǎo",
+      "syllable": "zao3",
+      "audio_file": "zao3.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 28,
+      "lesson": "识字7 小书包",
+      "order": 11,
+      "char": "刀",
+      "pinyin": "dāo",
+      "syllable": "dao1",
+      "audio_file": "dao1.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 29,
+      "lesson": "识字8 升国旗",
+      "order": 1,
+      "char": "升",
+      "pinyin": "shēng",
+      "syllable": "sheng1",
+      "audio_file": "sheng1.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 29,
+      "lesson": "识字8 升国旗",
+      "order": 2,
+      "char": "起",
+      "pinyin": "qǐ",
+      "syllable": "qi3",
+      "audio_file": "qi3.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 29,
+      "lesson": "识字8 升国旗",
+      "order": 3,
+      "char": "多",
+      "pinyin": "duō",
+      "syllable": "duo1",
+      "audio_file": "duo1.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 29,
+      "lesson": "识字8 升国旗",
+      "order": 4,
+      "char": "国",
+      "pinyin": "guó",
+      "syllable": "guo2",
+      "audio_file": "guo2.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 29,
+      "lesson": "识字8 升国旗",
+      "order": 5,
+      "char": "旗",
+      "pinyin": "qí",
+      "syllable": "qi2",
+      "audio_file": "qi2.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 29,
+      "lesson": "识字8 升国旗",
+      "order": 6,
+      "char": "么",
+      "pinyin": "me",
+      "syllable": "me5",
+      "audio_file": "me5.mp3",
+      "has_audio": false
+    },
+    {
+      "lesson_no": 29,
+      "lesson": "识字8 升国旗",
+      "order": 7,
+      "char": "中",
+      "pinyin": "zhōng",
+      "syllable": "zhong1",
+      "audio_file": "zhong1.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 29,
+      "lesson": "识字8 升国旗",
+      "order": 8,
+      "char": "们",
+      "pinyin": "men",
+      "syllable": "men5",
+      "audio_file": "men5.mp3",
+      "has_audio": false
+    },
+    {
+      "lesson_no": 29,
+      "lesson": "识字8 升国旗",
+      "order": 9,
+      "char": "向",
+      "pinyin": "xiàng",
+      "syllable": "xiang4",
+      "audio_file": "xiang4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 29,
+      "lesson": "识字8 升国旗",
+      "order": 10,
+      "char": "立",
+      "pinyin": "lì",
+      "syllable": "li4",
+      "audio_file": "li4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 29,
+      "lesson": "识字8 升国旗",
+      "order": 11,
+      "char": "声",
+      "pinyin": "shēng",
+      "syllable": "sheng1",
+      "audio_file": "sheng1.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 30,
+      "lesson": "语文园地六",
+      "order": 1,
+      "char": "老",
+      "pinyin": "lǎo",
+      "syllable": "lao3",
+      "audio_file": "lao3.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 30,
+      "lesson": "语文园地六",
+      "order": 2,
+      "char": "师",
+      "pinyin": "shī",
+      "syllable": "shi1",
+      "audio_file": "shi1.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 30,
+      "lesson": "语文园地六",
+      "order": 3,
+      "char": "工",
+      "pinyin": "gōng",
+      "syllable": "gong1",
+      "audio_file": "gong1.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 30,
+      "lesson": "语文园地六",
+      "order": 4,
+      "char": "厂",
+      "pinyin": "chǎng",
+      "syllable": "chang3",
+      "audio_file": "chang3.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 30,
+      "lesson": "语文园地六",
+      "order": 5,
+      "char": "医",
+      "pinyin": "yī",
+      "syllable": "yi1",
+      "audio_file": "yi1.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 30,
+      "lesson": "语文园地六",
+      "order": 6,
+      "char": "院",
+      "pinyin": "yuàn",
+      "syllable": "yuan4",
+      "audio_file": "yuan4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 30,
+      "lesson": "语文园地六",
+      "order": 7,
+      "char": "生",
+      "pinyin": "shēng",
+      "syllable": "sheng1",
+      "audio_file": "sheng1.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 30,
+      "lesson": "语文园地六",
+      "order": 8,
+      "char": "门",
+      "pinyin": "mén",
+      "syllable": "men2",
+      "audio_file": "men2.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 30,
+      "lesson": "语文园地六",
+      "order": 9,
+      "char": "卫",
+      "pinyin": "wèi",
+      "syllable": "wei4",
+      "audio_file": "wei4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 31,
+      "lesson": "阅读5 小小的船",
+      "order": 1,
+      "char": "船",
+      "pinyin": "chuán",
+      "syllable": "chuan2",
+      "audio_file": "chuan2.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 31,
+      "lesson": "阅读5 小小的船",
+      "order": 2,
+      "char": "弯",
+      "pinyin": "wān",
+      "syllable": "wan1",
+      "audio_file": "wan1.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 31,
+      "lesson": "阅读5 小小的船",
+      "order": 3,
+      "char": "儿",
+      "pinyin": "ér",
+      "syllable": "er2",
+      "audio_file": "er2.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 31,
+      "lesson": "阅读5 小小的船",
+      "order": 4,
+      "char": "两",
+      "pinyin": "liǎng",
+      "syllable": "liang3",
+      "audio_file": "liang3.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 31,
+      "lesson": "阅读5 小小的船",
+      "order": 5,
+      "char": "头",
+      "pinyin": "tóu",
+      "syllable": "tou2",
+      "audio_file": "tou2.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 31,
+      "lesson": "阅读5 小小的船",
+      "order": 6,
+      "char": "在",
+      "pinyin": "zài",
+      "syllable": "zai4",
+      "audio_file": "zai4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 31,
+      "lesson": "阅读5 小小的船",
+      "order": 7,
+      "char": "里",
+      "pinyin": "lǐ",
+      "syllable": "li3",
+      "audio_file": "li3.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 31,
+      "lesson": "阅读5 小小的船",
+      "order": 8,
+      "char": "看",
+      "pinyin": "kàn",
+      "syllable": "kan4",
+      "audio_file": "kan4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 31,
+      "lesson": "阅读5 小小的船",
+      "order": 9,
+      "char": "见",
+      "pinyin": "jiàn",
+      "syllable": "jian4",
+      "audio_file": "jian4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 31,
+      "lesson": "阅读5 小小的船",
+      "order": 10,
+      "char": "闪",
+      "pinyin": "shǎn",
+      "syllable": "shan3",
+      "audio_file": "shan3.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 32,
+      "lesson": "阅读6 影子",
+      "order": 1,
+      "char": "影",
+      "pinyin": "yǐng",
+      "syllable": "ying3",
+      "audio_file": "ying3.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 32,
+      "lesson": "阅读6 影子",
+      "order": 2,
+      "char": "前",
+      "pinyin": "qián",
+      "syllable": "qian2",
+      "audio_file": "qian2.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 32,
+      "lesson": "阅读6 影子",
+      "order": 3,
+      "char": "常",
+      "pinyin": "cháng",
+      "syllable": "chang2",
+      "audio_file": "chang2.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 32,
+      "lesson": "阅读6 影子",
+      "order": 4,
+      "char": "黑",
+      "pinyin": "hēi",
+      "syllable": "hei1",
+      "audio_file": "hei1.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 32,
+      "lesson": "阅读6 影子",
+      "order": 5,
+      "char": "狗",
+      "pinyin": "gǒu",
+      "syllable": "gou3",
+      "audio_file": "gou3.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 32,
+      "lesson": "阅读6 影子",
+      "order": 6,
+      "char": "左",
+      "pinyin": "zuǒ",
+      "syllable": "zuo3",
+      "audio_file": "zuo3.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 32,
+      "lesson": "阅读6 影子",
+      "order": 7,
+      "char": "右",
+      "pinyin": "yòu",
+      "syllable": "you4",
+      "audio_file": "you4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 32,
+      "lesson": "阅读6 影子",
+      "order": 8,
+      "char": "它",
+      "pinyin": "tā",
+      "syllable": "ta1",
+      "audio_file": "ta1.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 32,
+      "lesson": "阅读6 影子",
+      "order": 9,
+      "char": "好",
+      "pinyin": "hǎo",
+      "syllable": "hao3",
+      "audio_file": "hao3.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 32,
+      "lesson": "阅读6 影子",
+      "order": 10,
+      "char": "朋",
+      "pinyin": "péng",
+      "syllable": "peng2",
+      "audio_file": "peng2.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 32,
+      "lesson": "阅读6 影子",
+      "order": 11,
+      "char": "友",
+      "pinyin": "yǒu",
+      "syllable": "you3",
+      "audio_file": "you3.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 33,
+      "lesson": "阅读7 两件宝",
+      "order": 1,
+      "char": "件",
+      "pinyin": "jiàn",
+      "syllable": "jian4",
+      "audio_file": "jian4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 33,
+      "lesson": "阅读7 两件宝",
+      "order": 2,
+      "char": "有",
+      "pinyin": "yǒu",
+      "syllable": "you3",
+      "audio_file": "you3.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 33,
+      "lesson": "阅读7 两件宝",
+      "order": 3,
+      "char": "和",
+      "pinyin": "hé",
+      "syllable": "he2",
+      "audio_file": "he2.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 33,
+      "lesson": "阅读7 两件宝",
+      "order": 4,
+      "char": "做",
+      "pinyin": "zuò",
+      "syllable": "zuo4",
+      "audio_file": "zuo4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 33,
+      "lesson": "阅读7 两件宝",
+      "order": 5,
+      "char": "也",
+      "pinyin": "yě",
+      "syllable": "ye3",
+      "audio_file": "ye3.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 33,
+      "lesson": "阅读7 两件宝",
+      "order": 6,
+      "char": "办",
+      "pinyin": "bàn",
+      "syllable": "ban4",
+      "audio_file": "ban4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 33,
+      "lesson": "阅读7 两件宝",
+      "order": 7,
+      "char": "到",
+      "pinyin": "dào",
+      "syllable": "dao4",
+      "audio_file": "dao4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 33,
+      "lesson": "阅读7 两件宝",
+      "order": 8,
+      "char": "又",
+      "pinyin": "yòu",
+      "syllable": "you4",
+      "audio_file": "you4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 33,
+      "lesson": "阅读7 两件宝",
+      "order": 9,
+      "char": "才",
+      "pinyin": "cái",
+      "syllable": "cai2",
+      "audio_file": "cai2.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 33,
+      "lesson": "阅读7 两件宝",
+      "order": 10,
+      "char": "能",
+      "pinyin": "néng",
+      "syllable": "neng2",
+      "audio_file": "neng2.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 34,
+      "lesson": "语文园地七",
+      "order": 1,
+      "char": "姐",
+      "pinyin": "jiě",
+      "syllable": "jie3",
+      "audio_file": "jie3.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 34,
+      "lesson": "语文园地七",
+      "order": 2,
+      "char": "妹",
+      "pinyin": "mèi",
+      "syllable": "mei4",
+      "audio_file": "mei4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 34,
+      "lesson": "语文园地七",
+      "order": 3,
+      "char": "奶",
+      "pinyin": "nǎi",
+      "syllable": "nai3",
+      "audio_file": "nai3.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 34,
+      "lesson": "语文园地七",
+      "order": 4,
+      "char": "叔",
+      "pinyin": "shū",
+      "syllable": "shu1",
+      "audio_file": "shu1.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 34,
+      "lesson": "语文园地七",
+      "order": 5,
+      "char": "爷",
+      "pinyin": "yé",
+      "syllable": "ye2",
+      "audio_file": "ye2.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 35,
+      "lesson": "阅读8 比尾巴",
+      "order": 1,
+      "char": "比",
+      "pinyin": "bǐ",
+      "syllable": "bi3",
+      "audio_file": "bi3.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 35,
+      "lesson": "阅读8 比尾巴",
+      "order": 2,
+      "char": "尾",
+      "pinyin": "wěi",
+      "syllable": "wei3",
+      "audio_file": "wei3.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 35,
+      "lesson": "阅读8 比尾巴",
+      "order": 3,
+      "char": "巴",
+      "pinyin": "bā",
+      "syllable": "ba1",
+      "audio_file": "ba1.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 35,
+      "lesson": "阅读8 比尾巴",
+      "order": 4,
+      "char": "谁",
+      "pinyin": "shuí",
+      "syllable": "shui2",
+      "audio_file": "shui2.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 35,
+      "lesson": "阅读8 比尾巴",
+      "order": 5,
+      "char": "长",
+      "pinyin": "cháng",
+      "syllable": "chang2",
+      "audio_file": "chang2.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 35,
+      "lesson": "阅读8 比尾巴",
+      "order": 6,
+      "char": "短",
+      "pinyin": "duǎn",
+      "syllable": "duan3",
+      "audio_file": "duan3.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 35,
+      "lesson": "阅读8 比尾巴",
+      "order": 7,
+      "char": "把",
+      "pinyin": "bǎ",
+      "syllable": "ba3",
+      "audio_file": "ba3.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 35,
+      "lesson": "阅读8 比尾巴",
+      "order": 8,
+      "char": "伞",
+      "pinyin": "sǎn",
+      "syllable": "san3",
+      "audio_file": "san3.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 35,
+      "lesson": "阅读8 比尾巴",
+      "order": 9,
+      "char": "兔",
+      "pinyin": "tù",
+      "syllable": "tu4",
+      "audio_file": "tu4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 35,
+      "lesson": "阅读8 比尾巴",
+      "order": 10,
+      "char": "最",
+      "pinyin": "zuì",
+      "syllable": "zui4",
+      "audio_file": "zui4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 35,
+      "lesson": "阅读8 比尾巴",
+      "order": 11,
+      "char": "公",
+      "pinyin": "gōng",
+      "syllable": "gong1",
+      "audio_file": "gong1.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 36,
+      "lesson": "阅读9 乌鸦喝水",
+      "order": 1,
+      "char": "喝",
+      "pinyin": "hē",
+      "syllable": "he1",
+      "audio_file": "he1.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 36,
+      "lesson": "阅读9 乌鸦喝水",
+      "order": 2,
+      "char": "只",
+      "pinyin": "zhī",
+      "syllable": "zhi1",
+      "audio_file": "zhi1.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 36,
+      "lesson": "阅读9 乌鸦喝水",
+      "order": 3,
+      "char": "处",
+      "pinyin": "chù",
+      "syllable": "chu4",
+      "audio_file": "chu4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 36,
+      "lesson": "阅读9 乌鸦喝水",
+      "order": 4,
+      "char": "找",
+      "pinyin": "zhǎo",
+      "syllable": "zhao3",
+      "audio_file": "zhao3.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 36,
+      "lesson": "阅读9 乌鸦喝水",
+      "order": 5,
+      "char": "着",
+      "pinyin": "zháo",
+      "syllable": "zhao2",
+      "audio_file": "zhao2.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 36,
+      "lesson": "阅读9 乌鸦喝水",
+      "order": 6,
+      "char": "旁",
+      "pinyin": "páng",
+      "syllable": "pang2",
+      "audio_file": "pang2.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 36,
+      "lesson": "阅读9 乌鸦喝水",
+      "order": 7,
+      "char": "出",
+      "pinyin": "chū",
+      "syllable": "chu1",
+      "audio_file": "chu1.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 36,
+      "lesson": "阅读9 乌鸦喝水",
+      "order": 8,
+      "char": "法",
+      "pinyin": "fǎ",
+      "syllable": "fa3",
+      "audio_file": "fa3.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 36,
+      "lesson": "阅读9 乌鸦喝水",
+      "order": 9,
+      "char": "放",
+      "pinyin": "fàng",
+      "syllable": "fang4",
+      "audio_file": "fang4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 36,
+      "lesson": "阅读9 乌鸦喝水",
+      "order": 10,
+      "char": "进",
+      "pinyin": "jìn",
+      "syllable": "jin4",
+      "audio_file": "jin4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 36,
+      "lesson": "阅读9 乌鸦喝水",
+      "order": 11,
+      "char": "许",
+      "pinyin": "xǔ",
+      "syllable": "xu3",
+      "audio_file": "xu3.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 36,
+      "lesson": "阅读9 乌鸦喝水",
+      "order": 12,
+      "char": "高",
+      "pinyin": "gāo",
+      "syllable": "gao1",
+      "audio_file": "gao1.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 36,
+      "lesson": "阅读9 乌鸦喝水",
+      "order": 13,
+      "char": "石",
+      "pinyin": "shí",
+      "syllable": "shi2",
+      "audio_file": "shi2.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 37,
+      "lesson": "阅读10 雨点儿",
+      "order": 1,
+      "char": "数",
+      "pinyin": "shǔ",
+      "syllable": "shu3",
+      "audio_file": "shu3.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 37,
+      "lesson": "阅读10 雨点儿",
+      "order": 2,
+      "char": "点",
+      "pinyin": "diǎn",
+      "syllable": "dian3",
+      "audio_file": "dian3.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 37,
+      "lesson": "阅读10 雨点儿",
+      "order": 3,
+      "char": "彩",
+      "pinyin": "cǎi",
+      "syllable": "cai3",
+      "audio_file": "cai3.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 37,
+      "lesson": "阅读10 雨点儿",
+      "order": 4,
+      "char": "半",
+      "pinyin": "bàn",
+      "syllable": "ban4",
+      "audio_file": "ban4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 37,
+      "lesson": "阅读10 雨点儿",
+      "order": 5,
+      "char": "空",
+      "pinyin": "kōng",
+      "syllable": "kong1",
+      "audio_file": "kong1.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 37,
+      "lesson": "阅读10 雨点儿",
+      "order": 6,
+      "char": "问",
+      "pinyin": "wèn",
+      "syllable": "wen4",
+      "audio_file": "wen4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 37,
+      "lesson": "阅读10 雨点儿",
+      "order": 7,
+      "char": "回",
+      "pinyin": "huí",
+      "syllable": "hui2",
+      "audio_file": "hui2.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 37,
+      "lesson": "阅读10 雨点儿",
+      "order": 8,
+      "char": "答",
+      "pinyin": "dá",
+      "syllable": "da2",
+      "audio_file": "da2.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 37,
+      "lesson": "阅读10 雨点儿",
+      "order": 9,
+      "char": "方",
+      "pinyin": "fāng",
+      "syllable": "fang1",
+      "audio_file": "fang1.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 37,
+      "lesson": "阅读10 雨点儿",
+      "order": 10,
+      "char": "久",
+      "pinyin": "jiǔ",
+      "syllable": "jiu3",
+      "audio_file": "jiu3.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 37,
+      "lesson": "阅读10 雨点儿",
+      "order": 11,
+      "char": "更",
+      "pinyin": "gèng",
+      "syllable": "geng4",
+      "audio_file": "geng4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 37,
+      "lesson": "阅读10 雨点儿",
+      "order": 12,
+      "char": "长",
+      "pinyin": "zhǎng",
+      "syllable": "zhang3",
+      "audio_file": "zhang3.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 38,
+      "lesson": "语文园地八",
+      "order": 1,
+      "char": "牛",
+      "pinyin": "niú",
+      "syllable": "niu2",
+      "audio_file": "niu2.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 38,
+      "lesson": "语文园地八",
+      "order": 2,
+      "char": "羊",
+      "pinyin": "yáng",
+      "syllable": "yang2",
+      "audio_file": "yang2.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 38,
+      "lesson": "语文园地八",
+      "order": 3,
+      "char": "旦",
+      "pinyin": "dàn",
+      "syllable": "dan4",
+      "audio_file": "dan4.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 38,
+      "lesson": "语文园地八",
+      "order": 4,
+      "char": "爪",
+      "pinyin": "zhuǎ",
+      "syllable": "zhua3",
+      "audio_file": "zhua3.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 38,
+      "lesson": "语文园地八",
+      "order": 5,
+      "char": "拼",
+      "pinyin": "pīn",
+      "syllable": "pin1",
+      "audio_file": "pin1.mp3",
+      "has_audio": true
+    },
+    {
+      "lesson_no": 38,
+      "lesson": "语文园地八",
+      "order": 6,
+      "char": "音",
+      "pinyin": "yīn",
+      "syllable": "yin1",
+      "audio_file": "yin1.mp3",
+      "has_audio": true
+    }
+  ]
+}

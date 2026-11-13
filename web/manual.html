@@ -1,0 +1,1102 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>汉字小岛 · 家长使用手册</title>
+<style>
+  :root {
+    --paper: #f4eee1;
+    --card: #fffdf7;
+    --ink: #3b342b;
+    --ink-soft: #6d6256;
+    --ink-faint: #9a8d7c;
+    --line: #e4d9c5;
+    --line-soft: #eee5d5;
+    --gold: #b8862f;
+    --gold-soft: #f4e6c8;
+    --green: #5f7f5a;
+    --green-soft: #e7efe2;
+    --red: #b05f4c;
+    --red-soft: #f7e6e1;
+    --blue-soft: #e6eef2;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    color: var(--ink);
+    background:
+      radial-gradient(900px 500px at 8% -8%, rgba(244, 230, 200, 0.85), transparent 60%),
+      radial-gradient(800px 500px at 100% 4%, rgba(230, 238, 242, 0.7), transparent 55%),
+      var(--paper);
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB",
+      "Microsoft YaHei", sans-serif;
+    font-size: 16px;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 34px 20px 80px;
+  }
+
+  /* ---------- 封面 ---------- */
+
+  .cover {
+    position: relative;
+    overflow: hidden;
+    padding: 44px 42px 38px;
+    border: 1px solid var(--line);
+    border-radius: 30px;
+    background:
+      linear-gradient(135deg, rgba(255, 253, 247, 0.96), rgba(250, 244, 231, 0.92));
+    box-shadow: 0 18px 46px rgba(84, 68, 43, 0.10);
+  }
+
+  .cover::before,
+  .cover::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .cover::before {
+    width: 260px;
+    height: 260px;
+    right: -80px;
+    top: -110px;
+    background: radial-gradient(circle, rgba(201, 154, 61, 0.20), transparent 70%);
+  }
+  .cover::after {
+    width: 200px;
+    height: 200px;
+    left: -90px;
+    bottom: -120px;
+    background: radial-gradient(circle, rgba(95, 127, 90, 0.16), transparent 70%);
+  }
+
+  .kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 13px;
+    border: 1px solid rgba(184, 134, 47, 0.32);
+    border-radius: 999px;
+    background: rgba(244, 230, 200, 0.55);
+    color: #7c5c1d;
+    font-size: 12.5px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+  }
+
+  .cover h1 {
+    margin: 18px 0 10px;
+    font-family: "Songti SC", "STSong", "Noto Serif SC", serif;
+    font-size: clamp(30px, 5vw, 44px);
+    line-height: 1.28;
+    letter-spacing: 0.02em;
+  }
+
+  .cover .lead {
+    max-width: 640px;
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: 16.5px;
+  }
+
+  .cover-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 24px;
+  }
+
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: rgba(255, 253, 247, 0.8);
+    color: var(--ink-soft);
+    font-size: 12.5px;
+  }
+
+  .cover-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 24px;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 40px;
+    padding: 8px 18px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--card);
+    color: var(--ink);
+    font: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .btn.primary {
+    border-color: transparent;
+    background: var(--ink);
+    color: #fffdf7;
+  }
+  .btn:hover { border-color: var(--gold); }
+
+  /* ---------- 目录 ---------- */
+
+  .toc {
+    margin: 20px 0 26px;
+    padding: 20px 24px;
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    background: rgba(255, 253, 247, 0.72);
+  }
+
+  .toc h2 {
+    margin: 0 0 10px;
+    font-size: 14px;
+    color: var(--ink-faint);
+    letter-spacing: 0.12em;
+  }
+
+  .toc ol {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2px 26px;
+    margin: 0;
+    padding-left: 22px;
+    font-size: 14px;
+  }
+
+  .toc a {
+    color: var(--ink-soft);
+    text-decoration: none;
+  }
+  .toc a:hover { color: var(--gold); text-decoration: underline; }
+
+  /* ---------- 正文 ---------- */
+
+  main section {
+    margin-bottom: 18px;
+    padding: 26px 30px;
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    background: rgba(255, 253, 247, 0.9);
+    box-shadow: 0 8px 22px rgba(84, 68, 43, 0.05);
+  }
+
+  h2 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0 0 6px;
+    font-family: "Songti SC", "STSong", "Noto Serif SC", serif;
+    font-size: 23px;
+    line-height: 1.4;
+    letter-spacing: 0.02em;
+  }
+
+  .num {
+    flex: 0 0 auto;
+    display: inline-grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--gold-soft);
+    color: #7c5c1d;
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+  }
+
+  .section-sub {
+    margin: 0 0 18px 46px;
+    color: var(--ink-faint);
+    font-size: 13.5px;
+  }
+
+  h3 {
+    margin: 22px 0 8px;
+    font-size: 16.5px;
+    line-height: 1.5;
+  }
+  h3:first-of-type { margin-top: 8px; }
+
+  p { margin: 8px 0; }
+  ul, ol { margin: 8px 0; padding-left: 24px; }
+  li { margin: 5px 0; }
+  strong { color: var(--ink); }
+  code {
+    padding: 1px 6px;
+    border: 1px solid var(--line-soft);
+    border-radius: 6px;
+    background: #f8f2e6;
+    font-family: "SF Mono", ui-monospace, Menlo, monospace;
+    font-size: 0.88em;
+  }
+
+  .tip, .warn, .note {
+    margin: 14px 0;
+    padding: 12px 16px;
+    border-left: 4px solid var(--gold);
+    border-radius: 0 12px 12px 0;
+    background: #fbf4e4;
+    color: var(--ink-soft);
+    font-size: 14.5px;
+  }
+  .tip b, .warn b, .note b { color: var(--ink); }
+  .warn {
+    border-left-color: var(--red);
+    background: var(--red-soft);
+  }
+  .note {
+    border-left-color: var(--green);
+    background: var(--green-soft);
+  }
+
+  /* 步骤 */
+  .steps {
+    list-style: none;
+    counter-reset: step;
+    padding-left: 0;
+    margin: 14px 0;
+  }
+  .steps > li {
+    position: relative;
+    margin: 0 0 14px;
+    padding-left: 46px;
+    min-height: 30px;
+  }
+  .steps > li::before {
+    counter-increment: step;
+    content: counter(step);
+    position: absolute;
+    left: 0;
+    top: 1px;
+    display: grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--gold-soft);
+    color: #7c5c1d;
+    font-size: 13px;
+    font-weight: 800;
+  }
+  .steps > li b { display: block; }
+  .steps > li p { margin: 2px 0 0; color: var(--ink-soft); font-size: 14.5px; }
+
+  /* 表格 */
+  .table-wrap { overflow-x: auto; margin: 12px 0; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14.5px;
+  }
+  th, td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--line-soft);
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    background: #faf3e4;
+    color: #6f551f;
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  tr:last-child td { border-bottom: 0; }
+
+  kbd {
+    display: inline-block;
+    min-width: 24px;
+    padding: 1px 7px;
+    border: 1px solid #d6c9b2;
+    border-bottom-width: 2px;
+    border-radius: 6px;
+    background: #fffdf7;
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif;
+    font-size: 12.5px;
+    font-weight: 700;
+    text-align: center;
+  }
+
+  .grid2 {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin: 12px 0;
+  }
+  .mini-card {
+    padding: 14px 16px;
+    border: 1px solid var(--line-soft);
+    border-radius: 14px;
+    background: #fdf9f0;
+  }
+  .mini-card b { display: block; margin-bottom: 2px; }
+  .mini-card span { color: var(--ink-soft); font-size: 14px; }
+
+  /* FAQ */
+  .faq-item {
+    padding: 14px 0;
+    border-bottom: 1px dashed var(--line);
+  }
+  .faq-item:last-child { border-bottom: 0; padding-bottom: 0; }
+  .faq-item h3 {
+    display: flex;
+    gap: 10px;
+    margin: 0 0 4px;
+    font-size: 15.5px;
+  }
+  .q {
+    flex: 0 0 auto;
+    display: inline-grid;
+    place-items: center;
+    width: 22px;
+    height: 22px;
+    margin-top: 2px;
+    border-radius: 6px;
+    background: var(--gold-soft);
+    color: #7c5c1d;
+    font-size: 11px;
+    font-weight: 800;
+  }
+  .faq-item p { margin: 0 0 0 32px; color: var(--ink-soft); font-size: 14.5px; }
+
+  footer {
+    margin-top: 30px;
+    padding: 0 8px;
+    color: var(--ink-faint);
+    font-size: 12.5px;
+    text-align: center;
+  }
+
+  a { color: #8a6420; }
+
+  @media (max-width: 680px) {
+    .page { padding: 20px 12px 60px; }
+    .cover { padding: 30px 22px 26px; border-radius: 24px; }
+    main section { padding: 20px 18px; border-radius: 20px; }
+    .toc { padding: 16px 18px; }
+    .toc ol { grid-template-columns: 1fr; }
+    .section-sub { margin-left: 0; }
+    .grid2 { grid-template-columns: 1fr; }
+    h2 { font-size: 20px; }
+    .faq-item p { margin-left: 0; }
+  }
+
+  @media print {
+    @page { margin: 16mm; }
+    body { background: #fff; font-size: 11.5pt; }
+    .page { max-width: none; padding: 0; }
+    .no-print { display: none !important; }
+    .cover, main section, .toc {
+      box-shadow: none;
+      background: #fff;
+      border-color: #ccc;
+    }
+    main section { break-inside: avoid; page-break-inside: avoid; }
+    h2 { break-after: avoid; }
+    a { color: inherit; text-decoration: none; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="cover">
+    <span class="kicker">汉字小岛 · 家长手册</span>
+    <h1>每天 10 分钟，<br />陪孩子认几个字</h1>
+    <p class="lead">
+      这是一个只在这台 Mac 上运行的认字小应用。孩子看字、听音、做三道认字题，
+      家长在今日页的「家长看板」入口看进度和易错字。数据不上传网络，也不用注册账号。
+    </p>
+    <div class="cover-meta">
+      <span class="pill">一年级 · 统编版识字表 688 字</span>
+      <span class="pill">拓展识字 1300 字</span>
+      <span class="pill">每天 10–12 分钟</span>
+      <span class="pill">只认读，不写字</span>
+      <span class="pill">离线可用</span>
+    </div>
+    <div class="cover-actions no-print">
+      <a class="btn primary" href="/">回到汉字小岛</a>
+      <button class="btn" type="button" onclick="window.print()">打印 / 保存 PDF</button>
+    </div>
+  </header>
+
+  <nav class="toc no-print" aria-label="目录">
+    <h2>目录</h2>
+    <ol>
+      <li><a href="#quick">三分钟上手</a></li>
+      <li><a href="#start">启动和退出</a></li>
+      <li><a href="#tour">四个底部页面</a></li>
+      <li><a href="#daily">每天怎么带</a></li>
+      <li><a href="#home">今日页</a></li>
+      <li><a href="#learn">学新字页</a></li>
+      <li><a href="#quiz">三种认字题</a></li>
+      <li><a href="#cards">字卡册</a></li>
+      <li><a href="#read">读一读</a></li>
+      <li><a href="#recognition">艾宾浩斯认字</a></li>
+      <li><a href="#parent">家长看板</a></li>
+      <li><a href="#keys">键盘操作</a></li>
+      <li><a href="#tips">陪学建议</a></li>
+      <li><a href="#faq">常见问题</a></li>
+      <li><a href="#files">文件都在哪</a></li>
+    </ol>
+  </nav>
+
+  <main>
+
+    <!-- 01 快速上手 -->
+    <section id="quick">
+      <h2><span class="num">01</span>三分钟上手</h2>
+      <p class="section-sub">第一次用，照着这五步做就行。</p>
+
+      <ol class="steps">
+        <li>
+          <b>双击文件夹里的 <code>start.command</code></b>
+          <p>会弹出一个终端窗口，等几秒，浏览器会自动打开「汉字小岛」。</p>
+        </li>
+        <li>
+          <b>看到首页后，点「开始学习 · N 个字」</b>
+          <p>N 是这次要过的字数，包含复习和新字。</p>
+        </li>
+        <li>
+          <b>陪孩子看新字卡，点「开始认字」</b>
+          <p>每个新字会先出现一张大字卡，听完读音、读完组词，再进入认字题。</p>
+        </li>
+        <li>
+          <b>做完题，看星星，点「回小岛」</b>
+          <p>90% 以上三颗星，70% 以上两颗星，其余一颗星。星星只用来鼓励，不排名。</p>
+        </li>
+        <li>
+          <b>想停止时，双击 <code>stop.command</code></b>
+          <p>也可以直接合上电脑。下次再双击 <code>start.command</code> 就能继续。</p>
+        </li>
+      </ol>
+
+      <div class="tip">
+        <b>第一次启动可能慢一点。</b>
+        应用需要 Python 3，并会自动安装依赖，这一步要联网；装好之后就可以完全离线使用。
+      </div>
+    </section>
+
+    <!-- 02 启动退出 -->
+    <section id="start">
+      <h2><span class="num">02</span>启动和退出</h2>
+      <p class="section-sub">不需要懂技术，双击两个文件就够了。</p>
+
+      <h3>启动</h3>
+      <ul>
+        <li>双击 <code>start.command</code>，等浏览器自动打开。</li>
+        <li>如果 macOS 提示「无法打开」，在文件上<strong>右键 → 打开</strong>，再点一次「打开」。</li>
+        <li>启动脚本跑完后，终端窗口可以关掉，服务在后台继续运行。</li>
+        <li>默认地址是 <code>http://127.0.0.1:8765</code>。端口被别的程序占用时，会自动换到 8766–8775，以终端窗口显示的地址为准。</li>
+        <li>建议把页面收藏到浏览器书签，或者固定成标签页，下次直接点开。</li>
+      </ul>
+
+      <h3>退出</h3>
+      <ul>
+        <li>双击 <code>stop.command</code>。它只会停止「汉字小岛」，不会影响别的程序。</li>
+        <li>直接关机、合盖也可以。学习记录会保存在本机，不会丢。</li>
+        <li>不建议同时开两个窗口学习，进度以最后一次答题为准。</li>
+      </ul>
+
+      <div class="note">
+        <b>需要联网吗？</b>
+        只有第一次安装依赖需要联网。之后学字、听读音、看短文都在这台电脑上完成，不联网也能用。
+      </div>
+    </section>
+
+    <!-- 03 四个底部页面 -->
+    <section id="tour">
+      <h2><span class="num">03</span>四个底部页面</h2>
+      <p class="section-sub">底部四个按钮给孩子用；家长看板入口收在今日页，避免孩子误触。</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>页面</th><th>用来做什么</th><th>什么时候用</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><b>今日</b></td>
+              <td>每天的学习入口、复习和新字队列、闯关地图</td>
+              <td>每天开始学习时</td>
+            </tr>
+            <tr>
+              <td><b>字卡册</b></td>
+              <td>按册和单元翻所有字卡；字族、多音字；打印字卡</td>
+              <td>复习旧字、睡前翻一翻、打印贴墙</td>
+            </tr>
+            <tr>
+              <td><b>读一读</b></td>
+              <td>30 篇短文和儿歌（上册 17 / 下册 13）；可按册筛选，点字听音、点 ▶ 听整句</td>
+              <td>学完一个单元后，做朗读练习</td>
+            </tr>
+            <tr>
+              <td><b>认字</b></td>
+              <td>幼儿识字 1300 整体过一遍、每日艾宾浩斯复习、打印不会的字</td>
+              <td>想快速摸底、集中攻不会的字时</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p><b>今日页也有一张认字卡。</b>它和「今天的任务」并存，显示整体过字进度和今天到期的认字复习。</p>
+      <p><b>家长看板不在底部。</b>在今日页顶部数字下面，点「家长看板 · 设置与学习记录」进入；也可以直接打开 <code>#/parent</code>。这样孩子不容易误触设置和清空按钮。</p>
+      <p>右上角还有一个「声 / 静」按钮，可以随时关掉或打开声音。</p>
+    </section>
+
+    <!-- 04 每天怎么带 -->
+    <section id="daily">
+      <h2><span class="num">04</span>每天怎么带（10–12 分钟）</h2>
+      <p class="section-sub">短而稳定，比一次学很多更有效。</p>
+
+      <h3>推荐流程</h3>
+      <ol class="steps">
+        <li>
+          <b>固定一个时间</b>
+          <p>放学后、晚饭前或睡前都可以。每天同一时间，孩子更容易进入状态。</p>
+        </li>
+        <li>
+          <b>先看「复习 N / 新字 M」</b>
+          <p>应用会先安排到期的旧字，再安排新字。复习最多 15 个，整组最多 20 题。</p>
+        </li>
+        <li>
+          <b>有艾宾浩斯复习时，先做哪边都可以</b>
+          <p>今日页的「艾宾浩斯认字」卡会显示今天有多少字到期。时间紧时先做认字复习；时间够再学新字。两个队列分开记录，不会互相覆盖。</p>
+        </li>
+        <li>
+          <b>复习题：让孩子自己点</b>
+          <p>答错没关系，应用会显示正确答案、读音和意思，跟着读一遍就好。</p>
+        </li>
+        <li>
+          <b>新字卡：听一遍、读一遍</b>
+          <p>先听自动连读（字音 → 组词 → 组词），再让孩子指读大字，最后点「开始认字」。</p>
+        </li>
+        <li>
+          <b>认字题：三种题型轮换</b>
+          <p>听音选字、句子填空、看拼音选字。每题四个选项，不会默认选中。</p>
+        </li>
+        <li>
+          <b>结算：看星星，决定要不要再来一组</b>
+          <p>状态好就点「再学一组」；累了就点「回小岛」，明天继续。</p>
+        </li>
+      </ol>
+
+      <h3>家长坐在旁边做什么</h3>
+      <ul>
+        <li><b>当读题人，不当抢答人。</b>孩子点得慢一点没关系，等他自己选。</li>
+        <li>可以问：「这个字读什么？」「你听到的是哪个字？」「这句话里缺了谁？」</li>
+        <li>答错时不说「怎么又错了」，可以说：「我们看看它到底读什么。」</li>
+        <li>孩子连续学 12 分钟，会弹出「让小眼睛休息一下」，跟着数 20 下再继续。</li>
+        <li>孩子明显累了、坐不住了，就点左上角 <b>×</b> 结束。已经答过的题会保存。</li>
+      </ul>
+
+      <div class="tip">
+        <b>一天学多少合适？</b>
+        默认每天 5 个新字，建议 3–6 个。新字是按整课安排的，可能比设置多 1–2 个，
+        比如第一课《天地人》会一次学完 6 个字。
+      </div>
+    </section>
+
+    <!-- 05 今日页 -->
+    <section id="home">
+      <h2><span class="num">05</span>今日页</h2>
+      <p class="section-sub">每天从这里开始。</p>
+
+      <h3>上面三个数字</h3>
+      <div class="grid2">
+        <div class="mini-card"><b>学过 / 688</b><span>已经见过并答过题的不同汉字数。</span></div>
+        <div class="mini-card"><b>待复习</b><span>今天到期、需要再认一遍的字。</span></div>
+        <div class="mini-card"><b>连续天数</b><span>连续有答题记录的天数。</span></div>
+        <div class="mini-card"><b>正确率</b><span>今天答对的比例，答过题后才显示。</span></div>
+      </div>
+
+      <h3>今天的任务卡</h3>
+      <ul>
+        <li><b>复习 N</b>：今天到期的旧字。</li>
+        <li><b>新字 M</b>：今天要学的新字。</li>
+        <li><b>今日已答</b>：今天已经做过的题数。</li>
+        <li><b>还有 N 个到期</b>：今天没排进这一组的到期字，下次会优先安排。</li>
+        <li>按钮文字：当天还没答题时是「开始学习」，答过之后变成「再学一组」，后面都会显示这次要过多少个字。</li>
+      </ul>
+
+      <h3>艾宾浩斯认字卡</h3>
+      <ul>
+        <li>第一次用：点「开始过一遍」，选幼儿识字 1300、全部课内 688、一年级上册或下册。</li>
+        <li>过字时一次只出现一个大字，不显示拼音；孩子自己点「认识」或「不认识」。</li>
+        <li>正在过：显示已经过多少、认识多少、不认识多少；可以随时退出，下次接着来。</li>
+        <li>过完一遍：每天按记忆曲线显示到期复习；没有到期时显示「今天没有到期复习」。</li>
+        <li>这张卡和「今天的任务」是两套记录：认字自评不会直接增加上面的「学过 / 688」。</li>
+        <li>有自评「不认识」的字时，认字页会出现「打印不会的字」，可以生成 A4 清单。</li>
+      </ul>
+
+      <h3>闯关地图</h3>
+      <ul>
+        <li>可以按「全部 / 一年级上册 / 一年级下册」切换。</li>
+        <li>每一课显示已学 / 总数和进度条，学完的课会打 ✓。</li>
+        <li>点一课，会弹出这一课的字卡；再点其中一个字，可以看详细字卡。</li>
+        <li>688 是不同汉字数；702 是课程位置数。有的字在不同课文里出现，所以位置会比字数多。</li>
+        <li>上册 279 + 下册 413 中有 4 个字两册都出现，所以相加是 692；按不同字去重后仍是 688。</li>
+      </ul>
+    </section>
+
+    <!-- 06 学新字 -->
+    <section id="learn">
+      <h2><span class="num">06</span>学新字页</h2>
+      <p class="section-sub">先看清楚，再开始做题。</p>
+
+      <p>新字出现时，应用会自动连读：<b>字音 → 第一个组词 → 第二个组词</b>。
+      如果不想自动读，可以在「今日页 → 家长看板 → 学习设置」里关掉「自动播放读音」。</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>页面上的内容</th><th>怎么用</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>大字和拼音</td><td>让孩子先看字形，再读拼音；点拼音可以显示或隐藏。</td></tr>
+            <tr><td>部首 · 笔画 · 结构 · 造字法</td><td>不用全讲，挑孩子能理解的說一句就好。</td></tr>
+            <tr><td>意思</td><td>用生活里的例子解释，比背解释更有用。</td></tr>
+            <tr><td>字形演变</td><td>日、月、山、水、火、木、田、人、口、目 这 10 个字有图，可以讲讲「以前像什么」。</td></tr>
+            <tr><td>组词</td><td>点词可以听读音，让孩子跟着读一遍。</td></tr>
+            <tr><td>句子</td><td>句子里这个字会高亮，让孩子在句子里认它。</td></tr>
+            <tr><td>记忆口诀</td><td>帮助记字形，不用背，读一遍即可。</td></tr>
+            <tr><td>形近字</td><td>提醒孩子别和哪个字弄混。</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>看完点「开始认字」，或者直接按 <kbd>Enter</kbd>。想再听一遍，点「听读音」。</p>
+
+      <div class="note">
+        <b>建议的带法：</b>听一遍 → 孩子指读一遍 → 挑一个组词造个句子 → 点「开始认字」。
+        不要在一个字上停太久，后面还会复习。
+      </div>
+    </section>
+
+    <!-- 07 三种题 -->
+    <section id="quiz">
+      <h2><span class="num">07</span>三种认字题</h2>
+      <p class="section-sub">换着题型练，避免只会一种。</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>题型</th><th>题目长什么样</th><th>孩子要做什么</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><b>听音选字</b></td>
+              <td>「听一听，点出这个字」</td>
+              <td>听读音，从四个字里点出正确的那个；可以点「再听一遍」。</td>
+            </tr>
+            <tr>
+              <td><b>句子填空</b></td>
+              <td>「选一个字，把句子补完整」</td>
+              <td>看句子里的括号，选出合适的字。</td>
+            </tr>
+            <tr>
+              <td><b>看拼音选字</b></td>
+              <td>「看拼音，点出这个字」</td>
+              <td>读拼音，从四个字里选。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>答题时会发生什么</h3>
+      <ul>
+        <li>进入题目时<b>不会默认选中</b>任何选项，孩子必须自己点。</li>
+        <li>答对：出现绿色 ✓，应用会再读一遍这个字。</li>
+        <li>答错：显示正确答案、读音和意思，也会再读一遍。不是批评，只是再认一次。</li>
+        <li>点「下一个」继续，或者按 <kbd>Enter</kbd>。</li>
+        <li>答错的字会降一级，按新的等级安排复习：越不熟的字，下次出现得越早。</li>
+        <li>干扰项来自形近字、同课字、已学字，不会随便拿没学过的字来凑。</li>
+      </ul>
+
+      <div class="tip">
+        <b>不要替孩子点。</b>
+        答错的价值比答对更大：应用会根据对错安排下次复习时间。替点会让复习节奏失真。
+      </div>
+    </section>
+
+    <!-- 08 字卡册 -->
+    <section id="cards">
+      <h2><span class="num">08</span>字卡册</h2>
+      <p class="section-sub">所有字都在这里，可以随时翻、随时听、打印。</p>
+
+      <h3>怎么找字</h3>
+      <ul>
+        <li>先选册：「全部 / 一年级上册 / 一年级下册」。</li>
+        <li>再选单元，下面会按课文列出字卡。</li>
+        <li>字卡册顶部有「按部首认字」：常用部首直接点，全部 99 个部首用下拉框选，下面会列出这个部首的字。</li>
+        <li>字卡颜色表示熟悉程度：白色是新字，金色是学习中，青色是熟悉，绿色带 ★ 是已掌握。</li>
+        <li>点任意一个字，打开详细字卡。</li>
+      </ul>
+
+      <h3>字卡弹窗里有什么</h3>
+      <ul>
+        <li>大字、拼音、部首、笔画、结构、掌握程度。</li>
+        <li>意思、字形演变（10 个象形字）、组词（点词听音）、句子、记忆口诀。</li>
+        <li><b>字族</b>：和这个字同一部件或同一部首的字，点一下可以接着看。</li>
+        <li><b>同部首</b>：按部首自动归类的字，最多显示 8 个，其余会写「还有 N 个」。</li>
+        <li><b>多音字</b>：一个字有几种读法时出现，每个读音都能点听。</li>
+        <li><b>学习记录</b>：只有答过题的字才显示，避免新字弹出「0 次」。</li>
+      </ul>
+
+      <h3>字族和多音字面板</h3>
+      <ul>
+        <li><b>字族</b>：23 组精选字族（青、包、也……），加上顶部「按部首认字」的 99 组同部首分类，覆盖 610 个字。</li>
+        <li><b>多音字</b>：教材里标注的 8 个，加上 30 个常见补充，共 38 个。补充的读音会标「补充」。</li>
+        <li>补充的多音字只收读音音频齐全的，点了不会没声音。</li>
+      </ul>
+
+      <h3>打印</h3>
+      <p>点「打印这一页」，会按适合打印的样式输出当前单元的字卡，可以剪下来贴墙上或放进识字盒。</p>
+    </section>
+
+    <!-- 09 读一读 -->
+    <section id="read">
+      <h2><span class="num">09</span>读一读</h2>
+      <p class="section-sub">把学过的字放回句子和儿歌里。</p>
+
+      <ul>
+        <li>共 30 篇短文和儿歌，按册和单元分组；顶部可以选「全部 / 一年级上册 / 一年级下册」，下册有 13 篇。</li>
+        <li>点一篇打开，每一行是一句话。</li>
+        <li>点单个字听读音；点句子右边的 <b>▶</b> 听整句（逐字连读）。</li>
+        <li>多音字按句子语境读，比如「站得直」读 de，「数一数」读 shǔ，「长大」读 zhǎng。</li>
+        <li>可以「显示拼音 / 隐藏拼音」。刚开始可以显示，熟悉后隐藏，练纯认字。</li>
+        <li>灰色的字表示还没学过，也可以点，不影响学习记录。</li>
+        <li>每篇会显示「认识 X / Y」，方便看这篇里孩子认识多少不同的字。</li>
+      </ul>
+
+      <div class="tip">
+        <b>怎么用最好：</b>学完一个单元后，找对应短文读一遍；或者睡前让孩子点一句，
+        家长跟着读一句。读错了不用打断，读完再回头点那个字听一遍。
+      </div>
+    </section>
+
+    <!-- 10 艾宾浩斯 -->
+    <section id="recognition">
+      <h2><span class="num">10</span>艾宾浩斯认字</h2>
+      <p class="section-sub">先自评，再用答题验证；不靠一次考试定输赢。</p>
+
+      <h3>第一次：整体过一遍</h3>
+      <ul>
+        <li>点底部「认字」，再点「开始过一遍」；也可以从今日页的认字卡进入。</li>
+        <li>选范围：<b>幼儿识字 1300</b>（推荐，含课内 664 + 拓展 636）、全部课内 688、一年级上册或下册。</li>
+        <li>一次只出现一个大字，<b>不显示拼音、不自动读音</b>，让孩子凭第一眼判断。</li>
+        <li>认识就点绿色「认识」（键盘 ← 或 1）；不认识就点红色「不认识」（键盘 → 或 2）。</li>
+        <li>不需要一次过完。点左上角 <b>×</b> 可以退出，下次从停下的地方继续。</li>
+        <li>过完会显示「认识多少 / 不认识多少」，然后就可以开始每天复习。</li>
+      </ul>
+
+      <h3>自评标错了怎么办</h3>
+      <ul>
+        <li>认字页顶部点「自评标错了？改几个字」。</li>
+        <li>可以搜汉字、拼音（不用打声调，例如输入 <code>kuai</code> 也能搜到「块」）或组词。</li>
+        <li>找到字后点「改成认识 / 不认识」。还没复习过的字会按新自评重排复习时间；已经复习过的字只改标签，不改下次复习时间。</li>
+        <li>按 <kbd>Esc</kbd> 或点「返回认字」回到认字页。</li>
+      </ul>
+
+      <h3>每天：按记忆曲线复习</h3>
+      <ul>
+        <li>今日页会显示「今天有 N 个字要复习」。点「开始复习」进入。</li>
+        <li>自评「不认识」的字：先看一张完整字卡，再答一道题。</li>
+        <li>自评「认识」的字：直接答题验证，不先看字卡。</li>
+        <li>答对会升级，下次间隔变长；答错会降级，下次更早出现。</li>
+        <li>每组最多复习 15 个字。没排进这一组的，下次优先。</li>
+        <li>间隔是 1 / 2 / 4 / 7 / 15 / 30 / 60 天。即使到了最高一级，也还会滚动复习。</li>
+      </ul>
+
+      <h3>打印不会的字</h3>
+      <ul>
+        <li>认字页顶部有「打印不会的字 · N 个」；自评「不认识」的字都会进清单，也可以勾选「包含高估字」。</li>
+        <li>打印预览会显示大字、拼音、组词和来源；A4 纸每页约 20 个字，右上角有小方框，孩子会了就打勾。</li>
+        <li>默认显示拼音和组词。如果只想练纯认字，可以同时取消「显示拼音」和「显示组词」。</li>
+        <li>点「打印」调用系统打印窗口；也可以先在预览里检查，再按 <kbd>Esc</kbd> 返回认字页。</li>
+      </ul>
+
+      <h3>为什么要分「自评」和「实测」</h3>
+      <p>孩子说「认识」，不一定真的读得出来。应用会把两种情况分开记：</p>
+      <ul>
+        <li><b>高估字</b>：自评认识，但第一次答题错了。家长页会单独列出来，优先复习。</li>
+        <li><b>低估字</b>：自评不认识，但第一次答题对了。会自动跳一级，避免重复太多次。</li>
+        <li>自评不会直接增加课内的「学过 / 688」，也不等于已经掌握；答题验证后才升级。</li>
+        <li>「幼儿识字 1300」是独立范围，不进入课内今日任务，也不改变课内 688 字的统计。</li>
+      </ul>
+
+      <div class="tip">
+        <b>建议：</b>第一次可以直接过「幼儿识字 1300」，一次过不完就分几次；过完后打印不会的字，
+        每天复习一组，再配合课内今日任务。过字时不要催，孩子犹豫超过两三秒就点「不认识」，
+        交给后面的复习去解决。
+      </div>
+    </section>
+
+    <!-- 11 家长 -->
+    <section id="parent">
+      <h2><span class="num">11</span>家长看板</h2>
+      <p class="section-sub">每周看一次就够了，不用天天盯。</p>
+
+      <h3>四个数字</h3>
+      <ul>
+        <li><b>学过 / 688</b>：已经学过的不同汉字数。</li>
+        <li><b>已掌握</b>：复习到最高一级、间隔最长的字。</li>
+        <li><b>今日正确率</b>：今天答题的正确比例。</li>
+        <li><b>连续学习天数</b>：连续有答题的天数。</li>
+      </ul>
+
+      <h3>最近 7 天</h3>
+      <p>柱状图显示每天的答题量，下面汇总学习天数、分钟数、新字数和正确率，并给一句学习建议。
+      柱子上悬停可以看到当天答了多少次、学了多少新字。</p>
+
+      <h3>部首徽章</h3>
+      <p>统计学过的字里出现最多的部首。同一个部首集满 5 个字是银章，10 个字是金章。
+      可以用来做小目标，比如「今天再找两个三点水的字」。</p>
+
+      <h3>易错字</h3>
+      <p>列出答错过、或者正确率低于 80% 的字，最多 10 个，按错误次数排序。
+      点一行可以直接打开这个字的字卡。建议第二天开始学习前，先点开读一遍。</p>
+
+      <h3>艾宾浩斯认字</h3>
+      <p>显示已自评、自评认识 / 不认识、已答题验证、高估字、今天待复习。自评只是分桶，
+      答对才会升级。下面会单独列出「高估字」和「低估字」，可以点字打开字卡。</p>
+
+      <h3>学习设置</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>设置</th><th>说明</th><th>建议</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><b>每天新字</b></td>
+              <td>1–10 个，默认 5 个。按整课安排，可能多 1–2 个。</td>
+              <td>3–6 个。先稳住复习，再慢慢加。</td>
+            </tr>
+            <tr>
+              <td><b>声音</b></td>
+              <td>关闭后所有读音和提示音都静音。</td>
+              <td>睡前或公共场合可以关。</td>
+            </tr>
+            <tr>
+              <td><b>自动播放读音</b></td>
+              <td>点开新字卡时自动连读字音和组词。</td>
+              <td>刚开始建议开着；孩子会自己读后可关掉。</td>
+            </tr>
+            <tr>
+              <td><b>减少动效</b></td>
+              <td>关闭页面动画和过渡。</td>
+              <td>孩子容易分心、或说「晃眼睛」时打开。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>数据</h3>
+      <ul>
+        <li><b>导出答题 CSV</b>：每次答题的明细，可以用表格软件打开。</li>
+        <li><b>备份学习记录</b>：下载 <code>hanzi-stats-日期-时间.db</code>，包含所有进度。</li>
+        <li><b>备份字库</b>：下载 <code>hanzi-content-日期-时间.db</code>，一般不需要。</li>
+        <li><b>清空进度</b>：会删除所有答题记录、普通进度和艾宾浩斯认字记录，<b>不能撤销</b>。清空前先备份。</li>
+      </ul>
+
+      <div class="warn">
+        <b>「清空进度」是给重新开始用的。</b>
+        如果只是想换个每天新字数量，不用清空，直接调上面的滑块就好。
+      </div>
+    </section>
+
+    <!-- 12 键盘 -->
+    <section id="keys">
+      <h2><span class="num">12</span>键盘操作（可选）</h2>
+      <p class="section-sub">孩子学会用键盘后，可以少用鼠标。</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>按键</th><th>作用</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><kbd>↑</kbd> <kbd>↓</kbd> <kbd>←</kbd> <kbd>→</kbd></td><td>在选项之间移动高亮。刚进题目时没有高亮，按方向键才出现。</td></tr>
+            <tr><td><kbd>Enter</kbd></td><td>确认选中的选项；答完后进入下一个；学字卡时开始认字；结算页再学一组。</td></tr>
+            <tr><td><kbd>Esc</kbd></td><td>关闭字卡弹窗；护眼提醒时跳过；退出整体过字；从打印预览或改自评页返回认字页。</td></tr>
+            <tr><td><kbd>Enter</kbd>（弹窗里）</td><td>关闭弹窗。</td></tr>
+            <tr><td><kbd>←</kbd> / <kbd>1</kbd></td><td>整体过字时点「认识」。</td></tr>
+            <tr><td><kbd>→</kbd> / <kbd>2</kbd></td><td>整体过字时点「不认识」。</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>没选中任何选项时按 <kbd>Enter</kbd> 不会答题，这是故意的，避免误触。</p>
+    </section>
+
+    <!-- 13 建议 -->
+    <section id="tips">
+      <h2><span class="num">13</span>陪学建议</h2>
+      <p class="section-sub">比「学了多少」更重要的是「明天还想来」。</p>
+
+      <ol>
+        <li><b>固定时间，短而稳。</b>每天 10–12 分钟，比周末一次学一小时有效。</li>
+        <li><b>先复习，再新字。</b>应用已经排好了顺序，不要跳过复习直接学新的。</li>
+        <li><b>让孩子自己点。</b>家长负责读题、鼓励、提醒休息，不负责替点。</li>
+        <li><b>错字不批评。</b>答错会安排复习，第二天在「易错字」里再看一遍就好。</li>
+        <li><b>把「读一读」当奖励。</b>学完字读一篇短文，比多做十道题更有成就感。</li>
+        <li><b>每周只看一次家长看板。</b>重点看「易错字」和「连续天数」，不用盯正确率。</li>
+        <li><b>不要为了赶进度调高每天新字。</b>3–6 个足够，复习跟不上会越学越累。</li>
+        <li><b>保护眼睛。</b>12 分钟提醒不是摆设，弹出时真的让孩子看远处数 20 下。</li>
+        <li><b>以学校课本为准。</b>应用是课后补充，不替代课堂；老师要求的进度和读音优先。</li>
+      </ol>
+
+      <div class="note">
+        <b>一句话版本：</b>每天 10 分钟，先复习再新字，让孩子自己点，错了明天再来。
+      </div>
+    </section>
+
+    <!-- 14 FAQ -->
+    <section id="faq">
+      <h2><span class="num">14</span>常见问题</h2>
+      <p class="section-sub">遇到问题先看这里，大部分都能自己解决。</p>
+
+      <div class="faq-item">
+        <h3><span class="q">Q</span>双击 start.command 没反应，或者提示「无法打开」</h3>
+        <p>在 <code>start.command</code> 上右键 → 打开，再点「打开」。如果还是不行，到「系统设置 → 隐私与安全性」里点「仍要打开」。另外确认电脑里有 Python 3，可以在终端输入 <code>python3 --version</code> 检查。</p>
+      </div>
+
+      <div class="faq-item">
+        <h3><span class="q">Q</span>浏览器没有自动打开</h3>
+        <p>手动在浏览器输入 <code>http://127.0.0.1:8765</code>。如果端口被占用，应用会自动换到 8766–8775，以终端窗口里显示的地址为准。</p>
+      </div>
+
+      <div class="faq-item">
+        <h3><span class="q">Q</span>没有声音</h3>
+        <p>先看右上角是不是「静」，点一下切成「声」；再检查 Mac 音量和静音键；然后到「今日页 → 家长看板 → 学习设置」确认「声音」和「自动播放读音」是开着的。单字和拼音用的是内置 mp3，词语和句子用的是系统语音，音色不同是正常的。用蓝牙耳机时确认已经连上。</p>
+      </div>
+
+      <div class="faq-item">
+        <h3><span class="q">Q</span>学习记录会丢吗？</h3>
+        <p>记录保存在本机的 <code>data/stats.db</code>，正常关机、重启都不会丢。只有点「清空进度」才会删除。建议每月在家长页点一次「备份学习记录」。</p>
+      </div>
+
+      <div class="faq-item">
+        <h3><span class="q">Q</span>换电脑或重装系统，怎么把进度带走？</h3>
+        <p>先在旧电脑的家长页点「备份学习记录」，得到 <code>hanzi-stats-日期-时间.db</code>。在新电脑上先双击 <code>stop.command</code> 停止应用，把这个文件改名为 <code>stats.db</code>，放到 <code>data/</code> 文件夹里覆盖原文件；如果旁边有 <code>stats.db-wal</code>、<code>stats.db-shm</code>，一起删掉。再双击 <code>start.command</code> 即可。</p>
+      </div>
+
+      <div class="faq-item">
+        <h3><span class="q">Q</span>两台电脑能同步进度吗？</h3>
+        <p>不能自动同步，数据在各自电脑上。可以用上面的备份方法手动迁移，但不要两台同时学，否则后覆盖的会盖掉另一台的新记录。</p>
+      </div>
+
+      <div class="faq-item">
+        <h3><span class="q">Q</span>为什么第一课有 6 个字，我设置的是 5 个？</h3>
+        <p>新字是按整课安排的，避免把一课拆成两天。课文边界允许比设置多 1–2 个字，第一课《天地人》就是 6 个字一次学完。</p>
+      </div>
+
+      <div class="faq-item">
+        <h3><span class="q">Q</span>为什么有的字没有「字族」或「多音字」？</h3>
+        <p>字族需要有同部件或同部首的字；独体字、或者这个部首在 688 字里只出现一次，就没有可归类的兄弟字。多音字只收教材标注的 8 个和音频齐全的 30 个常见字，缺音频的不会放进来，避免点了没声音。</p>
+      </div>
+
+      <div class="faq-item">
+        <h3><span class="q">Q</span>字的读音和课本不一样</h3>
+        <p>以课本为准。拼音和解释是人工整理的，可能有出入；如果发现明显错误，记下是哪个字、哪一课，反馈给维护者修正。</p>
+      </div>
+
+      <div class="faq-item">
+        <h3><span class="q">Q</span>「艾宾浩斯认字」和「今天的任务」有什么区别？</h3>
+        <p>「今天的任务」按课本顺序学新字，用的是普通间隔复习；「认字」先让孩子自己过一遍幼儿识字 1300（也可以只过课内 688 / 上册 / 下册），只复习孩子自评过的字，并按 1/2/4/7/15/30/60 天安排。两套记录分开，互不覆盖。时间紧时先做当天到期的认字复习，再学新字。</p>
+
+        <h3><span class="q">Q</span>孩子答错很多，要不要当天重学？</h3>
+        <p>不用。答错会让这个字降一级，按新的等级安排复习，越不熟出现得越早；家长页也会把它列进「易错字」。当天反复罚做容易让孩子反感，第二天开始前点开读一遍更有效。</p>
+      </div>
+
+      <div class="faq-item">
+        <h3><span class="q">Q</span>能不能学写字、笔顺？</h3>
+        <p>这个应用只做认读：见字能读、听音能选、在词句里能认。不做描红、笔顺和书写评分，避免和学校教学冲突。</p>
+      </div>
+
+      <div class="faq-item">
+        <h3><span class="q">Q</span>能在 iPad 或手机上用吗？</h3>
+        <p>目前主要给这台 Mac 的浏览器使用，服务只在本机开放，同一 Wi-Fi 下的其他设备默认访问不到。手机端样式已经适配，但需要额外配置才能访问，暂不推荐作为日常用法。</p>
+      </div>
+
+      <div class="faq-item">
+        <h3><span class="q">Q</span>清空进度后还能恢复吗？</h3>
+        <p>不能撤销。如果之前备份过 <code>hanzi-stats-日期-时间.db</code>，可以按「换电脑」的方法恢复；没有备份就恢复不了。</p>
+      </div>
+
+      <div class="faq-item">
+        <h3><span class="q">Q</span>需要联网吗？会上传孩子的数据吗？</h3>
+        <p>只有第一次安装依赖需要联网，之后完全离线。应用不登录、不上传，所有记录都在这台电脑的 <code>data/</code> 文件夹里。</p>
+      </div>
+
+      <div class="faq-item">
+        <h3><span class="q">Q</span>应用关不掉，或者提示端口被占用</h3>
+        <p>双击 <code>stop.command</code>，它只会停止本项目。如果还不行，重启电脑最省事。不要同时双击两次 <code>start.command</code>，第二次只会打开已经运行的页面。</p>
+      </div>
+    </section>
+
+    <!-- 15 文件 -->
+    <section id="files">
+      <h2><span class="num">15</span>文件都在哪</h2>
+      <p class="section-sub">家长一般不需要改这些文件，备份用家长页的按钮就行。</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>文件 / 文件夹</th><th>是什么</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>start.command</code></td><td>双击启动</td></tr>
+            <tr><td><code>stop.command</code></td><td>双击停止</td></tr>
+            <tr><td><code>data/content.db</code></td><td>字库：课内 688 字 + 拓展 636 字、课文、短文</td></tr>
+            <tr><td><code>data/stats.db</code></td><td>学习记录：普通进度、答题、艾宾浩斯认字、设置</td></tr>
+            <tr><td><code>data/literacy_1300.csv</code></td><td>幼儿识字 1300 的字表、拼音、释义和组词</td></tr>
+            <tr><td><code>data/readings.csv</code></td><td>30 篇短文和儿歌</td></tr>
+            <tr><td><code>data/families.csv</code></td><td>23 组精选字族</td></tr>
+            <tr><td><code>data/polyphonic.csv</code></td><td>30 个常见多音字补充</td></tr>
+            <tr><td><code>web/assets/audio/</code></td><td>单字和拼音的离线读音</td></tr>
+            <tr><td><code>logs/server.log</code></td><td>启动日志；出问题时可以给维护者看</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>这本手册也可以直接打开 <code>http://127.0.0.1:8765/manual.html</code>，或者在家长看板点「打开家长使用手册」。</p>
+    </section>
+
+  </main>
+
+  <footer>
+    汉字小岛 · 家长使用手册 · 2026-11-13<br />
+    本机运行，数据不上传网络 · 只做认读，不做写字
+  </footer>
+
+</div>
+</body>
+</html>

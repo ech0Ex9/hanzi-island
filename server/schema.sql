@@ -1,0 +1,4 @@
+-- 已拆分（2026-11-13）：
+--   内容库 schema：server/content_schema.sql  → data/content.db
+--   统计库 schema：server/stats_schema.sql    → data/stats.db
+-- 本文件仅保留作历史参考，应用不再读取。
