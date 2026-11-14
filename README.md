@@ -29,7 +29,32 @@ stop.command
 
 只停止本项目记录的那个进程，不会误杀别的 Python 程序。第一次双击如果 macOS 提示“无法打开”，右键 `start.command` → 打开。
 
-第一次运行需要 Python 3，并且会检查 FastAPI/uvicorn。系统 Python 没装依赖时，脚本会自动创建 `.venv` 并安装（这一步需要联网）；装好后完全离线可用。
+第一次运行需要 Python 3.9 或更新版本，并且会检查 FastAPI/uvicorn。系统 Python 没装依赖时，脚本会自动创建 `.venv` 并安装（这一步需要联网）；装好后完全离线可用。
+
+## 分享给朋友
+
+仓库地址：<https://github.com/ech0Ex9/hanzi-island>
+
+朋友第一次安装（macOS）：
+
+1. 打开仓库页面，点 **Code → Download ZIP**，解压到「下载」或桌面。
+2. 确认有 Python 3.9 或更新版本：打开「终端」，输入 `python3 --version`。
+   - 没有的话，到 <https://www.python.org/downloads/macos/> 下载安装包；
+   - 或者在终端运行 `xcode-select --install` 安装命令行工具。
+3. 双击 `start.command`。第一次打开如果 macOS 提示「无法验证开发者」，右键 `start.command` → **打开**。
+4. 第一次运行会自动创建 `.venv` 并联网安装依赖，看到浏览器打开 `http://127.0.0.1:8765` 就好了。之后断网也能用。
+
+朋友的进度和你的完全分开：`data/stats.db` 不在仓库里，第一次运行会自动新建一份空的学习记录。
+
+**Windows**：目前一键脚本只做了 macOS。Windows 需要先安装 Python 3.9+，然后在项目目录打开 PowerShell，依次运行：
+
+```powershell
+py -3 -m venv .venv
+.venv\Scripts\pip install -r requirements.txt
+.venv\Scripts\python app.py --port 8765
+```
+
+再打开浏览器访问 `http://127.0.0.1:8765`。关闭时在 PowerShell 里按 `Ctrl+C`。
 
 ## 现在能做什么
 

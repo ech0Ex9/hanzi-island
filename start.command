@@ -46,14 +46,24 @@ fi
 
 # 2. 找 Python 和依赖
 PYTHON=""
-if python3 -c "import fastapi, uvicorn" >/dev/null 2>&1; then
+PY_VERSION_CHECK='import sys; raise SystemExit(0 if sys.version_info >= (3, 9) else 1)'
+
+if command -v python3 >/dev/null 2>&1 \
+  && python3 -c "$PY_VERSION_CHECK" >/dev/null 2>&1 \
+  && python3 -c "import fastapi, uvicorn" >/dev/null 2>&1; then
   PYTHON="python3"
-elif [ -x "$ROOT/.venv/bin/python" ] && "$ROOT/.venv/bin/python" -c "import fastapi, uvicorn" >/dev/null 2>&1; then
+elif [ -x "$ROOT/.venv/bin/python" ] \
+  && "$ROOT/.venv/bin/python" -c "$PY_VERSION_CHECK" >/dev/null 2>&1 \
+  && "$ROOT/.venv/bin/python" -c "import fastapi, uvicorn" >/dev/null 2>&1; then
   PYTHON="$ROOT/.venv/bin/python"
 else
-  echo "没有找到 FastAPI/uvicorn，正在创建 .venv 并安装依赖…"
+  echo "没有找到可用的 FastAPI/uvicorn，正在创建 .venv 并安装依赖…"
   if ! command -v python3 >/dev/null 2>&1; then
-    fail_dialog "找不到 python3，请先安装 Python 3。"
+    fail_dialog "找不到 python3。请先安装 Python 3.9 或更新版本：https://www.python.org/downloads/macos/（也可以在终端运行 xcode-select --install）"
+    exit 1
+  fi
+  if ! python3 -c "$PY_VERSION_CHECK" >/dev/null 2>&1; then
+    fail_dialog "Python 3 版本太旧，需要 3.9 或更新版本。请到 https://www.python.org/downloads/macos/ 安装新版 Python 3。"
     exit 1
   fi
   python3 -m venv "$ROOT/.venv" || {
