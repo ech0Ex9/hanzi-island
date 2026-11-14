@@ -6,6 +6,7 @@ let enabled = true;
 let voices = [];
 let audioContext = null;
 let currentAudio = null;
+let sequenceToken = 0;
 const audioCache = new Map();
 
 const PINYIN_AUDIO_BASE = "/assets/audio/pinyin";
@@ -57,8 +58,53 @@ export function isEnabled() {
 }
 
 export function stop() {
+  sequenceToken += 1;
   stopSpeech();
   stopCurrentAudio();
+}
+
+/**
+ * 按顺序播放一组拼音音节 mp3（例如「鹅，鹅，鹅」= e2 e2 e2）。
+ * @param {string[]} keys 音频 key
+ * @param {{gap?: number}} [options] gap 是每段之间的停顿毫秒数
+ */
+export function speakKeys(keys, options = {}) {
+  if (!enabled || !keys || !keys.length) return;
+  stop();
+  const token = sequenceToken;
+  const gap = options.gap ?? 320;
+  let index = 0;
+
+  const playNext = () => {
+    if (token !== sequenceToken || index >= keys.length) return;
+    const url = `${PINYIN_AUDIO_BASE}/${encodeURIComponent(keys[index++])}.mp3`;
+    let el = audioCache.get(url);
+    if (!el) {
+      el = new Audio(url);
+      el.preload = "auto";
+      audioCache.set(url, el);
+    }
+    currentAudio = el;
+    el.onended = () => {
+      if (token !== sequenceToken || index >= keys.length) return;
+      setTimeout(() => {
+        if (token === sequenceToken) playNext();
+      }, gap);
+    };
+    try {
+      el.currentTime = 0;
+    } catch (_) {
+      /* metadata not ready yet */
+    }
+    const promise = el.play();
+    if (promise && typeof promise.catch === "function") {
+      promise.catch(() => {
+        if (token === sequenceToken) setTimeout(playNext, gap);
+      });
+    }
+  };
+
+  playNext();
 }
 
 export function speak(text, options = {}) {

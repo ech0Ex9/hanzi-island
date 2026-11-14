@@ -122,7 +122,7 @@ id, poem_id, ts, local_date, mode, completed
 ```
 
 - 同一首诗可以重复读，每读一次写一条；`completed = 1` 表示读完。
-- 诗的内容在 `data/poems.csv`（10 首试点），不建内容表；`poem_reads` 只存学习记录。
+- 诗的内容在 `data/poems.csv`（10 首试点），不建内容表；`poem_reads` 只存学习记录。CSV 的 `speech` 列是给系统语音的朗读文本，用同音字修正多音字（如「为」→「位」），显示和拼音仍用 `lines`。`line_audio` 列按句指定朗读方式：`tts`（默认，系统语音）或 `mp3:e2 e2 e2`（按顺序播放拼音音节音频）。
 - 读完第一首 / 10 首会解锁「第一首诗 / 诗岛小旅行」。
 - 清空进度时 `poem_reads` 一起清空。
 

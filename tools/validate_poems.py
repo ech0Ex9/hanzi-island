@@ -40,6 +40,12 @@ def main() -> int:
             if not (row.get(field) or "").strip():
                 errors.append(f"{poem_id}：缺少 {field}")
         lines = [part.strip() for part in (row.get("lines") or "").split("|") if part.strip()]
+        speech_lines = [
+            part.strip() for part in (row.get("speech") or "").split("|") if part.strip()
+        ] or list(lines)
+        line_audio = [
+            part.strip() for part in (row.get("line_audio") or "").split("|") if part.strip()
+        ] or ["tts"] * len(lines)
         pinyin_lines = [
             part.split() for part in (row.get("pinyin") or "").split("|") if part.strip()
         ]
@@ -52,6 +58,26 @@ def main() -> int:
         if len(lines) != len(pinyin_lines):
             errors.append(f"{poem_id}：诗句 {len(lines)} 行，拼音 {len(pinyin_lines)} 行")
             continue
+        if len(speech_lines) != len(lines):
+            errors.append(f"{poem_id}：诗句 {len(lines)} 行，朗读文本 {len(speech_lines)} 行")
+            continue
+        if len(line_audio) != len(lines):
+            errors.append(f"{poem_id}：诗句 {len(lines)} 行，朗读方式 {len(line_audio)} 行")
+            continue
+        for index, spec in enumerate(line_audio, 1):
+            if spec == "tts":
+                continue
+            if not spec.startswith("mp3:") or not spec[4:].split():
+                errors.append(f"{poem_id} 第 {index} 句：无法识别的朗读方式 {spec!r}")
+                continue
+            for key in spec[4:].split():
+                if not (AUDIO / f"{key}.mp3").exists():
+                    missing_audio.add(f"line_audio/{key}")
+        for index, (line, speech_line) in enumerate(zip(lines, speech_lines), 1):
+            if len([c for c in line if c not in PUNCT]) != len(
+                [c for c in speech_line if c not in PUNCT]
+            ):
+                errors.append(f"{poem_id} 第 {index} 句：朗读文本和诗句字数不一致")
         if audio_key_lines and len(audio_key_lines) != len(lines):
             errors.append(f"{poem_id}：诗句 {len(lines)} 行，音频 key {len(audio_key_lines)} 行")
             continue

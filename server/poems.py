@@ -1,10 +1,12 @@
 """诗岛：一年级适读古诗。
 
 数据源：data/poems.csv
-列：id,title,author,dynasty,genre,theme,difficulty,lines,pinyin,
-    translation,notes,sort_order
+列：id,title,author,dynasty,genre,theme,difficulty,lines,speech,line_audio,
+    pinyin,audio_keys,translation,notes,sort_order
 
-lines / pinyin 用 | 分行；pinyin 每行按空格分音节，和去掉标点后的汉字一一对应。
+lines / speech / line_audio / pinyin 用 | 分行；pinyin 每行按空格分音节，
+和去掉标点后的汉字一一对应。line_audio 每行是 `tts`（默认，系统语音）或
+`mp3:e2 e2 e2`（按顺序播放拼音音节音频）。
 """
 
 from __future__ import annotations
@@ -34,12 +36,30 @@ def _load_poems() -> list[dict[str, Any]]:
             if not poem_id:
                 continue
             lines = _split_lines(row.get("lines") or "")
+            speech_lines = _split_lines(row.get("speech") or "") or list(lines)
+            line_audio = _split_lines(row.get("line_audio") or "") or [
+                "tts"
+            ] * len(lines)
             pinyin_lines = [part.split() for part in _split_lines(row.get("pinyin") or "")]
             audio_key_lines = [
                 part.split() for part in _split_lines(row.get("audio_keys") or "")
             ]
             if len(lines) != len(pinyin_lines):
                 raise ValueError(f"{poem_id}：诗句和拼音行数不一致")
+            if len(speech_lines) != len(lines):
+                raise ValueError(f"{poem_id}：诗句和朗读文本行数不一致")
+            if len(line_audio) != len(lines):
+                raise ValueError(f"{poem_id}：诗句和朗读方式行数不一致")
+            for spec in line_audio:
+                if spec == "tts":
+                    continue
+                if not spec.startswith("mp3:") or not spec[4:].split():
+                    raise ValueError(f"{poem_id}：无法识别的朗读方式 {spec!r}")
+            for line, speech_line in zip(lines, speech_lines):
+                if len([c for c in line if c not in PUNCT]) != len(
+                    [c for c in speech_line if c not in PUNCT]
+                ):
+                    raise ValueError(f"{poem_id}：朗读文本和诗句字数不一致")
             if audio_key_lines and len(audio_key_lines) != len(lines):
                 raise ValueError(f"{poem_id}：诗句和音频 key 行数不一致")
             for line, syllables in zip(lines, pinyin_lines):
@@ -62,6 +82,8 @@ def _load_poems() -> list[dict[str, Any]]:
                     "themes": _split_lines(row.get("theme") or ""),
                     "difficulty": int(row.get("difficulty") or 1),
                     "lines": lines,
+                    "speech_lines": speech_lines,
+                    "line_audio": line_audio,
                     "pinyin_lines": pinyin_lines,
                     "audio_key_lines": audio_key_lines,
                     "translation": (row.get("translation") or "").strip(),

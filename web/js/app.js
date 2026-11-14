@@ -1628,10 +1628,22 @@ function speakLine(line) {
   next();
 }
 
-function speakPoemLine(line) {
+function speakPoemLine(poemId, lineIndex) {
+  const poem = (state.boot?.poems || []).find((item) => item.id === poemId);
+  if (!poem) return;
+  const line = poem.speech_lines?.[lineIndex] || poem.lines?.[lineIndex] || "";
   stopAudioChain();
   stopLineSpeech();
   audio.stop();
+  // line_audio 为 mp3:... 时按顺序播放拼音音频，否则走系统语音。
+  const audioSpec = poem.line_audio?.[lineIndex] || "tts";
+  if (audioSpec.startsWith("mp3:")) {
+    const keys = audioSpec.slice(4).split(/\s+/).filter(Boolean);
+    if (keys.length) {
+      audio.speakKeys(keys, { gap: 280 });
+      return;
+    }
+  }
   audio.speak(line, { rate: 0.72 });
 }
 
@@ -1641,7 +1653,7 @@ function speakPoem(poemId) {
   stopAudioChain();
   stopLineSpeech();
   audio.stop();
-  audio.speak((poem.lines || []).join(""), { rate: 0.7 });
+  audio.speak((poem.speech_lines || poem.lines || []).join(""), { rate: 0.7 });
 }
 
 function speakPoemChar(char, audioKey) {
@@ -1798,7 +1810,7 @@ function renderPoemList() {
   `;
 }
 
-function poemLineHtml(line, syllables, audioKeys, showPinyin) {
+function poemLineHtml(poemId, lineIndex, line, syllables, audioKeys, showPinyin) {
   let syllableIndex = 0;
   return `
     <div class="poem-line">
@@ -1822,7 +1834,7 @@ function poemLineHtml(line, syllables, audioKeys, showPinyin) {
           })
           .join("")}
       </div>
-      <button class="line-speak" data-action="speak-poem-line" data-line="${esc(line)}" title="读这一句" aria-label="读这一句">▶</button>
+      <button class="line-speak" data-action="speak-poem-line" data-poem="${esc(poemId)}" data-line-index="${lineIndex}" title="读这一句" aria-label="读这一句">▶</button>
     </div>
   `;
 }
@@ -1845,7 +1857,7 @@ function renderPoemDetail(poem) {
         </div>
       </div>
       <div class="poem-lines">
-        ${(poem.lines || []).map((line, index) => poemLineHtml(line, poem.pinyin_lines?.[index], poem.audio_key_lines?.[index], showPinyin)).join("")}
+        ${(poem.lines || []).map((line, index) => poemLineHtml(poem.id, index, line, poem.pinyin_lines?.[index], poem.audio_key_lines?.[index], showPinyin)).join("")}
       </div>
       <div class="poem-actions">
         <button class="primary-btn small" data-action="mark-poem-read" data-poem="${esc(poem.id)}">${readLabel}</button>
@@ -3228,7 +3240,7 @@ document.addEventListener("click", (event) => {
       speakPoem(actionEl.dataset.poem);
       break;
     case "speak-poem-line":
-      speakPoemLine(actionEl.dataset.line);
+      speakPoemLine(actionEl.dataset.poem, Number(actionEl.dataset.lineIndex));
       break;
     case "speak-poem-char":
       speakPoemChar(actionEl.dataset.char, actionEl.dataset.audio);
