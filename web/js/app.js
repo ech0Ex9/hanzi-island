@@ -1,4 +1,4 @@
-import { api } from "./api.js?v=4";
+import { api } from "./api.js?v=5";
 import * as audio from "./audio.js?v=3";
 import {
   esc,
@@ -33,6 +33,8 @@ const state = {
   readingId: null,
   recognitionRun: null,
   recognitionSubmitting: false,
+  recognitionCursor: null,
+  recognitionCursorLoading: false,
   recognitionPrint: null,
   recognitionPrintLoading: false,
   recognitionPrintError: null,
@@ -58,6 +60,8 @@ const state = {
 const UI_KEY = "hanzi-ui";
 let recognitionEditToken = 0;
 let recognitionEditSearchTimer = null;
+// 防止鼠标双击把下一个字也标掉；键盘不受影响。
+let recognitionPointerLockedUntil = 0;
 
 function loadUi() {
   try {
@@ -246,6 +250,9 @@ function routeFromHash() {
 
 function navigate(route) {
   if (route === "parent") state.parent = null;
+  state.recognitionCursor = null;
+  state.recognitionCursorLoading = false;
+  recognitionPointerLockedUntil = 0;
   if (route === "recognition-print") {
     state.recognitionPrint = null;
     state.recognitionPrintError = null;
@@ -2026,17 +2033,27 @@ function renderRecognitionRun() {
     `;
   }
 
-  const index = next.index;
-  const total = next.total;
+  const review = state.recognitionCursor;
+  const shown = review || {
+    char: next.char,
+    index: next.index,
+    total: next.total,
+    reported: false,
+    self_report: null,
+  };
+  const index = shown.index;
+  const total = shown.total;
   const percent = total ? Math.round((index / total) * 100) : 0;
-  const submitting = state.recognitionSubmitting;
+  const submitting = state.recognitionSubmitting || state.recognitionCursorLoading;
+  const reviewKnown = review?.self_report === "known";
+  const reviewUnknown = review?.self_report === "unknown";
 
   return `
     <div class="session-top">
       <button class="close-btn" data-action="close-recognition-run" aria-label="结束过字">×</button>
       <div class="session-progress">
         <div class="meta">
-          <span>整体过一遍</span>
+          <span>${review ? "回看上一个字" : "整体过一遍"}</span>
           <span>第 ${index} / ${total} 个字</span>
         </div>
         <div class="track"><div class="fill" style="width:${percent}%"></div></div>
@@ -2045,16 +2062,29 @@ function renderRecognitionRun() {
     </div>
 
     <article class="recognition-stage-card">
-      <p class="recognition-question">这个字，你认识吗？</p>
-      <div class="recognition-glyph" aria-label="${esc(next.char)}">${esc(next.char)}</div>
-      <p class="recognition-hint">不显示拼音，凭第一眼判断。不确定就点「不认识」。</p>
+      <p class="recognition-question">${review ? "回看：这个字标对了吗？" : "这个字，你认识吗？"}</p>
+      <div class="recognition-glyph${review ? " reviewing" : ""}" aria-label="${esc(shown.char)}">${esc(shown.char)}</div>
+      <p class="recognition-hint">${
+        review
+          ? `原来标的是「${reviewKnown ? "认识" : "不认识"}」。↑ 往前 · ↓ 往后 · End 回到继续过字；左键＝认识，右键＝不认识。`
+          : "不显示拼音，凭第一眼判断。↑ 回看上一个字；左键＝认识，右键＝不认识。"
+      }</p>
       <div class="recognition-choice-row">
-        <button class="recognition-choice known" data-action="recognition-report" data-report="known" ${submitting ? "disabled" : ""}>
-          <b>认识</b><span>← 或 1</span>
+        <button class="recognition-choice known${reviewKnown ? " is-current" : ""}" data-action="recognition-report" data-report="known" aria-pressed="${reviewKnown}" ${submitting ? "disabled" : ""}>
+          <b>认识</b><span>${reviewKnown ? "当前标记 · ← 或 1" : "← 或 1 · 左键"}</span>
         </button>
-        <button class="recognition-choice unknown" data-action="recognition-report" data-report="unknown" ${submitting ? "disabled" : ""}>
-          <b>不认识</b><span>→ 或 2</span>
+        <button class="recognition-choice unknown${reviewUnknown ? " is-current" : ""}" data-action="recognition-report" data-report="unknown" aria-pressed="${reviewUnknown}" ${submitting ? "disabled" : ""}>
+          <b>不认识</b><span>${reviewUnknown ? "当前标记 · → 或 2" : "→ 或 2 · 右键"}</span>
         </button>
+      </div>
+      <div class="recognition-review-actions">
+        ${
+          review
+            ? `<button class="ghost-btn small" data-action="recognition-prev" ${index <= 1 ? "disabled" : ""}>↑ 往前看</button>
+               <button class="ghost-btn small" data-action="recognition-next">↓ 往后看</button>
+               <button class="ghost-btn small" data-action="recognition-latest">回到继续过字 · 第 ${next.index} 个</button>`
+            : `<button class="ghost-btn small" data-action="recognition-prev" ${next.index <= 1 ? "disabled" : ""}>↑ 回看上一个</button>`
+        }
       </div>
     </article>
   `;
@@ -2075,19 +2105,107 @@ async function openRecognitionRun(scope, restart = false) {
   }
 }
 
-async function reportRecognition(value) {
+function recognitionDisplayedItem() {
   const current = state.recognitionRun;
-  if (!current?.next || state.recognitionSubmitting) return;
+  if (!current) return null;
+  if (state.recognitionCursor) return state.recognitionCursor;
+  if (!current.next) return null;
+  return {
+    char: current.next.char,
+    index: current.next.index,
+    total: current.next.total,
+    reported: false,
+    self_report: null,
+  };
+}
+
+async function focusRecognitionAt(index) {
+  const current = state.recognitionRun;
+  if (
+    !current?.next ||
+    state.recognitionSubmitting ||
+    state.recognitionCursorLoading
+  ) {
+    return;
+  }
+  const frontier = current.next.index;
+  if (index >= frontier) {
+    if (state.recognitionCursor) {
+      state.recognitionCursor = null;
+      render();
+    }
+    return;
+  }
+  if (index < 1) {
+    toast("已经是最开始的一个字");
+    return;
+  }
+
+  state.recognitionCursorLoading = true;
+  render();
+  try {
+    const data = await api.recognitionRunItem(current.run.id, index);
+    if (state.route !== "recognition-run") return;
+    state.recognitionCursor = data.item;
+    if (state.boot && data.summary) state.boot.recognition = data.summary;
+  } catch (error) {
+    toast(`读取失败：${error.message}`);
+  } finally {
+    state.recognitionCursorLoading = false;
+    if (state.route === "recognition-run") render();
+  }
+}
+
+function stepRecognition(delta) {
+  const current = state.recognitionRun;
+  if (!current?.next) return;
+  if (!state.recognitionCursor) {
+    if (delta < 0) focusRecognitionAt(current.next.index - 1);
+    return;
+  }
+  focusRecognitionAt(state.recognitionCursor.index + delta);
+}
+
+function backToRecognitionLatest() {
+  if (!state.recognitionCursor) return;
+  state.recognitionCursor = null;
+  render();
+}
+
+async function reportRecognition(value, source = "key") {
+  const current = state.recognitionRun;
+  const target = recognitionDisplayedItem();
+  if (
+    !current ||
+    !target ||
+    state.recognitionSubmitting ||
+    state.recognitionCursorLoading
+  ) {
+    return;
+  }
+  if (source === "pointer" && Date.now() < recognitionPointerLockedUntil) return;
+  if (target.reported && target.self_report === value) {
+    toast(`这个字已经是「${value === "known" ? "认识" : "不认识"}」`);
+    return;
+  }
   state.recognitionSubmitting = true;
   render();
   try {
-    const data = await api.recognitionReport(current.run.id, current.next.char, value);
+    const data = await api.recognitionReport(current.run.id, target.char, value);
     state.recognitionRun = data;
     if (state.boot && data.summary) state.boot.recognition = data.summary;
+    if (target.reported) {
+      // 回看时改标：留在同一个字上，方便家长和孩子连续确认。
+      state.recognitionCursor = { ...target, self_report: value };
+      toast(`已改成「${value === "known" ? "认识" : "不认识"}」`);
+    } else {
+      state.recognitionCursor = null;
+    }
   } catch (error) {
     toast(`记录失败：${error.message}`);
   } finally {
     state.recognitionSubmitting = false;
+    recognitionPointerLockedUntil = Date.now() + 300;
     render();
   }
 }
@@ -2485,6 +2603,17 @@ document.addEventListener("click", (event) => {
     if (event.target.hasAttribute?.("data-modal-overlay")) {
       state.modal = null;
       render();
+      return;
+    }
+    // 过字页：左键点字卡空白处 = 认识。鼠标左键 / 右键都能作答。
+    if (
+      state.route === "recognition-run" &&
+      event.button === 0 &&
+      state.recognitionRun?.next &&
+      event.target.closest(".recognition-stage-card") &&
+      !event.target.closest("button, a, input, select, textarea")
+    ) {
+      reportRecognition("known", "pointer");
     }
     return;
   }
@@ -2539,7 +2668,19 @@ document.addEventListener("click", (event) => {
       break;
     }
     case "recognition-report":
-      reportRecognition(actionEl.dataset.report);
+      reportRecognition(
+        actionEl.dataset.report,
+        event.detail > 0 ? "pointer" : "key",
+      );
+      break;
+    case "recognition-prev":
+      stepRecognition(-1);
+      break;
+    case "recognition-next":
+      stepRecognition(1);
+      break;
+    case "recognition-latest":
+      backToRecognitionLatest();
       break;
     case "close-recognition-run":
       navigate("recognition");
@@ -2693,6 +2834,16 @@ document.addEventListener("click", (event) => {
   }
 });
 
+/* 过字页：右键点字卡空白处 = 不认识，并屏蔽浏览器右键菜单。 */
+document.addEventListener("contextmenu", (event) => {
+  if (state.route !== "recognition-run" || !state.recognitionRun?.next) return;
+  if (!event.target.closest(".recognition-stage-card")) return;
+  if (event.target.closest("button, a, input, select, textarea")) return;
+  event.preventDefault();
+  if (state.recognitionSubmitting || state.recognitionCursorLoading) return;
+  reportRecognition("unknown", "pointer");
+});
+
 /* ---------------- 键盘操作 ---------------- */
 
 /* 方向键移动选项焦点，回车确认/前进，Esc 关弹窗。输入框聚焦时不抢按键。 */
@@ -2727,7 +2878,7 @@ document.addEventListener("keydown", (event) => {
   }
 
   if (state.route === "recognition-run") {
-    if (state.recognitionSubmitting) return;
+    if (state.recognitionSubmitting || state.recognitionCursorLoading) return;
     if (event.key === "Escape") {
       event.preventDefault();
       navigate("recognition");
@@ -2737,6 +2888,15 @@ document.addEventListener("keydown", (event) => {
     } else if (event.key === "ArrowRight" || event.key === "2") {
       event.preventDefault();
       reportRecognition("unknown");
+    } else if (event.key === "ArrowUp") {
+      event.preventDefault();
+      stepRecognition(-1);
+    } else if (event.key === "ArrowDown") {
+      event.preventDefault();
+      stepRecognition(1);
+    } else if (event.key === "End") {
+      event.preventDefault();
+      backToRecognitionLatest();
     }
     return;
   }

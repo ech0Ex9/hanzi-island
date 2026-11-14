@@ -448,38 +448,51 @@ def report(
         raise ValueError("这个字不在本轮范围里")
 
     existing = conn.execute(
-        "SELECT self_report FROM recognition_items WHERE char = ? AND run_id = ?",
+        "SELECT self_report, attempts FROM recognition_items WHERE char = ? AND run_id = ?",
         (char, run_id),
     ).fetchone()
-
-    stage = 1 if report_value == "known" else 0
-    due_at = due_date_for_stage(stage)
     ts = now_iso()
-    conn.execute(
-        """
-        INSERT INTO recognition_items(
-          char, run_id, self_report, reported_at, stage, due_at,
-          attempts, correct, wrong, streak, first_quiz_at, first_quiz_correct,
-          last_result, last_seen_at, updated_at
-        ) VALUES (?, ?, ?, ?, ?, ?, 0, 0, 0, 0, NULL, NULL, NULL, NULL, ?)
-        ON CONFLICT(char) DO UPDATE SET
-          run_id = excluded.run_id,
-          self_report = excluded.self_report,
-          reported_at = excluded.reported_at,
-          stage = excluded.stage,
-          due_at = excluded.due_at,
-          attempts = 0,
-          correct = 0,
-          wrong = 0,
-          streak = 0,
-          first_quiz_at = NULL,
-          first_quiz_correct = NULL,
-          last_result = NULL,
-          last_seen_at = NULL,
-          updated_at = excluded.updated_at
-        """,
-        (char, run_id, report_value, ts, stage, due_at, ts),
-    )
+
+    # 回看时点到原来的标记：不重写排程，直接返回当前进度。
+    if existing is not None and existing["self_report"] == report_value:
+        data = _run_dict(conn, run)
+        data["next"] = _next_for_run(conn, run)
+        return {"run": data, "next": data["next"], "summary": summary(conn)}
+
+    if existing is not None and int(existing["attempts"]) > 0:
+        # 这个字已经进入每日复习：回看改标只改标签，保留答题历史和下次复习时间。
+        conn.execute(
+            "UPDATE recognition_items SET self_report = ?, updated_at = ? WHERE char = ?",
+            (report_value, ts, char),
+        )
+    else:
+        stage = 1 if report_value == "known" else 0
+        due_at = due_date_for_stage(stage)
+        conn.execute(
+            """
+            INSERT INTO recognition_items(
+              char, run_id, self_report, reported_at, stage, due_at,
+              attempts, correct, wrong, streak, first_quiz_at, first_quiz_correct,
+              last_result, last_seen_at, updated_at
+            ) VALUES (?, ?, ?, ?, ?, ?, 0, 0, 0, 0, NULL, NULL, NULL, NULL, ?)
+            ON CONFLICT(char) DO UPDATE SET
+              run_id = excluded.run_id,
+              self_report = excluded.self_report,
+              reported_at = excluded.reported_at,
+              stage = excluded.stage,
+              due_at = excluded.due_at,
+              attempts = 0,
+              correct = 0,
+              wrong = 0,
+              streak = 0,
+              first_quiz_at = NULL,
+              first_quiz_correct = NULL,
+              last_result = NULL,
+              last_seen_at = NULL,
+              updated_at = excluded.updated_at
+            """,
+            (char, run_id, report_value, ts, stage, due_at, ts),
+        )
 
     known_delta = 0
     unknown_delta = 0
@@ -890,3 +903,34 @@ def get_run(conn: sqlite3.Connection, run_id: str) -> dict[str, Any] | None:
     data = _run_dict(conn, row)
     data["next"] = _next_for_run(conn, row)
     return {"run": data, "next": data["next"], "summary": summary(conn)}
+
+
+def item_at(conn: sqlite3.Connection, run_id: str, index: int) -> dict[str, Any]:
+    """按本轮顺序取第 index 个字，供孩子回看和改自评。
+
+    index 从 1 开始，顺序和整体过字时完全一致；未标过的字也会返回，
+    但 reported=False，客户端据此判断是否还能继续往前回看。
+    """
+    row = conn.execute("SELECT * FROM recognition_runs WHERE id = ?", (run_id,)).fetchone()
+    if row is None:
+        raise KeyError("没有这一轮认字")
+    chars = _scope_chars(conn, row["scope"])
+    total = len(chars)
+    if index < 1 or index > total:
+        raise ValueError(f"序号必须在 1 到 {total} 之间")
+    char = chars[index - 1]["char"]
+    item = conn.execute(
+        "SELECT self_report FROM recognition_items WHERE char = ? AND run_id = ?",
+        (char, run_id),
+    ).fetchone()
+    return {
+        "run": _run_dict(conn, row),
+        "item": {
+            "char": char,
+            "index": index,
+            "total": total,
+            "reported": item is not None,
+            "self_report": item["self_report"] if item else None,
+        },
+        "summary": summary(conn),
+    }

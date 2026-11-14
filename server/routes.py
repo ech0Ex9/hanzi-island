@@ -366,6 +366,17 @@ def recognition_run(run_id: str) -> dict[str, Any]:
         return data
 
 
+@router.get("/recognition/runs/{run_id}/items/{index}")
+def recognition_run_item(run_id: str, index: int) -> dict[str, Any]:
+    with get_db() as conn:
+        try:
+            return recognition.item_at(conn, run_id, index)
+        except KeyError as error:
+            raise HTTPException(status_code=404, detail=str(error)) from error
+        except ValueError as error:
+            raise HTTPException(status_code=400, detail=str(error)) from error
+
+
 @router.post("/recognition/runs/{run_id}/reports")
 def recognition_report(run_id: str, body: RecognitionReportIn) -> dict[str, Any]:
     with get_db() as conn:

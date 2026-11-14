@@ -166,6 +166,7 @@ GET  /api/polyphonic
 GET  /api/recognition/summary
 POST /api/recognition/runs
 GET  /api/recognition/runs/{id}
+GET  /api/recognition/runs/{id}/items/{index}
 POST /api/recognition/runs/{id}/reports
 GET  /api/recognition/items
 PATCH /api/recognition/items/{char}

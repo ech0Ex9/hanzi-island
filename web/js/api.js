@@ -53,6 +53,10 @@ export const api = {
       char,
       report,
     }),
+  recognitionRunItem: (runId, index) =>
+    request(
+      `/api/recognition/runs/${encodeURIComponent(runId)}/items/${encodeURIComponent(index)}`,
+    ),
   recognitionPrint: () => request("/api/recognition/print"),
   recognitionItems: (query = "", limit = 60) =>
     request(
