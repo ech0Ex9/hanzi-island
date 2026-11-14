@@ -2066,8 +2066,8 @@ function renderRecognitionRun() {
       <div class="recognition-glyph${glyphClass}" aria-label="${esc(shown.char)}">${esc(shown.char)}</div>
       <p class="recognition-hint">${
         review
-          ? `原来标的是<span class="review-label ${reviewKnown ? "known" : "unknown"}">「${reviewKnown ? "认识" : "不认识"}」</span>。↑ 往前 · ↓ 往后 · End 回到继续过字；左键＝认识，右键＝不认识。`
-          : "不显示拼音，凭第一眼判断。↑ 回看上一个字；左键＝认识，右键＝不认识。"
+          ? `原来标的是<span class="review-label ${reviewKnown ? "known" : "unknown"}">「${reviewKnown ? "认识" : "不认识"}」</span>。↑ 往前 · ↓ 往后 · End 回到继续过字；页面空白处也可点：左键＝认识，右键＝不认识。`
+          : "不显示拼音，凭第一眼判断。↑ 回看上一个字；页面空白处也可点：左键＝认识，右键＝不认识。"
       }</p>
       <div class="recognition-choice-row">
         <button class="recognition-choice known${reviewKnown ? " is-current" : ""}" data-action="recognition-report" data-report="known" aria-pressed="${reviewKnown}" ${submitting ? "disabled" : ""}>
@@ -2594,15 +2594,24 @@ function setSound(value) {
   render();
 }
 
-/* 过字页右键：按钮按自己的「认识/不认识」；卡片空白处默认「不认识」。 */
-function recognitionRightClickValue(event) {
+/* 过字页：卡片和页面空白处都能作答；按钮和顶栏除外。 */
+function recognitionMouseTarget(event) {
   if (state.route !== "recognition-run" || !state.recognitionRun?.next) return null;
   const target = event.target;
   if (!target?.closest) return null;
-  if (!target.closest(".recognition-stage-card")) return null;
+  if (!target.closest("main")) return null;
+  if (target.closest(".topbar, .session-top, .modal-overlay")) return null;
+  if (target.closest("a, input, select, textarea")) return null;
+  return target;
+}
+
+/* 右键：按钮按自己的「认识/不认识」；页面空白处默认「不认识」。 */
+function recognitionRightClickValue(event) {
+  const target = recognitionMouseTarget(event);
+  if (!target) return null;
   const reportButton = target.closest("[data-action='recognition-report']");
   if (reportButton) return reportButton.dataset.report || null;
-  if (target.closest("button, a, input, select, textarea")) return null;
+  if (target.closest("button")) return null;
   return "unknown";
 }
 
@@ -2621,14 +2630,9 @@ document.addEventListener("click", (event) => {
       render();
       return;
     }
-    // 过字页：左键点字卡空白处 = 认识。鼠标左键 / 右键都能作答。
-    if (
-      state.route === "recognition-run" &&
-      event.button === 0 &&
-      state.recognitionRun?.next &&
-      event.target.closest(".recognition-stage-card") &&
-      !event.target.closest("button, a, input, select, textarea")
-    ) {
+    // 过字页：左键点字卡或页面空白处 = 认识。鼠标左键 / 右键都能作答。
+    const pointerTarget = recognitionMouseTarget(event);
+    if (pointerTarget && !pointerTarget.closest("button")) {
       reportRecognition("known", "pointer");
     }
     return;
