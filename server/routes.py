@@ -23,11 +23,12 @@ from .db import (
     today_str,
     update_settings,
 )
-from . import achievements, curriculum, recognition
+from . import achievements, curriculum, poems, recognition
 from .families import list_families
 from .models import (
     AchievementSeenIn,
     AttemptBatchIn,
+    PoemReadIn,
     RecognitionAttemptIn,
     RecognitionItemPatchIn,
     RecognitionReportIn,
@@ -68,6 +69,8 @@ def bootstrap() -> dict[str, Any]:
             "books": curriculum.list_books(conn),
             "lessons": list_lessons(conn),
             "readings": list_readings(),
+            "poems": poems.list_poems(conn),
+            "poem_summary": poems.summary(conn),
             "families": list_families(),
             "queue": queue,
             "recognition": recognition.summary(conn),
@@ -129,6 +132,32 @@ def lesson_detail(lesson_id: str) -> dict[str, Any]:
         if lesson is None:
             raise HTTPException(status_code=404, detail="没有这一课")
         return {"lesson": lesson}
+
+
+@router.get("/poems")
+def poem_list() -> dict[str, Any]:
+    with get_db() as conn:
+        return {"poems": poems.list_poems(conn), "summary": poems.summary(conn)}
+
+
+@router.get("/poems/{poem_id}")
+def poem_detail(poem_id: str) -> dict[str, Any]:
+    with get_db() as conn:
+        poem = poems.get_poem(conn, poem_id)
+        if poem is None:
+            raise HTTPException(status_code=404, detail="没有这首诗")
+        return {"poem": poem}
+
+
+@router.post("/poems/{poem_id}/read")
+def poem_read(poem_id: str, body: PoemReadIn) -> dict[str, Any]:
+    with get_db() as conn:
+        try:
+            data = poems.mark_read(conn, poem_id)
+        except KeyError as error:
+            raise HTTPException(status_code=404, detail=str(error)) from error
+        data["achievements"] = achievements.summary(conn)
+        return data
 
 
 @router.post("/sessions")

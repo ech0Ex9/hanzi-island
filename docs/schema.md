@@ -11,14 +11,14 @@
   - 备份：家长页「备份学习记录」，或直接复制 `data/stats.db`
 - 旧单库 `data/hanzi.legacy.db`：拆分前版本，首次创建 stats.db 时会复制统计表；之后保留作备份，不再使用
 - 模式：WAL、外键开启
-- 迁移：`schema_migrations` 表，每次结构变更加一条版本；当前统计库为 v5（成就 `badge_unlocks`、`sessions.completed`）
+- 迁移：`schema_migrations` 表，每次结构变更加一条版本；当前统计库为 v6（成就 `badge_unlocks`、`sessions.completed`、诗岛 `poem_reads`）
 
 统计库连接时会 `ATTACH` 内容库，并建立只读 `TEMP VIEW` 映射内容表，因此查询里仍可直接写 `characters`、`curriculum_items`。写内容表必须用 `connect_content()`。
 
 ## 二、表
 
 - `content.db`：`characters`、`books`、`units`、`lessons`、`curriculum_items`、`literacy_entries`
-- `stats.db`：`sessions`、`attempts`、`char_progress`、`settings`、`events`、`recognition_runs`、`recognition_items`、`recognition_attempts`、`badge_unlocks`
+- `stats.db`：`sessions`、`attempts`、`char_progress`、`settings`、`events`、`recognition_runs`、`recognition_items`、`recognition_attempts`、`badge_unlocks`、`poem_reads`
 
 ### characters
 
@@ -113,6 +113,19 @@ badge_id, unlocked_at, local_date, seen, meta_json
 - 旧库第一次启用成就时，已经达成的印章静默补录，避免一次弹出很多旧成就。
 - 清空进度时 `badge_unlocks` 一起清空。
 
+### poem_reads
+
+诗岛阅读流水：
+
+```
+id, poem_id, ts, local_date, mode, completed
+```
+
+- 同一首诗可以重复读，每读一次写一条；`completed = 1` 表示读完。
+- 诗的内容在 `data/poems.csv`（10 首试点），不建内容表；`poem_reads` 只存学习记录。
+- 读完第一首 / 10 首会解锁「第一首诗 / 诗岛小旅行」。
+- 清空进度时 `poem_reads` 一起清空。
+
 ### settings
 
 ```
@@ -171,6 +184,9 @@ GET  /api/today
 GET  /api/characters
 GET  /api/characters/{char}
 GET  /api/lessons
+GET  /api/poems
+GET  /api/poems/{id}
+POST /api/poems/{id}/read
 POST /api/sessions
 PATCH /api/sessions/{id}
 POST /api/attempts

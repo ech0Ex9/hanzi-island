@@ -353,6 +353,7 @@ def reset_progress(conn: sqlite3.Connection) -> None:
     conn.execute("DELETE FROM recognition_items")
     conn.execute("DELETE FROM recognition_runs")
     conn.execute("DELETE FROM badge_unlocks")
+    conn.execute("DELETE FROM poem_reads")
     conn.execute("INSERT INTO char_progress(char) SELECT char FROM characters")
     conn.commit()
 
@@ -379,6 +380,8 @@ def active_dates(conn: sqlite3.Connection) -> list[str]:
         UNION
         SELECT substr(reported_at, 1, 10) FROM recognition_items
           WHERE reported_at IS NOT NULL
+        UNION
+        SELECT local_date FROM poem_reads
         ORDER BY local_date DESC
         """
     ).fetchall()
@@ -398,6 +401,8 @@ def longest_streak(conn: sqlite3.Connection) -> int:
             UNION
             SELECT substr(reported_at, 1, 10) FROM recognition_items
               WHERE reported_at IS NOT NULL
+            UNION
+            SELECT local_date FROM poem_reads
             """
         )
     }:

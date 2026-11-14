@@ -33,6 +33,10 @@ class AchievementSeenIn(BaseModel):
     ids: List[str] = Field(default_factory=list, max_length=50)
 
 
+class PoemReadIn(BaseModel):
+    mode: Literal["read"] = "read"
+
+
 class RecognitionRunIn(BaseModel):
     scope: str = Field(default="all", min_length=1, max_length=40)
     restart: bool = False

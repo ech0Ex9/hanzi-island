@@ -146,6 +146,21 @@ CREATE TABLE IF NOT EXISTS badge_unlocks (
   meta_json   TEXT NOT NULL DEFAULT '{}'
 );
 
+-- 诗岛：读完一首诗记一条流水；同一首可以重复读。
+CREATE TABLE IF NOT EXISTS poem_reads (
+  id         INTEGER PRIMARY KEY AUTOINCREMENT,
+  poem_id    TEXT NOT NULL,
+  ts         TEXT NOT NULL,
+  local_date TEXT NOT NULL,
+  mode       TEXT NOT NULL DEFAULT 'read',
+  completed  INTEGER NOT NULL DEFAULT 1
+);
+
+CREATE INDEX IF NOT EXISTS idx_poem_reads_poem
+  ON poem_reads(poem_id, ts);
+CREATE INDEX IF NOT EXISTS idx_poem_reads_date
+  ON poem_reads(local_date);
+
 INSERT OR IGNORE INTO schema_migrations(version, applied_at)
 VALUES (3, datetime('now'));
 
@@ -154,3 +169,6 @@ VALUES (4, datetime('now'));
 
 INSERT OR IGNORE INTO schema_migrations(version, applied_at)
 VALUES (5, datetime('now'));
+
+INSERT OR IGNORE INTO schema_migrations(version, applied_at)
+VALUES (6, datetime('now'));

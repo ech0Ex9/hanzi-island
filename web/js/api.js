@@ -31,6 +31,9 @@ export const api = {
   today: () => request("/api/today"),
   characters: () => request("/api/characters"),
   character: (char) => request(`/api/characters/${encodeURIComponent(char)}`),
+  poems: () => request("/api/poems"),
+  poem: (id) => request(`/api/poems/${encodeURIComponent(id)}`),
+  poemRead: (id) => postJson(`/api/poems/${encodeURIComponent(id)}/read`, { mode: "read" }),
   lessons: () => request("/api/lessons"),
   startSession: () => postJson("/api/sessions", { app_version: "0.1.0" }),
   endSession: (id, completed = false) =>

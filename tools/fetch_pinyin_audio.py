@@ -29,6 +29,7 @@ CSV_PATHS = [
     ROOT / "data" / "characters.csv",
     ROOT / "data" / "literacy_1300.csv",
 ]
+POEM_CSV = ROOT / "data" / "poems.csv"
 OUT_DIR = ROOT / "web" / "assets" / "audio" / "pinyin"
 BASE_URL = "https://raw.githubusercontent.com/davinfifield/mp3-chinese-pinyin-sound/master/mp3"
 # 上游音频库确实没有这两个音节，对应字用系统 TTS，不算下载失败。
@@ -71,6 +72,15 @@ def main() -> int:
                 key = pinyin_to_audio_key(pinyin) if pinyin else ""
             if key and key not in keys:
                 keys.append(key)
+
+    if POEM_CSV.exists():
+        with POEM_CSV.open(encoding="utf-8", newline="") as f:
+            for row in csv.DictReader(f):
+                for line in (row.get("pinyin") or "").split("|"):
+                    for syllable in line.split():
+                        key = pinyin_to_audio_key(syllable)
+                        if key and key not in keys:
+                            keys.append(key)
 
     total = 0
     failures = []

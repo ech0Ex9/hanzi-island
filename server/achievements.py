@@ -13,7 +13,7 @@ from typing import Any, Iterable
 from .db import get_settings, now_iso, today_str
 from .srs import longest_streak
 
-CATEGORY_ORDER = ("起步", "坚持", "识字", "勇气", "探索")
+CATEGORY_ORDER = ("起步", "坚持", "识字", "勇气", "探索", "诗歌")
 
 # id, category, title, description, seal, value_key, target
 BADGES: tuple[tuple[str, str, str, str, str, str, int], ...] = (
@@ -152,6 +152,24 @@ BADGES: tuple[tuple[str, str, str, str, str, str, int], ...] = (
         "radicals",
         10,
     ),
+    (
+        "first_poem",
+        "诗歌",
+        "第一首诗",
+        "读完第一首诗",
+        "诗",
+        "poems_read",
+        1,
+    ),
+    (
+        "poems_10",
+        "诗歌",
+        "诗岛小旅行",
+        "读完 10 首诗",
+        "游",
+        "poems_read",
+        10,
+    ),
 )
 
 BADGE_IDS = {badge[0] for badge in BADGES}
@@ -223,6 +241,10 @@ def _values(conn: sqlite3.Connection) -> dict[str, int]:
               HAVING COUNT(*) >= 3
             )
             """,
+        ),
+        "poems_read": _scalar(
+            conn,
+            "SELECT COUNT(DISTINCT poem_id) FROM poem_reads WHERE completed = 1",
         ),
     }
 

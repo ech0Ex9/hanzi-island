@@ -31,6 +31,8 @@ const state = {
   starting: false,
   rest: null,
   readingId: null,
+  poemId: null,
+  poemSubmitting: false,
   recognitionRun: null,
   recognitionSubmitting: false,
   recognitionCursor: null,
@@ -53,6 +55,7 @@ const state = {
     cardUnitId: null,
     readBookId: "all",
     readPinyin: true,
+    readMode: "short",
     familyRadical: null,
   },
 };
@@ -81,6 +84,7 @@ function saveUi() {
         cardUnitId: state.ui.cardUnitId,
         readBookId: state.ui.readBookId,
         readPinyin: state.ui.readPinyin,
+        readMode: state.ui.readMode,
         familyRadical: state.ui.familyRadical,
       }),
     );
@@ -262,7 +266,10 @@ function navigate(route) {
     state.recognitionEditError = null;
     state.recognitionEditQuery = "";
   }
-  if (route !== "read") state.readingId = null;
+  if (route !== "read") {
+    state.readingId = null;
+    state.poemId = null;
+  }
   if (route === "achievements") {
     if (state.boot?.achievements) state.boot.achievements.unseen = [];
     api.achievementsSeen().catch(() => {});
@@ -499,7 +506,7 @@ function renderAchievements() {
     `;
   }
 
-  const categories = ["起步", "坚持", "识字", "勇气", "探索"];
+  const categories = ["起步", "坚持", "识字", "勇气", "探索", "诗歌"];
   return `
     ${sectionHead("成就墙", `${data.earned} / ${data.total} 枚印章`, { style: "margin-top:8px" })}
     <p class="achievement-lead">这些印章只奖励完成、坚持、勇气和探索，不排名、不扣分。</p>
@@ -1621,6 +1628,50 @@ function speakLine(line) {
   next();
 }
 
+function speakPoemLine(line) {
+  stopAudioChain();
+  stopLineSpeech();
+  audio.stop();
+  audio.speak(line, { rate: 0.72 });
+}
+
+function speakPoem(poemId) {
+  const poem = (state.boot?.poems || []).find((item) => item.id === poemId);
+  if (!poem) return;
+  stopAudioChain();
+  stopLineSpeech();
+  audio.stop();
+  audio.speak((poem.lines || []).join(""), { rate: 0.7 });
+}
+
+function speakPoemChar(char, audioKey) {
+  stopAudioChain();
+  stopLineSpeech();
+  audio.stop();
+  audio.speakChar(char, audioKey || undefined);
+}
+
+async function markPoemRead(poemId) {
+  if (state.poemSubmitting) return;
+  state.poemSubmitting = true;
+  try {
+    const data = await api.poemRead(poemId);
+    if (state.boot) {
+      const index = (state.boot.poems || []).findIndex((item) => item.id === poemId);
+      if (index >= 0) state.boot.poems[index] = data.poem;
+      state.boot.poem_summary = data.summary;
+      state.boot.achievements = data.achievements;
+    }
+    toast(`读完《${data.poem.title}》`);
+    showNewAchievements();
+    if (state.route === "read") render();
+  } catch (error) {
+    toast(`记录失败：${error.message}`);
+  } finally {
+    state.poemSubmitting = false;
+  }
+}
+
 function unitTitle(unitId) {
   for (const book of books()) {
     for (const unit of book.units || []) {
@@ -1695,6 +1746,131 @@ function renderReadingDetail(reading) {
   `;
 }
 
+function readModeTabs() {
+  const mode = state.ui.readMode === "poems" ? "poems" : "short";
+  const shortCount = (state.boot?.readings || []).length;
+  const poemSummary = state.boot?.poem_summary || { read: 0, total: 0 };
+  return `
+    <div class="read-mode-tabs" role="tablist" aria-label="读一读内容">
+      <button class="read-mode-tab ${mode === "short" ? "active" : ""}" role="tab" aria-selected="${mode === "short"}" data-action="select-read-mode" data-mode="short">
+        <b>短文</b><span>${shortCount} 篇</span>
+      </button>
+      <button class="read-mode-tab ${mode === "poems" ? "active" : ""}" role="tab" aria-selected="${mode === "poems"}" data-action="select-read-mode" data-mode="poems">
+        <b>古诗</b><span>${poemSummary.read || 0}/${poemSummary.total || 0} 首</span>
+      </button>
+    </div>
+  `;
+}
+
+function poemLevel(difficulty) {
+  const count = Math.max(1, Math.min(3, Number(difficulty || 1)));
+  return "★".repeat(count);
+}
+
+function poemCard(poem) {
+  return `
+    <button class="poem-card ${poem.read ? "read" : ""}" data-action="open-poem" data-poem="${esc(poem.id)}">
+      <span class="poem-card-top">
+        <span class="poem-themes">${(poem.themes || []).map((theme) => `<i>${esc(theme)}</i>`).join("")}</span>
+        <span class="poem-level">${poemLevel(poem.difficulty)}</span>
+      </span>
+      <b>${esc(poem.title)}</b>
+      <span class="poem-author">${esc(poem.dynasty)} · ${esc(poem.author)}</span>
+      <span class="poem-first-line">${esc((poem.lines || [])[0] || "")}</span>
+      <span class="poem-status">${poem.read ? `✓ 读过${poem.read_count > 1 ? ` ${poem.read_count} 次` : ""}` : "还没读"}</span>
+    </button>
+  `;
+}
+
+function renderPoemList() {
+  const poems = state.boot?.poems || [];
+  const summary = state.boot?.poem_summary || { read: 0, total: poems.length };
+  return `
+    ${readModeTabs()}
+    ${sectionHead("诗岛", `${summary.read} / ${summary.total} 首`, { style: "margin-top:8px" })}
+    <p class="poem-lead">先读一读，不用背。点字听读音，点每一句后面的 ▶ 听整句。</p>
+    ${
+      poems.length
+        ? `<div class="poem-grid">${poems.map(poemCard).join("")}</div>
+           ${summary.read >= summary.total ? `<div class="poem-complete">10 首古诗都读过了，小岛又多了一片诗岛。</div>` : ""}`
+        : `<div class="empty"><p>诗岛还在准备中。</p></div>`
+    }
+  `;
+}
+
+function poemLineHtml(line, syllables, audioKeys, showPinyin) {
+  let syllableIndex = 0;
+  return `
+    <div class="poem-line">
+      <div class="read-chars">
+        ${[...line]
+          .map((char) => {
+            if (READ_PUNCT.has(char)) {
+              return `<span class="read-punct">${esc(char)}</span>`;
+            }
+            const pinyin = syllables?.[syllableIndex] || "";
+            const item = findChar(char);
+            const audioKey = audioKeys?.[syllableIndex] || item?.audio_key || "";
+            syllableIndex += 1;
+            const known = Boolean(item?.progress?.first_seen_at);
+            return `
+              <button class="read-char poem-char ${known ? "known" : "unknown"}" data-action="speak-poem-char" data-char="${esc(char)}" data-audio="${esc(audioKey)}">
+                <span class="read-pinyin ${showPinyin ? "" : "hidden"}">${esc(pinyin || " ")}</span>
+                <span class="read-glyph">${esc(char)}</span>
+              </button>
+            `;
+          })
+          .join("")}
+      </div>
+      <button class="line-speak" data-action="speak-poem-line" data-line="${esc(line)}" title="读这一句" aria-label="读这一句">▶</button>
+    </div>
+  `;
+}
+
+function renderPoemDetail(poem) {
+  const showPinyin = state.ui.readPinyin !== false;
+  const readLabel = poem.read ? "再读一遍" : "读完了";
+  return `
+    <div class="reading-top">
+      <button class="ghost-btn small" data-action="back-poems">← 诗岛</button>
+      <button class="ghost-btn small" data-action="toggle-read-pinyin">${showPinyin ? "隐藏拼音" : "显示拼音"}</button>
+    </div>
+    <article class="reading-card poem-detail">
+      <div class="poem-detail-head">
+        <h2>${esc(poem.title)}</h2>
+        <p class="poem-meta">${esc(poem.dynasty)} · ${esc(poem.author)}${poem.genre ? ` · ${esc(poem.genre)}` : ""}</p>
+        <div class="poem-tags">
+          ${(poem.themes || []).map((theme) => `<span>${esc(theme)}</span>`).join("")}
+          <span class="poem-level">${poemLevel(poem.difficulty)}</span>
+        </div>
+      </div>
+      <div class="poem-lines">
+        ${(poem.lines || []).map((line, index) => poemLineHtml(line, poem.pinyin_lines?.[index], poem.audio_key_lines?.[index], showPinyin)).join("")}
+      </div>
+      <div class="poem-actions">
+        <button class="primary-btn small" data-action="mark-poem-read" data-poem="${esc(poem.id)}">${readLabel}</button>
+        <button class="ghost-btn small" data-action="speak-poem" data-poem="${esc(poem.id)}">读整首</button>
+      </div>
+      ${infoBlock("这首诗在说什么", `<div class="info-text">${esc(poem.translation)}</div>`)}
+      ${
+        (poem.notes || []).length
+          ? infoBlock(
+              "小知识",
+              `<ul class="poem-notes">${poem.notes.map((note) => `<li>${esc(note)}</li>`).join("")}</ul>`,
+            )
+          : ""
+      }
+      <p class="poem-read-note">
+        ${
+          poem.read
+            ? `已经读过 ${poem.read_count} 次${poem.last_read ? `，上次是 ${esc(poem.last_read.slice(0, 10))}` : ""}。`
+            : "读完后点「读完了」，会记在小岛成就里。"
+        }
+      </p>
+    </article>
+  `;
+}
+
 function readBookFilter() {
   const readings = state.boot?.readings || [];
   const all = books();
@@ -1725,11 +1901,18 @@ function readBookFilter() {
 
 function renderRead() {
   const readings = state.boot?.readings || [];
+  if (state.poemId) {
+    const poem = (state.boot?.poems || []).find((item) => item.id === state.poemId);
+    if (poem) return renderPoemDetail(poem);
+    state.poemId = null;
+  }
   if (state.readingId) {
     const reading = readings.find((item) => item.id === state.readingId);
     if (reading) return renderReadingDetail(reading);
     state.readingId = null;
   }
+
+  if (state.ui.readMode === "poems") return renderPoemList();
 
   const selected = state.ui.readBookId || "all";
   const visible =
@@ -1739,6 +1922,7 @@ function renderRead() {
     .filter((group) => group.items.length);
 
   return `
+    ${readModeTabs()}
     ${sectionHead("读一读", `${visible.length} 篇`, { style: "margin-top:8px" })}
     <p style="margin:0 2px 16px;color:var(--ink-soft);font-size:14px">
       点句子听整句，点单个字听读音。灰色的字还没学过，也可以点。
@@ -3017,11 +3201,40 @@ document.addEventListener("click", (event) => {
       break;
     case "open-reading":
       state.readingId = actionEl.dataset.reading;
+      state.poemId = null;
       render();
       break;
     case "back-readings":
       state.readingId = null;
       render();
+      break;
+    case "select-read-mode":
+      state.ui.readMode = actionEl.dataset.mode === "poems" ? "poems" : "short";
+      state.readingId = null;
+      state.poemId = null;
+      saveUi();
+      render();
+      break;
+    case "open-poem":
+      state.poemId = actionEl.dataset.poem;
+      state.readingId = null;
+      render();
+      break;
+    case "back-poems":
+      state.poemId = null;
+      render();
+      break;
+    case "speak-poem":
+      speakPoem(actionEl.dataset.poem);
+      break;
+    case "speak-poem-line":
+      speakPoemLine(actionEl.dataset.line);
+      break;
+    case "speak-poem-char":
+      speakPoemChar(actionEl.dataset.char, actionEl.dataset.audio);
+      break;
+    case "mark-poem-read":
+      markPoemRead(actionEl.dataset.poem);
       break;
     case "speak-read-char": {
       const char = actionEl.dataset.char;
@@ -3288,6 +3501,7 @@ async function init() {
     if (!validBooks.has(state.ui.homeBookId)) state.ui.homeBookId = books()[0]?.id || "1a";
     if (!validBooks.has(state.ui.cardBookId)) state.ui.cardBookId = books()[0]?.id || "1a";
     if (!validBooks.has(state.ui.readBookId)) state.ui.readBookId = "all";
+    if (!["short", "poems"].includes(state.ui.readMode)) state.ui.readMode = "short";
     const units = cardUnits();
     if (state.ui.cardUnitId && !units.some((unit) => unit.id === state.ui.cardUnitId)) {
       state.ui.cardUnitId = null;

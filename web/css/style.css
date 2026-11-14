@@ -629,6 +629,161 @@ a { color: var(--red-dark); }
 .rpc-pinyin { color: var(--ink); font-size: 24px; line-height: 1.25; letter-spacing: 0.04em; }
 .rpc-words { margin-top: 8px; color: var(--ink); font-size: 22px; line-height: 1.35; }
 
+/* 读一读：短文 / 古诗切换 */
+.read-mode-tabs {
+  display: flex;
+  gap: 6px;
+  margin: 0 0 16px;
+  padding: 5px;
+  border-radius: 16px;
+  background: var(--paper-deep);
+}
+.read-mode-tab {
+  flex: 1;
+  min-height: 48px;
+  padding: 6px 16px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--ink-soft);
+}
+.read-mode-tab b { font-size: 14px; }
+.read-mode-tab span { color: var(--ink-faint); font-size: 11px; }
+.read-mode-tab.active {
+  background: var(--card);
+  color: var(--red-dark);
+  box-shadow: 0 2px 8px rgba(80, 60, 30, 0.08);
+}
+
+/* 诗岛 */
+.poem-lead {
+  margin: 0 2px 16px;
+  color: var(--ink-soft);
+  font-size: 14px;
+}
+.poem-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+}
+.poem-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  padding: 16px;
+  border: 1px solid var(--line-soft);
+  border-radius: 18px;
+  background: rgba(255, 253, 247, 0.82);
+  text-align: left;
+  box-shadow: 0 4px 14px rgba(80, 60, 30, 0.04);
+  transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.poem-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--gold);
+  box-shadow: var(--shadow);
+}
+.poem-card.read {
+  border-color: rgba(95, 127, 90, 0.35);
+  background: rgba(232, 239, 228, 0.6);
+}
+.poem-card-top {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.poem-themes { display: flex; flex-wrap: wrap; gap: 4px; }
+.poem-themes i {
+  padding: 2px 6px;
+  border-radius: 999px;
+  background: var(--gold-soft);
+  color: #7f5d20;
+  font-size: 10px;
+  font-style: normal;
+}
+.poem-level { color: var(--gold); font-size: 12px; letter-spacing: 1px; }
+.poem-card b { font-family: var(--kai); font-size: 20px; }
+.poem-author { color: var(--ink-soft); font-size: 12px; }
+.poem-first-line {
+  max-width: 100%;
+  overflow: hidden;
+  color: var(--ink-faint);
+  font-size: 13px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.poem-status { margin-top: 4px; color: var(--ink-faint); font-size: 11px; }
+.poem-card.read .poem-status { color: var(--green); font-weight: 700; }
+.poem-detail { padding: 28px 24px 24px; }
+.poem-detail-head { text-align: center; }
+.poem-detail-head h2 {
+  margin: 0;
+  font-family: var(--kai);
+  font-size: 30px;
+  letter-spacing: 0.08em;
+}
+.poem-meta { margin: 4px 0; color: var(--ink-soft); font-size: 13px; }
+.poem-tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+  margin: 8px 0 2px;
+}
+.poem-tags span {
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--gold-soft);
+  color: #7f5d20;
+  font-size: 11px;
+}
+.poem-tags .poem-level { background: transparent; color: var(--gold); }
+.poem-lines { margin: 14px 0 6px; }
+.poem-line {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 10px;
+  padding: 8px 0;
+  border-top: 1px dashed var(--line-soft);
+}
+.poem-line:first-child { border-top: none; }
+.poem-line .read-glyph { font-size: 38px; line-height: 1.35; }
+.poem-line .read-pinyin { font-size: 12px; }
+.poem-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin: 14px 0 6px;
+}
+.poem-notes {
+  margin: 0;
+  padding-left: 18px;
+  color: var(--ink-soft);
+  font-size: 13px;
+  line-height: 1.6;
+}
+.poem-read-note {
+  margin: 12px 0 0;
+  color: var(--ink-faint);
+  font-size: 12px;
+  text-align: center;
+}
+.poem-complete {
+  margin-top: 16px;
+  padding: 14px;
+  border-radius: 16px;
+  background: var(--green-soft);
+  color: var(--green);
+  font-size: 14px;
+  text-align: center;
+}
+
 /* 读一读按册筛选 */
 .read-filter {
   display: flex;
@@ -1839,6 +1994,11 @@ a { color: var(--red-dark); }
   .weak-row .wm span { font-size: 12px; }
   .weak-row { min-height: 56px; }
   .read-glyph { font-size: 28px; }
+  .poem-line .read-glyph { font-size: 32px; }
+  .poem-grid { grid-template-columns: 1fr; }
+  .poem-detail { padding: 18px; }
+  .poem-detail-head h2 { font-size: 26px; }
+  .read-mode-tab { min-height: 44px; }
   .action-row { flex-direction: column-reverse; }
   .action-row .primary-btn, .action-row .ghost-btn { width: 100%; }
   .bottom-nav { bottom: 8px; width: calc(100% - 16px); }

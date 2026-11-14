@@ -30,7 +30,7 @@ LITERACY_CSV_PATH = DATA_DIR / "literacy_1300.csv"
 CONTENT_SCHEMA_PATH = Path(__file__).resolve().parent / "content_schema.sql"
 STATS_SCHEMA_PATH = Path(__file__).resolve().parent / "stats_schema.sql"
 
-SCHEMA_VERSION = 5
+SCHEMA_VERSION = 6
 
 CONTENT_TABLES = (
     "characters",

@@ -69,10 +69,11 @@ py -3 -m venv .venv
 - **间隔复习**：Leitner 盒子 0–5，按 1/3/7/15/60 天安排；答错降一级。
 - **认字（艾宾浩斯）**：底部第 4 个 tab。先整体过一遍「幼儿识字 1300」（课内 664 + 拓展 636），也可以只过课内 688 / 上册 279 / 下册 413；孩子自评「认识 / 不认识」；之后按 1/2/4/7/15/30/60 天复习，用答题结果验证自评。自评「认识」但第一次答错会标成「高估」。和今日任务分开排队，每组最多复习 15 个字。过字时按 ↑ 可回看上一个字重新标记，↓ 往后、End 回到最新；回看时未标记黑色、认识绿色、不认识红色；鼠标左键点字卡或页面空白处＝认识，右键＝不认识。自评标错了可以在「改自评」页搜索汉字/拼音/组词后改回来；自评「不认识」的字可以一键生成 A4 打印清单，带拼音和组词。
 - **读一读**：底部「读」页，30 篇短文/儿歌覆盖 16 个单元（上册 17 篇、下册 13 篇）；顶部可按册筛选；点字听读音、点 ▶ 听整句、拼音可开关（灰色字表示还没学过）；多音字按句子语境标注读音（如「站得直」读 de、「数一数」读 shǔ）。
+- **诗岛（古诗 10 首试点）**：读一读里的「古诗」页，先上 10 首一年级适读古诗（咏鹅、江南、悯农、静夜思、春晓、池上、小池、画鸡、梅花、村居）；点字听读音、点句听整句、拼音开关、一句意思和小知识；读完点「读完了」，记录阅读次数，并解锁「第一首诗 / 诗岛小旅行」成就。
 - **护眼与无障碍**：连续学习 12 分钟弹出 20 秒远眺提醒；「减少动效」开关 + 系统 `prefers-reduced-motion`；正文对比度 ≥4.5:1；手机/平板按钮 ≥56px、适配安全区。
 - **课程导航**：首页按册（一上/一下/全部）→ 单元 → 课文展示闯关地图；全部 702 个位置都有内容。
 - **字卡册**：按册（含「全部」跨册）+ 单元筛选；顶部「按部首认字」可直接选部首看同部首字；点字听读音、看组词（组词词块可点击发音）和句子；可展开「精选字族」「多音字」面板，支持打印这一页。
-- **小岛成就**：15 枚成长印章，奖励完成、坚持、勇气和探索，不奖励正确率、不扣分、不排名。今日页有成就卡，结算页解锁新印章会弹出提示，家长页可以看完整成就墙并一键关闭孩子端展示。数据从真实学习记录推导，不做积分商城。
+- **小岛成就**：17 枚成长印章（15 枚学习 + 2 枚诗歌试点），奖励完成、坚持、勇气、探索和读诗，不奖励正确率、不扣分、不排名。今日页有成就卡，结算页解锁新印章会弹出提示，家长页可以看完整成就墙并一键关闭孩子端展示。数据从真实学习记录推导，不做积分商城。
 - **家长看板**：入口在今日页（不在底部导航，避免孩子误触）；学过多少、掌握多少、今日正确率、连续天数、易错字、艾宾浩斯自评 vs 实测、最近 7 天柱状图与学习建议、部首徽章、小岛成就、每日新字设置、「自动播放读音」开关、导出答题 CSV、备份 SQLite。
 
 ## 数据在哪
@@ -84,6 +85,7 @@ py -3 -m venv .venv
 - 字族：`data/families.csv`（23 组精选；同部首字族由前端按 688 字自动归类）
 - 多音字补充：`data/polyphonic.csv`（30 个常见字，`python3 tools/validate_polyphonic.py` 校验音频；审计见 `docs/polyphonic-audit.md`）
 - 艾宾浩斯认字：自评、阶段、到期日和认字答题记录都在 `data/stats.db`（`recognition_runs` / `recognition_items` / `recognition_attempts`）；`python3 tools/validate_recognition.py` 校验范围和排程
+- 诗岛：10 首古诗在 `data/poems.csv`，阅读记录在 `data/stats.db` 的 `poem_reads`；`python3 tools/validate_poems.py` 校验拼音分行和音频缺失
 - 幼儿识字 1300：`data/literacy_1300.csv`（1300 行：课内 664 + 补充 636）；顺序和成员写入 `content.db` 的 `literacy_entries`，补充字的拼音/部首/笔画/释义/组词也在 `characters` 里；`python3 tools/validate_literacy.py` 校验完整性
   - 来源：用户提供的 26 页 PDF 逐页 OCR + 人工校对；补充字拼音/部首/笔画取新华字典数据，释义参考《现代汉语词典》第 7 版，组词按常用词频筛选
   - 636 个补充字的释义是简编数据，多音字只取常用读音；建议家长对照孩子实际用字核对
@@ -191,7 +193,7 @@ hanzi-island/
 
 ```
 GET  /api/health
-GET  /api/bootstrap        设置 + 统计 + 书目 + 课文 + 短文 + 字族 + 今日队列 + 成就
+GET  /api/bootstrap        设置 + 统计 + 书目 + 课文 + 短文 + 古诗 + 字族 + 今日队列 + 成就
 GET  /api/today            今日队列（含 backlog / 课程来源 / reading_key）
 GET  /api/characters       全部字 + 进度
 GET  /api/characters/{字}
@@ -199,6 +201,9 @@ GET  /api/books            书目（册 → 单元 → 课文摘要）
 GET  /api/books/{book_id}  某一册
 GET  /api/lessons
 GET  /api/lessons/{lesson_id}  某一课的字和进度
+GET  /api/poems            诗岛列表 + 阅读进度
+GET  /api/poems/{id}       一首古诗
+POST /api/poems/{id}/read  记录读完一首诗
 POST /api/sessions         开始一次学习
 PATCH /api/sessions/{id}   结束（body `{completed}` 标记是否走到结算页）
 POST /api/attempts         提交答题（支持批量，可带 reading_key）
@@ -227,7 +232,7 @@ GET  /api/backup/content   下载字库备份
 
 ## 音频来源
 
-单字拼音音节使用开源仓库 [mp3-chinese-pinyin-sound](https://github.com/davinfifield/mp3-chinese-pinyin-sound)，许可证为 **Unlicense（public domain）**。音频在 `web/assets/audio/pinyin/`，文件名对应字表里的 `audio_key`（例如 `ri4.mp3`）。脚本会同时读取 `characters.csv` 和 `literacy_1300.csv`，没有 `audio_key` 时按拼音推导，扩字后运行：
+单字拼音音节使用开源仓库 [mp3-chinese-pinyin-sound](https://github.com/davinfifield/mp3-chinese-pinyin-sound)，许可证为 **Unlicense（public domain）**。音频在 `web/assets/audio/pinyin/`，文件名对应字表里的 `audio_key`（例如 `ri4.mp3`）。脚本会同时读取 `characters.csv`、`literacy_1300.csv` 和 `poems.csv`，没有 `audio_key` 时按拼音推导，扩字或加诗后运行：
 
 ```bash
 python3 tools/fetch_pinyin_audio.py
@@ -241,7 +246,7 @@ python3 tools/fetch_pinyin_audio.py
 
 - 项目代码和原创内容：**MIT**，见根目录 [`LICENSE`](LICENSE)。可以自由使用、修改、分发和商用。
 - 字体 `web/assets/fonts/lxgw-wenkai-subset.woff2`：霞鹜文楷，**SIL Open Font License 1.1**，见同目录 `OFL.txt`，不适用 MIT。
-- 拼音音频：497 个文件来自 [mp3-chinese-pinyin-sound](https://github.com/davinfifield/mp3-chinese-pinyin-sound)，为 **Unlicense（public domain）**；8 个轻声补录文件（me5、men5、zhe5、a5、ba5、la5、na5、ya5）来自百度汉语 CDN，仅建议个人/家用，不在 MIT 范围内。商业发行请自行替换这 8 个文件。
+- 拼音音频：约 790 个文件来自 [mp3-chinese-pinyin-sound](https://github.com/davinfifield/mp3-chinese-pinyin-sound)，为 **Unlicense（public domain）**；8 个轻声补录文件（me5、men5、zhe5、a5、ba5、la5、na5、ya5）来自百度汉语 CDN，仅建议个人/家用，不在 MIT 范围内。商业发行请自行替换这 8 个文件。
 
 ## 内容依据
 
