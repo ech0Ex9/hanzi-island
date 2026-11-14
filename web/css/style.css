@@ -431,6 +431,8 @@ a { color: var(--red-dark); }
   font-size: clamp(120px, 34vw, 200px);
   line-height: 1.05;
   letter-spacing: 0.04em;
+  color: var(--ink);
+  transition: color 0.18s ease;
 }
 .recognition-hint { margin: 0 0 24px; color: var(--ink-faint); font-size: 12px; }
 .recognition-choice-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
@@ -463,7 +465,10 @@ a { color: var(--red-dark); }
   border-color: rgba(201, 154, 61, 0.85);
   box-shadow: 0 0 0 3px var(--gold-soft);
 }
-.recognition-glyph.reviewing { color: #3f5f5b; }
+.recognition-glyph.is-known { color: #2f7a50; }
+.recognition-glyph.is-unknown { color: #b24a35; }
+.review-label.known { color: #2f7a50; font-weight: 700; }
+.review-label.unknown { color: #b24a35; font-weight: 700; }
 .recognition-review-actions {
   display: flex;
   flex-wrap: wrap;

@@ -2047,6 +2047,13 @@ function renderRecognitionRun() {
   const submitting = state.recognitionSubmitting || state.recognitionCursorLoading;
   const reviewKnown = review?.self_report === "known";
   const reviewUnknown = review?.self_report === "unknown";
+  const glyphClass = review
+    ? reviewKnown
+      ? " is-known"
+      : reviewUnknown
+        ? " is-unknown"
+        : ""
+    : "";
 
   return `
     <div class="session-top">
@@ -2063,10 +2070,10 @@ function renderRecognitionRun() {
 
     <article class="recognition-stage-card">
       <p class="recognition-question">${review ? "回看：这个字标对了吗？" : "这个字，你认识吗？"}</p>
-      <div class="recognition-glyph${review ? " reviewing" : ""}" aria-label="${esc(shown.char)}">${esc(shown.char)}</div>
+      <div class="recognition-glyph${glyphClass}" aria-label="${esc(shown.char)}">${esc(shown.char)}</div>
       <p class="recognition-hint">${
         review
-          ? `原来标的是「${reviewKnown ? "认识" : "不认识"}」。↑ 往前 · ↓ 往后 · End 回到继续过字；左键＝认识，右键＝不认识。`
+          ? `原来标的是<span class="review-label ${reviewKnown ? "known" : "unknown"}">「${reviewKnown ? "认识" : "不认识"}」</span>。↑ 往前 · ↓ 往后 · End 回到继续过字；左键＝认识，右键＝不认识。`
           : "不显示拼音，凭第一眼判断。↑ 回看上一个字；左键＝认识，右键＝不认识。"
       }</p>
       <div class="recognition-choice-row">
