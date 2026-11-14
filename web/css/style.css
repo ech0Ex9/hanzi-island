@@ -1652,6 +1652,168 @@ a { color: var(--red-dark); }
 }
 @keyframes pulse { 0%, 100% { opacity: 0.3; transform: scale(0.9); } 50% { opacity: 1; transform: scale(1.1); } }
 
+/* ---------------- 小岛成就 ---------------- */
+.achievement-home-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 14px;
+  margin-top: 14px;
+  padding: 16px 18px;
+  border: 1px solid var(--line-soft);
+  border-radius: 20px;
+  background: rgba(255, 253, 247, 0.82);
+  box-shadow: 0 4px 14px rgba(80, 60, 30, 0.04);
+}
+.achievement-home-copy h2 {
+  margin: 2px 0;
+  font-family: var(--kai);
+  font-size: 20px;
+  letter-spacing: 0.03em;
+}
+.achievement-home-copy p { margin: 0; color: var(--ink-soft); font-size: 13px; }
+.achievement-seal-row { display: flex; gap: 6px; }
+.achievement-seal {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  flex: none;
+  border: 1.5px solid var(--line);
+  background: var(--paper);
+  color: var(--ink-faint);
+  font-family: var(--kai);
+  font-size: 22px;
+  line-height: 1;
+}
+.achievement-seal.earned {
+  border-color: rgba(185, 85, 63, 0.5);
+  background: linear-gradient(180deg, #c9634c, #a34632);
+  color: #fff8f0;
+  box-shadow: 0 3px 0 rgba(120, 50, 35, 0.15);
+}
+.achievement-seal.locked { opacity: 0.5; }
+.achievement-seal.empty { border-style: dashed; }
+.achievement-seal.big {
+  width: 104px;
+  height: 104px;
+  margin: 0 auto 10px;
+  font-size: 52px;
+  box-shadow: 0 5px 0 rgba(120, 50, 35, 0.16);
+}
+.achievement-lead {
+  margin: 0 2px 16px;
+  color: var(--ink-soft);
+  font-size: 14px;
+}
+.achievement-category { margin: 0 0 18px; }
+.achievement-category h3 {
+  margin: 0 0 8px;
+  font-family: var(--kai);
+  font-size: 18px;
+  color: var(--ink-soft);
+}
+.achievement-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 10px;
+}
+.achievement-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 14px 10px 12px;
+  border: 1px solid var(--line-soft);
+  border-radius: 16px;
+  background: var(--card);
+  text-align: center;
+}
+.achievement-badge.locked { background: rgba(239, 230, 213, 0.55); }
+.achievement-badge b { font-size: 14px; }
+.achievement-badge p {
+  margin: 0;
+  color: var(--ink-faint);
+  font-size: 11px;
+  line-height: 1.45;
+}
+.achievement-date { color: var(--green); font-size: 11px; font-weight: 700; }
+.achievement-progress {
+  width: 100%;
+  height: 5px;
+  margin-top: 4px;
+  border-radius: 999px;
+  background: var(--paper-deep);
+  overflow: hidden;
+}
+.achievement-progress span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--gold);
+}
+.achievement-count {
+  color: var(--ink-faint);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+.achievement-next-list { display: flex; flex-wrap: wrap; gap: 8px; }
+.achievement-next-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 10px;
+  border-radius: 999px;
+  background: var(--paper-deep);
+  color: var(--ink-soft);
+  font-size: 12px;
+}
+.achievement-next-chip b {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--red-soft);
+  color: var(--red-dark);
+  font-family: var(--kai);
+  font-size: 14px;
+}
+.achievement-parent-summary { margin: 10px 0; color: var(--ink-soft); font-size: 14px; }
+.achievement-parent-summary b {
+  font-family: var(--kai);
+  font-size: 20px;
+  color: var(--red-dark);
+}
+.achievement-grid.compact { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); }
+.achievement-grid.compact .achievement-badge { padding: 10px 6px; }
+.achievement-grid.compact .achievement-badge p { display: none; }
+.achievement-modal {
+  width: min(360px, 100%);
+  padding: 28px 22px 22px;
+  border-radius: 24px;
+  background: var(--card);
+  box-shadow: var(--shadow-lg);
+  text-align: center;
+}
+.achievement-modal h2 {
+  margin: 6px 0 4px;
+  font-family: var(--kai);
+  font-size: 26px;
+}
+.achievement-modal p {
+  margin: 0 0 16px;
+  color: var(--ink-soft);
+  font-size: 14px;
+  line-height: 1.6;
+}
+.achievement-modal .achievement-more {
+  margin-top: -8px;
+  color: var(--ink-faint);
+  font-size: 12px;
+}
+
 /* ---------------- 响应式 ---------------- */
 @media (max-width: 560px) {
   .app { padding-left: 14px; padding-right: 14px; }
@@ -1691,6 +1853,10 @@ a { color: var(--red-dark); }
   .modal-overlay { padding: 10px; }
   .modal-card { padding: 18px; max-height: 94vh; border-radius: 22px; }
   .modal-card .char-stage { width: min(220px, 46vh); }
+  .achievement-home-card { grid-template-columns: 1fr auto; }
+  .achievement-home-card .ghost-btn { grid-column: 1 / -1; width: 100%; }
+  .achievement-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .achievement-seal { width: 36px; height: 36px; font-size: 19px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

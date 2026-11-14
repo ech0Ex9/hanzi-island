@@ -7,18 +7,18 @@
 - **内容库** `data/content.db`：`characters` / `books` / `units` / `lessons` / `curriculum_items` / `literacy_entries`
   - 来源：`data/characters.csv` + `data/curriculum/*.csv` + `data/literacy_1300.csv`，启动时幂等导入
   - 备份：家长页「备份字库」，或直接复制 `data/content.db`
-- **统计库** `data/stats.db`：`char_progress` / `sessions` / `attempts` / `settings` / `events`
+- **统计库** `data/stats.db`：`char_progress` / `sessions` / `attempts` / `settings` / `events` / `recognition_runs` / `recognition_items` / `recognition_attempts` / `badge_unlocks`
   - 备份：家长页「备份学习记录」，或直接复制 `data/stats.db`
 - 旧单库 `data/hanzi.legacy.db`：拆分前版本，首次创建 stats.db 时会复制统计表；之后保留作备份，不再使用
 - 模式：WAL、外键开启
-- 迁移：`schema_migrations` 表，每次结构变更加一条版本
+- 迁移：`schema_migrations` 表，每次结构变更加一条版本；当前统计库为 v5（成就 `badge_unlocks`、`sessions.completed`）
 
 统计库连接时会 `ATTACH` 内容库，并建立只读 `TEMP VIEW` 映射内容表，因此查询里仍可直接写 `characters`、`curriculum_items`。写内容表必须用 `connect_content()`。
 
 ## 二、表
 
 - `content.db`：`characters`、`books`、`units`、`lessons`、`curriculum_items`、`literacy_entries`
-- `stats.db`：`sessions`、`attempts`、`char_progress`、`settings`、`events`、`recognition_runs`、`recognition_items`、`recognition_attempts`
+- `stats.db`：`sessions`、`attempts`、`char_progress`、`settings`、`events`、`recognition_runs`、`recognition_items`、`recognition_attempts`、`badge_unlocks`
 
 ### characters
 
@@ -38,8 +38,10 @@ quiz_types_json, audio_key
 每次学习：
 
 ```
-id, started_at, ended_at, app_version
+id, started_at, ended_at, completed, app_version
 ```
+
+`completed = 1` 表示这一组学习走到了结算页；关闭中途退出时为 0。
 
 ### attempts
 
@@ -98,13 +100,26 @@ recognition_attempts:
 - `first_quiz_correct` 用来识别高估（自评认识但第一次答错）和低估（自评不认识但第一次答对）。
 - 清空进度时三张表一起清空，备份 `stats.db` 时自动包含。
 
+### badge_unlocks
+
+小岛成就的解锁流水：
+
+```
+badge_id, unlocked_at, local_date, seen, meta_json
+```
+
+- 只记录第一次解锁；进度从 `attempts` / `char_progress` / `recognition_items` / `recognition_attempts` 实时推导。
+- `seen` 用来避免重复弹窗；成就不删除、不扣回。
+- 旧库第一次启用成就时，已经达成的印章静默补录，避免一次弹出很多旧成就。
+- 清空进度时 `badge_unlocks` 一起清空。
+
 ### settings
 
 ```
 key, value_json, updated_at
 ```
 
-当前：`new_per_day`、`sound`、`auto_play_audio`、`reduce_motion`、`theme`、`pinyin_mode`。
+当前：`new_per_day`、`sound`、`auto_play_audio`、`reduce_motion`、`theme`、`pinyin_mode`、`achievements_enabled`。
 
 ### events（预留，M1 不写入）
 
@@ -162,6 +177,8 @@ POST /api/attempts
 GET  /api/progress
 GET  /api/stats/summary
 GET  /api/parent/weekly
+GET  /api/achievements
+POST /api/achievements/seen
 GET  /api/polyphonic
 GET  /api/recognition/summary
 POST /api/recognition/runs

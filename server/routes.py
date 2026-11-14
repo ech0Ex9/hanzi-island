@@ -23,14 +23,16 @@ from .db import (
     today_str,
     update_settings,
 )
-from . import curriculum, recognition
+from . import achievements, curriculum, recognition
 from .families import list_families
 from .models import (
+    AchievementSeenIn,
     AttemptBatchIn,
     RecognitionAttemptIn,
     RecognitionItemPatchIn,
     RecognitionReportIn,
     RecognitionRunIn,
+    SessionEndIn,
     SessionIn,
     SettingsIn,
 )
@@ -69,6 +71,7 @@ def bootstrap() -> dict[str, Any]:
             "families": list_families(),
             "queue": queue,
             "recognition": recognition.summary(conn),
+            "achievements": achievements.summary(conn),
         }
 
 
@@ -141,16 +144,16 @@ def start_session(body: SessionIn) -> dict[str, Any]:
 
 
 @router.patch("/sessions/{session_id}")
-def end_session(session_id: str) -> dict[str, Any]:
+def end_session(session_id: str, body: SessionEndIn) -> dict[str, Any]:
     with get_db() as conn:
         cur = conn.execute(
-            "UPDATE sessions SET ended_at = ? WHERE id = ?",
-            (now_iso(), session_id),
+            "UPDATE sessions SET ended_at = ?, completed = ? WHERE id = ?",
+            (now_iso(), 1 if body.completed else 0, session_id),
         )
         conn.commit()
         if cur.rowcount == 0:
             raise HTTPException(status_code=404, detail="没有这个学习记录")
-    return {"ok": True}
+        return {"ok": True, "achievements": achievements.summary(conn)}
 
 
 @router.post("/attempts")
@@ -243,7 +246,20 @@ def summary() -> dict[str, Any]:
             "weak": weak_characters(conn),
             "settings": get_settings(conn),
             "recognition": recognition.summary(conn),
+            "achievements": achievements.summary(conn),
         }
+
+
+@router.get("/achievements")
+def achievement_list() -> dict[str, Any]:
+    with get_db() as conn:
+        return achievements.summary(conn)
+
+
+@router.post("/achievements/seen")
+def achievement_seen(body: AchievementSeenIn) -> dict[str, Any]:
+    with get_db() as conn:
+        return achievements.mark_seen(conn, body.ids)
 
 
 @router.get("/polyphonic")

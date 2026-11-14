@@ -25,6 +25,14 @@ class SessionIn(BaseModel):
     app_version: Optional[str] = "0.1.0"
 
 
+class SessionEndIn(BaseModel):
+    completed: bool = False
+
+
+class AchievementSeenIn(BaseModel):
+    ids: List[str] = Field(default_factory=list, max_length=50)
+
+
 class RecognitionRunIn(BaseModel):
     scope: str = Field(default="all", min_length=1, max_length=40)
     restart: bool = False
@@ -52,3 +60,4 @@ class SettingsIn(BaseModel):
     reduce_motion: Optional[bool] = None
     theme: Optional[str] = Field(default=None, max_length=20)
     pinyin_mode: Optional[str] = Field(default=None, max_length=20)
+    achievements_enabled: Optional[bool] = None

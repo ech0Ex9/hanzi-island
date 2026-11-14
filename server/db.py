@@ -30,7 +30,7 @@ LITERACY_CSV_PATH = DATA_DIR / "literacy_1300.csv"
 CONTENT_SCHEMA_PATH = Path(__file__).resolve().parent / "content_schema.sql"
 STATS_SCHEMA_PATH = Path(__file__).resolve().parent / "stats_schema.sql"
 
-SCHEMA_VERSION = 4
+SCHEMA_VERSION = 5
 
 CONTENT_TABLES = (
     "characters",
@@ -48,7 +48,10 @@ DEFAULT_SETTINGS = {
     "reduce_motion": False,
     "theme": "paper",
     "pinyin_mode": "auto",
+    "achievements_enabled": True,
 }
+# 内部状态，不通过 /api/settings 暴露或修改。
+INTERNAL_SETTINGS = {"achievements_initialized"}
 
 
 def now_iso() -> str:
@@ -135,17 +138,36 @@ def _init_stats() -> None:
             _migrate_legacy_stats(conn)
         _ensure_settings(conn)
         _seed_progress(conn)
+        _init_achievements_flag(conn)
         conn.commit()
 
 
 def _apply_migrations(conn: sqlite3.Connection) -> None:
-    """轻量迁移：旧统计库的 attempts 表补 reading_key 列。"""
+    """轻量迁移：旧统计库补 reading_key / sessions.completed 列。"""
     columns = {
         row["name"]
         for row in conn.execute("PRAGMA table_info(attempts)").fetchall()
     }
     if columns and "reading_key" not in columns:
         conn.execute("ALTER TABLE attempts ADD COLUMN reading_key TEXT")
+
+    session_columns = {
+        row["name"]
+        for row in conn.execute("PRAGMA table_info(sessions)").fetchall()
+    }
+    if session_columns and "completed" not in session_columns:
+        conn.execute(
+            "ALTER TABLE sessions ADD COLUMN completed INTEGER NOT NULL DEFAULT 0"
+        )
+        # 旧库没有完成标记：把已经结束且有答题的会话视为完成，避免成就全部从零开始。
+        conn.execute(
+            """
+            UPDATE sessions SET completed = 1
+            WHERE ended_at IS NOT NULL
+              AND EXISTS (SELECT 1 FROM attempts a WHERE a.session_id = sessions.id)
+            """
+        )
+
     conn.execute(
         "INSERT OR IGNORE INTO schema_migrations(version, applied_at) VALUES (?, ?)",
         (SCHEMA_VERSION, now_iso()),
@@ -337,11 +359,36 @@ def _ensure_settings(conn: sqlite3.Connection) -> None:
             "INSERT OR IGNORE INTO settings(key, value_json, updated_at) VALUES (?, ?, ?)",
             (key, json.dumps(value, ensure_ascii=False), ts),
         )
+    conn.execute(
+        "INSERT OR IGNORE INTO settings(key, value_json, updated_at) VALUES (?, ?, ?)",
+        ("achievements_initialized", json.dumps(False), ts),
+    )
+
+
+def _init_achievements_flag(conn: sqlite3.Connection) -> None:
+    """新库直接标记成就系统已初始化；旧库留到第一次读取时静默补录。"""
+    has_learning = conn.execute(
+        """
+        SELECT EXISTS(SELECT 1 FROM attempts)
+            OR EXISTS(SELECT 1 FROM recognition_items)
+            OR EXISTS(
+              SELECT 1 FROM char_progress WHERE first_seen_at IS NOT NULL
+            )
+        """
+    ).fetchone()[0]
+    if not has_learning:
+        conn.execute(
+            "UPDATE settings SET value_json = ?, updated_at = ? "
+            "WHERE key = 'achievements_initialized'",
+            (json.dumps(True), now_iso()),
+        )
 
 
 def get_settings(conn: sqlite3.Connection) -> dict[str, Any]:
     result = dict(DEFAULT_SETTINGS)
     for row in conn.execute("SELECT key, value_json FROM settings"):
+        if row["key"] in INTERNAL_SETTINGS:
+            continue
         try:
             result[row["key"]] = json.loads(row["value_json"])
         except json.JSONDecodeError:

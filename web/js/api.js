@@ -33,11 +33,15 @@ export const api = {
   character: (char) => request(`/api/characters/${encodeURIComponent(char)}`),
   lessons: () => request("/api/lessons"),
   startSession: () => postJson("/api/sessions", { app_version: "0.1.0" }),
-  endSession: (id) =>
+  endSession: (id, completed = false) =>
     request(`/api/sessions/${encodeURIComponent(id)}`, {
       method: "PATCH",
+      headers: JSON_HEADERS,
+      body: JSON.stringify({ completed: Boolean(completed) }),
       keepalive: true,
     }),
+  achievements: () => request("/api/achievements"),
+  achievementsSeen: (ids = []) => postJson("/api/achievements/seen", { ids }),
   submitAttempts: (sessionId, attempts) =>
     postJson("/api/attempts", { session_id: sessionId, attempts }, { keepalive: true }),
   stats: () => request("/api/stats/summary"),

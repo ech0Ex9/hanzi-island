@@ -72,7 +72,8 @@ py -3 -m venv .venv
 - **护眼与无障碍**：连续学习 12 分钟弹出 20 秒远眺提醒；「减少动效」开关 + 系统 `prefers-reduced-motion`；正文对比度 ≥4.5:1；手机/平板按钮 ≥56px、适配安全区。
 - **课程导航**：首页按册（一上/一下/全部）→ 单元 → 课文展示闯关地图；全部 702 个位置都有内容。
 - **字卡册**：按册（含「全部」跨册）+ 单元筛选；顶部「按部首认字」可直接选部首看同部首字；点字听读音、看组词（组词词块可点击发音）和句子；可展开「精选字族」「多音字」面板，支持打印这一页。
-- **家长看板**：入口在今日页（不在底部导航，避免孩子误触）；学过多少、掌握多少、今日正确率、连续天数、易错字、艾宾浩斯自评 vs 实测、最近 7 天柱状图与学习建议、部首徽章、每日新字设置、「自动播放读音」开关、导出答题 CSV、备份 SQLite。
+- **小岛成就**：15 枚成长印章，奖励完成、坚持、勇气和探索，不奖励正确率、不扣分、不排名。今日页有成就卡，结算页解锁新印章会弹出提示，家长页可以看完整成就墙并一键关闭孩子端展示。数据从真实学习记录推导，不做积分商城。
+- **家长看板**：入口在今日页（不在底部导航，避免孩子误触）；学过多少、掌握多少、今日正确率、连续天数、易错字、艾宾浩斯自评 vs 实测、最近 7 天柱状图与学习建议、部首徽章、小岛成就、每日新字设置、「自动播放读音」开关、导出答题 CSV、备份 SQLite。
 
 ## 数据在哪
 
@@ -190,7 +191,7 @@ hanzi-island/
 
 ```
 GET  /api/health
-GET  /api/bootstrap        设置 + 统计 + 书目 + 课文 + 短文 + 字族 + 今日队列
+GET  /api/bootstrap        设置 + 统计 + 书目 + 课文 + 短文 + 字族 + 今日队列 + 成就
 GET  /api/today            今日队列（含 backlog / 课程来源 / reading_key）
 GET  /api/characters       全部字 + 进度
 GET  /api/characters/{字}
@@ -199,11 +200,13 @@ GET  /api/books/{book_id}  某一册
 GET  /api/lessons
 GET  /api/lessons/{lesson_id}  某一课的字和进度
 POST /api/sessions         开始一次学习
-PATCH /api/sessions/{id}   结束
+PATCH /api/sessions/{id}   结束（body `{completed}` 标记是否走到结算页）
 POST /api/attempts         提交答题（支持批量，可带 reading_key）
 GET  /api/progress
 GET  /api/stats/summary    家长看板
 GET  /api/parent/weekly    最近 7 天周报
+GET  /api/achievements     成就墙（含进度、已解锁、未读）
+POST /api/achievements/seen  标记成就已展示
 GET  /api/polyphonic       多音字（教材标注 + 常见补充）
 GET  /api/recognition/summary   艾宾浩斯认字总览
 POST /api/recognition/runs      开始/继续整体过一遍

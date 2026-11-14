@@ -263,6 +263,10 @@ function navigate(route) {
     state.recognitionEditQuery = "";
   }
   if (route !== "read") state.readingId = null;
+  if (route === "achievements") {
+    if (state.boot?.achievements) state.boot.achievements.unseen = [];
+    api.achievementsSeen().catch(() => {});
+  }
   stopLineSpeech();
   audio.stop();
   const hash = `#/${route}`;
@@ -432,6 +436,118 @@ function recognitionCardHtml() {
   `;
 }
 
+function achievementCardHtml() {
+  const data = state.boot?.achievements;
+  if (!data?.enabled || !data.total) return "";
+  const next = data.next?.[0];
+  const recent = data.recent || [];
+  const seals = recent.length
+    ? recent
+        .map(
+          (badge) =>
+            `<span class="achievement-seal earned" title="${esc(badge.title)}">${esc(badge.seal)}</span>`,
+        )
+        .join("")
+    : `<span class="achievement-seal empty" aria-hidden="true">?</span>`;
+  return `
+    <section class="achievement-home-card">
+      <div class="achievement-home-copy">
+        <span class="eyebrow">小岛成就</span>
+        <h2>已点亮 ${data.earned} / ${data.total} 枚印章</h2>
+        <p>${
+          next
+            ? `下一个：${esc(next.title)} · ${next.progress} / ${next.target}`
+            : "全部点亮啦，去成就墙看看。"
+        }</p>
+      </div>
+      <div class="achievement-seal-row">${seals}</div>
+      <button class="ghost-btn small" data-nav="achievements">看成就墙</button>
+    </section>
+  `;
+}
+
+function achievementBadgeCard(badge) {
+  const percent = badge.target
+    ? Math.round((badge.progress / badge.target) * 100)
+    : 0;
+  return `
+    <article class="achievement-badge ${badge.earned ? "earned" : "locked"}">
+      <span class="achievement-seal ${badge.earned ? "earned" : "locked"}">${esc(badge.seal)}</span>
+      <b>${esc(badge.title)}</b>
+      <p>${esc(badge.description)}</p>
+      ${
+        badge.earned
+          ? `<span class="achievement-date">已解锁</span>`
+          : `<div class="achievement-progress"><span style="width:${percent}%"></span></div>
+             <span class="achievement-count">${badge.progress} / ${badge.target}</span>`
+      }
+    </article>
+  `;
+}
+
+function renderAchievements() {
+  const data = state.boot?.achievements;
+  if (!data) return loadingScreen("正在整理成就…");
+  if (!data.enabled) {
+    return `
+      ${sectionHead("成就墙", "家长已关闭", { style: "margin-top:8px" })}
+      <div class="empty">
+        <p>家长暂时关闭了成就展示。</p>
+        <p>可以在家长页重新打开，之前获得的印章都会保留。</p>
+        <button class="ghost-btn small" data-nav="parent">去家长页</button>
+      </div>
+    `;
+  }
+
+  const categories = ["起步", "坚持", "识字", "勇气", "探索"];
+  return `
+    ${sectionHead("成就墙", `${data.earned} / ${data.total} 枚印章`, { style: "margin-top:8px" })}
+    <p class="achievement-lead">这些印章只奖励完成、坚持、勇气和探索，不排名、不扣分。</p>
+    ${categories
+      .map((category) => {
+        const list = (data.badges || []).filter((badge) => badge.category === category);
+        if (!list.length) return "";
+        return `
+          <section class="achievement-category">
+            <h3>${esc(category)}</h3>
+            <div class="achievement-grid">${list.map(achievementBadgeCard).join("")}</div>
+          </section>
+        `;
+      })
+      .join("")}
+    ${
+      (data.next || []).length
+        ? `<section class="panel achievement-next">
+            <h3>接下来可以试试</h3>
+            <div class="achievement-next-list">
+              ${data.next
+                .map(
+                  (badge) =>
+                    `<span class="achievement-next-chip"><b>${esc(badge.seal)}</b>${esc(badge.title)} · ${badge.progress} / ${badge.target}</span>`,
+                )
+                .join("")}
+            </div>
+          </section>`
+        : ""
+    }
+  `;
+}
+
+function showNewAchievements() {
+  const data = state.boot?.achievements;
+  if (!data?.enabled || state.modal) return false;
+  const unseen = data.unseen || [];
+  if (!unseen.length) return false;
+  state.modal = { type: "achievement", badges: unseen };
+  api
+    .achievementsSeen(unseen.map((badge) => badge.id))
+    .then((next) => {
+      if (state.boot) state.boot.achievements = next;
+    })
+    .catch(() => {});
+  return true;
+}
+
 function renderHome() {
   const boot = state.boot;
   const stats = boot.stats;
@@ -478,6 +594,8 @@ function renderHome() {
     </section>
 
     ${recognitionCardHtml()}
+
+    ${achievementCardHtml()}
 
     ${renderMap()}
   `;
@@ -729,6 +847,7 @@ async function startSession() {
       items,
       index: 0,
       answers: [],
+      pending: [],
       finished: false,
     };
     state.quiz = null;
@@ -1005,7 +1124,7 @@ function answerQuestion(value) {
 
   if (state.session.kind === "recognition") {
     quiz.recognitionPending = true;
-    api
+    const pending = api
       .recognitionAttempt(item.char, quiz.isCorrect, quiz.responseMs)
       .then((result) => {
         quiz.recognitionResult = result;
@@ -1016,8 +1135,9 @@ function answerQuestion(value) {
         quiz.recognitionPending = false;
         toast(`记录失败：${error.message}`);
       });
+    state.session.pending.push(pending);
   } else {
-    api
+    const pending = api
       .submitAttempts(state.session.id, [
         {
           char: item.char,
@@ -1031,6 +1151,7 @@ function answerQuestion(value) {
         if (state.boot && result.stats) state.boot.stats = result.stats;
       })
       .catch((error) => toast(`记录失败：${error.message}`));
+    state.session.pending.push(pending);
   }
 
   audio.chime(quiz.isCorrect);
@@ -1058,33 +1179,43 @@ function nextItem() {
   }
 }
 
-function finishSession() {
-  if (!state.session) return;
-  const recognition = state.session.kind === "recognition";
+async function finishSession() {
+  if (!state.session || state.session.finishing) return;
+  const session = state.session;
+  const recognition = session.kind === "recognition";
   state.bootDirty = true;
+  session.finishing = true;
   clearRestTimer();
   stopRestTicker();
   state.rest = null;
+  render();
+
+  // 等最后一次答题提交完，再刷统计和成就，避免结算时读到旧数据。
+  await Promise.allSettled(session.pending || []);
+  if (!state.session || state.session !== session) return;
 
   if (recognition) {
     // 先刷新统计再显示结果，避免用旧的「到期数」显示“再复习一组”。
-    state.session.finishing = true;
-    refreshBoot().then(() => {
-      if (!state.session) return;
-      state.session.finishing = false;
-      state.session.finished = true;
-      if (state.route === "session") render();
-    });
-    render();
+    await refreshBoot();
+    if (!state.session || state.session !== session) return;
+    session.finishing = false;
+    session.finished = true;
+    showNewAchievements();
+    if (state.route === "session") render();
     return;
   }
 
-  state.session.finished = true;
-  api.endSession(state.session.id).catch(() => {});
-  refreshBoot().then(() => {
-    if (state.route === "session" && state.session?.finished) render();
-  });
-  render();
+  try {
+    await api.endSession(session.id, true);
+  } catch (_) {
+    /* 已经结束或网络失败都不影响结算页 */
+  }
+  await refreshBoot();
+  if (!state.session || state.session !== session) return;
+  session.finishing = false;
+  session.finished = true;
+  showNewAchievements();
+  if (state.route === "session") render();
 }
 
 async function closeSession() {
@@ -1105,7 +1236,7 @@ async function closeSession() {
   state.rest = null;
   if (!recognition) {
     try {
-      await api.endSession(state.session.id);
+      await api.endSession(state.session.id, false);
     } catch (_) {
       /* 已经结束也没关系 */
     }
@@ -2194,6 +2325,18 @@ async function reportRecognition(value, source = "key") {
     const data = await api.recognitionReport(current.run.id, target.char, value);
     state.recognitionRun = data;
     if (state.boot && data.summary) state.boot.recognition = data.summary;
+    if (!data.next) {
+      refreshBoot().then(() => {
+        if (
+          state.route === "recognition-run" &&
+          state.recognitionRun &&
+          !state.recognitionRun.next
+        ) {
+          showNewAchievements();
+          render();
+        }
+      });
+    }
     if (target.reported) {
       // 回看时改标：留在同一个字上，方便家长和孩子连续确认。
       state.recognitionCursor = { ...target, self_report: value };
@@ -2239,6 +2382,7 @@ async function startRecognitionReview() {
       items,
       index: 0,
       answers: [],
+      pending: [],
       finished: false,
       recognitionDue: today.due,
     };
@@ -2296,12 +2440,12 @@ function radicalBadges() {
   return [...counts.entries()].sort((a, b) => b[1] - a[1]).slice(0, 12);
 }
 
-function badgesHtml() {
+function radicalBadgesHtml() {
   const list = radicalBadges();
   if (!list.length) return "";
   return `
     <section class="panel">
-      <h3>部首徽章</h3>
+      <h3>部首徽章（家长统计）</h3>
       <p class="panel-hint">学过的字里，这些部首最多。集满 5 个是银章，10 个是金章。</p>
       <div class="badge-grid">
         ${list
@@ -2313,6 +2457,31 @@ function badgesHtml() {
       </div>
     </section>
   `;
+}
+
+function achievementParentHtml(data) {
+  if (!data) return "";
+  const earned = (data.badges || []).filter((badge) => badge.earned);
+  return panel(
+    "小岛成就",
+    `
+      <div class="setting-row">
+        <label for="achievements-setting">给孩子看成就墙 <span class="hint">印章、进度、解锁提示</span></label>
+        <input id="achievements-setting" type="checkbox" ${data.enabled ? "checked" : ""} />
+      </div>
+      <p class="panel-hint">
+        只奖励完成、坚持、勇气和探索，不奖励正确率；不排名、不扣分。关闭后孩子端隐藏，已获得的印章保留。
+      </p>
+      <div class="achievement-parent-summary">已点亮 <b>${data.earned}</b> / ${data.total} 枚印章</div>
+      <div class="achievement-grid compact">
+        ${earned.length ? earned.map(achievementBadgeCard).join("") : '<p class="panel-hint">还没有解锁成就，先学一组吧。</p>'}
+      </div>
+      <div class="link-row">
+        <button class="ghost-btn small" data-nav="achievements">打开成就墙</button>
+      </div>
+    `,
+    "给孩子的成长印章，不是积分。",
+  );
 }
 
 function recognitionParentHtml(rec) {
@@ -2426,7 +2595,9 @@ function renderParent() {
 
     ${panel("最近 7 天", weekly ? weeklyChart(weekly) : '<p class="panel-hint">暂时读不到周报。</p>')}
 
-    ${badgesHtml()}
+    ${radicalBadgesHtml()}
+
+    ${achievementParentHtml(state.parent.achievements || state.boot?.achievements)}
 
     ${recognitionParentHtml(state.parent.recognition)}
 
@@ -2453,6 +2624,7 @@ async function loadParent() {
     ]);
     state.parent = { ...summary, progress, weekly };
     if (summary.settings) state.boot.settings = summary.settings;
+    if (summary.achievements) state.boot.achievements = summary.achievements;
     if (state.route === "parent") render();
   } catch (error) {
     state.error = error.message;
@@ -2461,7 +2633,7 @@ async function loadParent() {
 }
 
 async function resetProgress() {
-  if (!confirm("确定要清空所有学习进度吗？答题记录也会删除。")) return;
+  if (!confirm("确定要清空所有学习进度吗？答题记录和成就印章也会删除。")) return;
   if (!confirm("真的确定吗？这个操作不能撤销。")) return;
   try {
     await api.reset();
@@ -2481,6 +2653,24 @@ async function resetProgress() {
 
 function renderModal() {
   if (!state.modal) return "";
+
+  if (state.modal.type === "achievement") {
+    const badges = state.modal.badges || [];
+    const badge = badges[0];
+    if (!badge) return "";
+    return `
+      <div class="modal-overlay" data-modal-overlay>
+        <div class="achievement-modal" role="dialog" aria-modal="true" aria-label="新成就">
+          <span class="achievement-seal earned big">${esc(badge.seal)}</span>
+          <span class="eyebrow">新成就</span>
+          <h2>${esc(badge.title)}</h2>
+          <p>${esc(badge.description)}</p>
+          ${badges.length > 1 ? `<p class="achievement-more">还点亮了 ${badges.length - 1} 枚印章</p>` : ""}
+          <button class="primary-btn small" data-action="close-modal">收下</button>
+        </div>
+      </div>
+    `;
+  }
 
   if (state.modal.type === "lesson") {
     const lesson = lessonDetail(state.modal.lessonId);
@@ -2558,6 +2748,9 @@ function render() {
   } else if (route === "recognition") {
     content = renderRecognition();
     active = "recognition";
+  } else if (route === "achievements") {
+    content = renderAchievements();
+    active = "home";
   } else if (route === "recognition-run") {
     content = renderRecognitionRun();
     active = "recognition";
@@ -3021,6 +3214,18 @@ document.addEventListener("change", async (event) => {
     api
       .saveSettings({ reduce_motion: value })
       .then(() => toast(value ? "已减少动效" : "已恢复动效"))
+      .catch((error) => toast(error.message));
+  }
+  if (event.target.id === "achievements-setting") {
+    const value = event.target.checked;
+    if (state.boot) state.boot.settings.achievements_enabled = value;
+    if (state.boot?.achievements) state.boot.achievements.enabled = value;
+    api
+      .saveSettings({ achievements_enabled: value })
+      .then(() => {
+        toast(value ? "已打开成就墙" : "已关闭孩子端成就展示");
+        if (state.route === "parent") render();
+      })
       .catch((error) => toast(error.message));
   }
 });

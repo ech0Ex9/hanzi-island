@@ -14,6 +14,7 @@ CREATE TABLE IF NOT EXISTS sessions (
   id          TEXT PRIMARY KEY,
   started_at  TEXT NOT NULL,
   ended_at    TEXT,
+  completed   INTEGER NOT NULL DEFAULT 0,
   app_version TEXT
 );
 
@@ -136,8 +137,20 @@ CREATE INDEX IF NOT EXISTS idx_recognition_attempts_char_ts
 CREATE INDEX IF NOT EXISTS idx_recognition_attempts_date
   ON recognition_attempts(local_date);
 
+-- 小岛成就：只记录第一次解锁，进度实时从学习记录推导。
+CREATE TABLE IF NOT EXISTS badge_unlocks (
+  badge_id    TEXT PRIMARY KEY,
+  unlocked_at TEXT NOT NULL,
+  local_date  TEXT NOT NULL,
+  seen        INTEGER NOT NULL DEFAULT 0,
+  meta_json   TEXT NOT NULL DEFAULT '{}'
+);
+
 INSERT OR IGNORE INTO schema_migrations(version, applied_at)
 VALUES (3, datetime('now'));
 
 INSERT OR IGNORE INTO schema_migrations(version, applied_at)
 VALUES (4, datetime('now'));
+
+INSERT OR IGNORE INTO schema_migrations(version, applied_at)
+VALUES (5, datetime('now'));

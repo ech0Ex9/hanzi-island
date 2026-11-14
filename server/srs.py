@@ -256,12 +256,7 @@ def stats_summary(conn: sqlite3.Connection) -> dict[str, Any]:
     today_correct = int(row["c"])
     accuracy = round(today_correct / today_attempts * 100) if today_attempts else 0
 
-    dates = [
-        r["local_date"]
-        for r in conn.execute(
-            "SELECT DISTINCT local_date FROM attempts ORDER BY local_date DESC"
-        )
-    ]
+    dates = active_dates(conn)
     streak = 0
     cursor = date.today()
     if dates:
@@ -357,6 +352,7 @@ def reset_progress(conn: sqlite3.Connection) -> None:
     conn.execute("DELETE FROM recognition_attempts")
     conn.execute("DELETE FROM recognition_items")
     conn.execute("DELETE FROM recognition_runs")
+    conn.execute("DELETE FROM badge_unlocks")
     conn.execute("INSERT INTO char_progress(char) SELECT char FROM characters")
     conn.commit()
 
@@ -371,3 +367,52 @@ def parse_iso_date(value: str | None) -> date | None:
             return date.fromisoformat(value)
         except ValueError:
             return None
+
+
+def active_dates(conn: sqlite3.Connection) -> list[str]:
+    """普通答题、认字自评和认字复习都算学习日，按日期倒序。"""
+    rows = conn.execute(
+        """
+        SELECT local_date FROM attempts
+        UNION
+        SELECT local_date FROM recognition_attempts
+        UNION
+        SELECT substr(reported_at, 1, 10) FROM recognition_items
+          WHERE reported_at IS NOT NULL
+        ORDER BY local_date DESC
+        """
+    ).fetchall()
+    return [row["local_date"] for row in rows]
+
+
+def longest_streak(conn: sqlite3.Connection) -> int:
+    """历史最长连续学习天数，不因中间断掉而清零。"""
+    dates: list[date] = []
+    for value in {
+        row["local_date"]
+        for row in conn.execute(
+            """
+            SELECT local_date FROM attempts
+            UNION
+            SELECT local_date FROM recognition_attempts
+            UNION
+            SELECT substr(reported_at, 1, 10) FROM recognition_items
+              WHERE reported_at IS NOT NULL
+            """
+        )
+    }:
+        parsed = parse_iso_date(value)
+        if parsed is not None:
+            dates.append(parsed)
+    dates.sort()
+    best = 0
+    current = 0
+    previous: date | None = None
+    for day in dates:
+        if previous is not None and (day - previous).days == 1:
+            current += 1
+        else:
+            current = 1
+        best = max(best, current)
+        previous = day
+    return best
