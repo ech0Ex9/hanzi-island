@@ -844,11 +844,6 @@ def print_sheet(conn: sqlite3.Connection) -> dict[str, Any]:
             "FROM recognition_items"
         )
     }
-    positions = curriculum.first_positions(conn)
-    literacy_orders = {
-        row["char"]: int(row["sort_order"])
-        for row in conn.execute("SELECT char, sort_order FROM literacy_entries")
-    }
     items: list[dict[str, Any]] = []
     unknown = 0
     overconfident = 0
@@ -864,28 +859,12 @@ def print_sheet(conn: sqlite3.Connection) -> dict[str, Any]:
             overconfident += 1
         else:
             continue
-        position = positions.get(item["char"]) or {}
         items.append(
             {
                 "char": item["char"],
                 "pinyin": item["pinyin"],
                 "words": (item.get("words") or [])[:2],
-                "meaning": item["meaning"],
-                "sentence": item["sentence"],
                 "reason": reason,
-                "self_report": record["self_report"],
-                "stage": int(record["stage"]),
-                "due_at": record["due_at"],
-                "book_title": position.get("book_title")
-                or ("幼儿识字 1300" if item["char"] in literacy_orders else ""),
-                "unit_title": position.get("unit_title")
-                or ("识字表" if item["char"] in literacy_orders else ""),
-                "lesson_title": position.get("lesson_title")
-                or (
-                    f"第 {literacy_orders[item['char']]} 字"
-                    if item["char"] in literacy_orders
-                    else item.get("lesson") or ""
-                ),
             }
         )
     return {

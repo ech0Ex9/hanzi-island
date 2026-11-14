@@ -1922,7 +1922,6 @@ function ensureRecognitionPrint() {
 }
 
 function recognitionPrintCard(item) {
-  const source = [item.book_title, item.lesson_title].filter(Boolean).join(" · ");
   return `
     <article class="recognition-print-card ${item.reason === "overconfident" ? "overconfident" : ""}">
       <span class="rpc-check" aria-hidden="true"></span>
@@ -1930,7 +1929,6 @@ function recognitionPrintCard(item) {
       <div class="rpc-glyph">${esc(item.char)}</div>
       ${state.printShowPinyin ? `<div class="rpc-pinyin">${esc(item.pinyin)}</div>` : ""}
       ${state.printShowWords && (item.words || []).length ? `<div class="rpc-words">${esc(item.words.join(" · "))}</div>` : ""}
-      ${source ? `<div class="rpc-source">${esc(source)}</div>` : ""}
     </article>
   `;
 }
@@ -1954,10 +1952,9 @@ function renderRecognitionPrint() {
   const items = (data.items || []).filter(
     (item) => item.reason === "unknown" || state.printIncludeOver,
   );
-  const date = new Date().toLocaleDateString("zh-CN");
 
   return `
-    ${sectionHead("打印不会的字", `${items.length} 个`, { style: "margin-top:8px" })}
+    <div class="no-print">${sectionHead("打印不会的字", `${items.length} 个`, { style: "margin-top:8px" })}</div>
     <div class="print-controls no-print">
       <label class="print-check">
         <input type="checkbox" data-action="toggle-print-over" ${state.printIncludeOver ? "checked" : ""} />
@@ -1980,10 +1977,6 @@ function renderRecognitionPrint() {
     ${
       items.length
         ? `<div class="recognition-print-sheet">
-            <header class="recognition-print-head">
-              <div><b>汉字小岛 · 我不会的字</b><span>${esc(date)} · 共 ${items.length} 个</span></div>
-              <span>读一遍，会了就在方框里打勾</span>
-            </header>
             <div class="recognition-print-grid">${items.map(recognitionPrintCard).join("")}</div>
           </div>`
         : `<div class="empty">
