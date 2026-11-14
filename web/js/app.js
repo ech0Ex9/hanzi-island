@@ -2200,6 +2200,9 @@ async function reportRecognition(value, source = "key") {
       toast(`已改成「${value === "known" ? "认识" : "不认识"}」`);
     } else {
       state.recognitionCursor = null;
+      if (source === "pointer") {
+        toast(`已标「${value === "known" ? "认识" : "不认识"}」`);
+      }
     }
   } catch (error) {
     toast(`记录失败：${error.message}`);
@@ -2591,7 +2594,20 @@ function setSound(value) {
   render();
 }
 
+/* 过字页右键：按钮按自己的「认识/不认识」；卡片空白处默认「不认识」。 */
+function recognitionRightClickValue(event) {
+  if (state.route !== "recognition-run" || !state.recognitionRun?.next) return null;
+  const target = event.target;
+  if (!target?.closest) return null;
+  if (!target.closest(".recognition-stage-card")) return null;
+  const reportButton = target.closest("[data-action='recognition-report']");
+  if (reportButton) return reportButton.dataset.report || null;
+  if (target.closest("button, a, input, select, textarea")) return null;
+  return "unknown";
+}
+
 document.addEventListener("click", (event) => {
+  if (event.button !== 0) return;
   const nav = event.target.closest("[data-nav]");
   if (nav) {
     navigate(nav.dataset.nav);
@@ -2834,14 +2850,22 @@ document.addEventListener("click", (event) => {
   }
 });
 
-/* 过字页：右键点字卡空白处 = 不认识，并屏蔽浏览器右键菜单。 */
-document.addEventListener("contextmenu", (event) => {
-  if (state.route !== "recognition-run" || !state.recognitionRun?.next) return;
-  if (!event.target.closest(".recognition-stage-card")) return;
-  if (event.target.closest("button, a, input, select, textarea")) return;
+/* 过字页：右键点字卡空白处 = 不认识；右键「认识/不认识」按钮 = 按钮本身。 */
+document.addEventListener("mousedown", (event) => {
+  if (event.button !== 2) return;
+  const value = recognitionRightClickValue(event);
+  if (!value) return;
   event.preventDefault();
   if (state.recognitionSubmitting || state.recognitionCursorLoading) return;
-  reportRecognition("unknown", "pointer");
+  reportRecognition(value, "pointer");
+});
+
+document.addEventListener("contextmenu", (event) => {
+  const value = recognitionRightClickValue(event);
+  if (!value) return;
+  event.preventDefault();
+  if (state.recognitionSubmitting || state.recognitionCursorLoading) return;
+  reportRecognition(value, "pointer");
 });
 
 /* ---------------- 键盘操作 ---------------- */
