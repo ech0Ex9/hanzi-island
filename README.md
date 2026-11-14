@@ -208,6 +208,12 @@ python3 tools/fetch_pinyin_audio.py
 
 词语和句子仍使用系统 Web Speech API。
 
+## 许可证
+
+- 项目代码和原创内容：**MIT**，见根目录 [`LICENSE`](LICENSE)。可以自由使用、修改、分发和商用。
+- 字体 `web/assets/fonts/lxgw-wenkai-subset.woff2`：霞鹜文楷，**SIL Open Font License 1.1**，见同目录 `OFL.txt`，不适用 MIT。
+- 拼音音频：497 个文件来自 [mp3-chinese-pinyin-sound](https://github.com/davinfifield/mp3-chinese-pinyin-sound)，为 **Unlicense（public domain）**；8 个轻声补录文件（me5、men5、zhe5、a5、ba5、la5、na5、ya5）来自百度汉语 CDN，仅建议个人/家用，不在 MIT 范围内。商业发行请自行替换这 8 个文件。
+
 ## 内容依据
 
 - 《义务教育语文课程标准（2022 年版）》：1–2 年级认识 1600 字左右，会写 800 字左右。
